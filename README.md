@@ -1,3 +1,35 @@
+# Swift-Ai-Resume-Builder-App
+
+## Schema
+
+The database schema for the application is defined using Prisma. Below is the `Resume` model:
+
+```prisma
+model Resume {
+  id          String   @id @default(cuid())
+  userId      String
+
+  title       String?
+  description String?
+
+  photoUrl    String?
+  colorHex    String  @default("#000000")
+  borderStyle String  @default("squircle")
+  summary     String?
+  firstName   String?
+  lastName    String?
+  jobTitle    String?
+  country     String?
+  phone       String?
+  email       String?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("resumes")
+}
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
