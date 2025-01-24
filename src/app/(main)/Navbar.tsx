@@ -10,7 +10,15 @@ export default function Navbar() {
             <Link href="/resumes">
             <div className='flex justify-center items-center gap-2'> <Image src={logo} alt="logo" width={35} height={35}/>
             <h1 className='font-extrabold text-blue-900 uppercase'><span className=''>Swift</span> AI Resume Builder</h1></div></Link>
-            <UserButton/>
+            <UserButton appearance={{
+                elements:{
+                    avatarBox:{
+                        height:35,
+                        width:35
+                    }
+
+                }
+            }}/>
             </div>
            
     
