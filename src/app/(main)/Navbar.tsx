@@ -19,6 +19,7 @@ export default function Navbar() {
 
                 }
             }}/>
+            <UserButton.MenuItems><UserButton.Link/></UserButton.MenuItems>
             </div>
            
     
