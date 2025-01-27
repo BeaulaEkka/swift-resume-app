@@ -6,8 +6,12 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { CreditCard, DotIcon } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { dark } from '@clerk/themes'
+import { useTheme } from 'next-themes';
 
 export default function Navbar() {
+   const { theme } = useTheme();
+
   return (
     <header className="shadow-sm">
       <div className="max-w-7xl mx-auto p-3 flex items-center justify-between">
@@ -23,7 +27,7 @@ export default function Navbar() {
 <ThemeToggle/>
        <UserButton
             appearance={{
-            //   baseTheme: theme === "dark" ? dark : undefined,
+              baseTheme: theme === "dark" ? dark :undefined,
               elements: {
                 avatarBox: {
                   width: 40,
