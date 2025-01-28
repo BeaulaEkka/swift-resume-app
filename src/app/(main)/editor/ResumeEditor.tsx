@@ -12,8 +12,12 @@ export default function ResumeEditor() {
           saved automatically
         </p>
       </header>
-      <main className="relative grow h-screen border border-green-500">
-        <div className="absolute bottom-0 top-0 flex w-full  border border-red-500">    vvv</div>
+      <main className="relative min-h-[75vh] grow">
+        <div className="absolute bottom-0 top-0 flex w-full">
+          <div className="w-full md:w-1/2">left</div>
+          <div className="grow md:border-r" />
+          <div className="hidden w-1/2 md:flex">right</div>
+        </div>
       </main>
 
       <footer className="w-full border-t px-3 py-5">
