@@ -3,7 +3,16 @@ import { generalInfoSchema, GeneralInfoValues } from "@/lib/validation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 export default function GeneralInfoForm() {
   const form = useForm<GeneralInfoValues>({
@@ -22,7 +31,39 @@ export default function GeneralInfoForm() {
         </p>
       </div>
       <Form {...form}>
-        <form action="" className="space-y-3"></form>
+        <form action="" className="space-y-3">
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Project Name</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="My cool resume" autoFocus />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          {/**description */}
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder="Project Description"
+                    autoFocus
+                  />
+                </FormControl>
+                <FormDescription>Describe what this resume is for</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
       </Form>
     </div>
   );
