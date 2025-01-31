@@ -1,3 +1,4 @@
+import { FormField } from "@/components/ui/form";
 import { personalInfoSchema, PersonalInfoValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
@@ -22,7 +23,11 @@ export default function PersonalInfoForm() {
         <h2 className="text-2xl font-semibold">Personal Info</h2>
         <p className="text-sm text-muted-foreground">Tell us about yourself</p>
         <Form>
+          <form {...form}>
+            <FormField>
 
+            </FormField>
+          </form>
         </Form>
       </div>
     </div>
