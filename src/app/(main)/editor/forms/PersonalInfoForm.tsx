@@ -1,4 +1,5 @@
-import { FormField } from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { personalInfoSchema, PersonalInfoValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
@@ -24,7 +25,18 @@ export default function PersonalInfoForm() {
         <p className="text-sm text-muted-foreground">Tell us about yourself</p>
         <Form>
           <form {...form}>
-            <FormField>
+            <FormField
+            control={form.control}
+            name="photo"
+            render={((field))=>{
+              <FormItem>
+                <FormLabel>Your Photo</FormLabel>
+                <FormControl>
+                  <Input type="file" {...field} />
+                </FormControl>
+              </FormItem>
+            }</form>}
+            >
 
             </FormField>
           </form>
