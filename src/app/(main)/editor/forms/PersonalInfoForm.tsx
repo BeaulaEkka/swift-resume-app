@@ -42,7 +42,7 @@ export default function PersonalInfoForm() {
                     <Input
                       type="file"
                       {...fieldValues}
-                      accept="images/"
+                      accept="images/*"
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         fieldValues.onChange(file);
