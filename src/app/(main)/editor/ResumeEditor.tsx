@@ -11,7 +11,7 @@ import BreadCrumbs from "./BreadCrumbs";
 export default function ResumeEditor() {
   const searchparams = useSearchParams();
 
-  const currentStep = searchparams.get("step") || steps[0];
+  const currentStep = searchparams.get("step") || steps[0].key;
 
   function setStep(key: string) {
     const newSearchParams = new URLSearchParams(searchparams);
@@ -20,7 +20,7 @@ export default function ResumeEditor() {
   }
 
   const FormComponent = steps.find(
-    (step) => step.key === currentStep,
+    (step) => step.key === currentStep
   )?.component;
   return (
     <div className="flex grow flex-col">

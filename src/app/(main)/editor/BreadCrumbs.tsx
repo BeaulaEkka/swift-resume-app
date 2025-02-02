@@ -31,7 +31,7 @@ export default function BreadCrumbs({
                     <button
                       type="button"
                       onClick={() => setCurrentStep(step.key)}
-                    ></button>
+                    >{step.title}</button>
                   </BreadcrumbLink>
                 )}
 
