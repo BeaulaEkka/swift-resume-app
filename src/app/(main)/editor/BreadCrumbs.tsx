@@ -31,12 +31,13 @@ export default function BreadCrumbs({
                     <button
                       type="button"
                       onClick={() => setCurrentStep(step.key)}
-                    >{step.title}</button>
+                    >
+                      {step.title}
+                    </button>
                   </BreadcrumbLink>
                 )}
-
-                <BreadcrumbSeparator />
               </BreadcrumbItem>
+              <BreadcrumbSeparator className="last:hidden" />
             </React.Fragment>
           ))}
         </BreadcrumbList>
