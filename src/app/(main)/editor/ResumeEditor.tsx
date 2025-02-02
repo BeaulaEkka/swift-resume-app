@@ -14,8 +14,8 @@ export default function ResumeEditor() {
           saved automatically
         </p>
       </header>
-      <main className="relative min-h-[75vh] grow">
-        <div className="absolute bottom-0 top-0 flex w-full">
+      <main className="grow">
+        <div className="flex w-full">
           <div className="w-full p-3 md:w-1/2">
             <GeneralInfoForm />
             <PersonalInfoForm />
@@ -25,7 +25,7 @@ export default function ResumeEditor() {
         </div>
       </main>
 
-      <footer className="w-full border-t px-3 py-5">
+      <footer className="w-full border border-t border-green-500 px-3 py-5">
         <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
           <div className="flex items-center gap-3">
             <Button variant="secondary">Previous Step</Button>
