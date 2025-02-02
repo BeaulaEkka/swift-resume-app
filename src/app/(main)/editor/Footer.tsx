@@ -9,14 +9,31 @@ interface FooterProps {
 }
 export default function Footer({ currentStep, setCurrentStep }: FooterProps) {
   const previousStep = steps.find(
-    (_, index) => steps[index + 1]?.key === currentStep)?.key,
-  );
+    (_, index) => steps[index + 1]?.key === currentStep,
+  )?.key;
+
+  const nextStep = steps.find(
+    (_, index) => steps[index - 1]?.key === currentStep,
+  )?.key;
+
   return (
     <footer className="w-full border border-t border-green-500 px-3 py-5">
       <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
         <div className="flex items-center gap-3">
-          <Button variant="secondary">Previous Step</Button>
-          <Button variant="secondary">Next Step</Button>
+          <Button
+            variant="secondary"
+            onClick={
+              previousStep ? () => setCurrentStep(previousStep) : undefined
+            }
+          >
+            Previous Step
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
+          >
+            Next Step
+          </Button>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="secondary" asChild>
