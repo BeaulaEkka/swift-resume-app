@@ -1,10 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
-import GeneralInfoForm from "./forms/GeneralInfoForm";
-import PersonalInfoForm from "./forms/PersonalInfoForm";
+// import GeneralInfoForm from "./forms/GeneralInfoForm";
+// import PersonalInfoForm from "./forms/PersonalInfoForm";
 import { steps } from "./steps";
 import { useSearchParams } from "next/navigation";
+import BreadCrumbs from "./BreadCrumbs";
 
 export default function ResumeEditor() {
   const searchparams = useSearchParams();
@@ -14,8 +16,12 @@ export default function ResumeEditor() {
   function setStep(key: string) {
     const newSearchParams = new URLSearchParams(searchparams);
     newSearchParams.set("step", key);
-    window.history.pushState(null, "", `?`);
+    window.history.pushState(null, "", `?${newSearchParams.toString()}`);
   }
+
+  const FormComponent = steps.find(
+    (step) => step.key === currentStep,
+  )?.component;
   return (
     <div className="flex grow flex-col">
       <header className="space-y-1.5 border-b px-3 py-5 text-center">
@@ -28,8 +34,10 @@ export default function ResumeEditor() {
       <main className="grow">
         <div className="flex w-full">
           <div className="w-full p-3 md:w-1/2">
-            <GeneralInfoForm />
-            <PersonalInfoForm />
+            {/* <GeneralInfoForm /> */}
+            {/* <PersonalInfoForm /> */}
+            <BreadCrumbs currentStep={currentStep} setCurrentStep={setStep} />
+            {FormComponent && <FormComponent />}
           </div>
           <div className="grow md:border-r" />
           <div className="hidden w-1/2 md:flex">right</div>
