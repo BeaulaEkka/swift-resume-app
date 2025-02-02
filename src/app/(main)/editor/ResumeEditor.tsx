@@ -7,6 +7,7 @@ import React from "react";
 import { steps } from "./steps";
 import { useSearchParams } from "next/navigation";
 import BreadCrumbs from "./BreadCrumbs";
+import Footer from "./Footer";
 
 export default function ResumeEditor() {
   const searchparams = useSearchParams();
@@ -43,6 +44,7 @@ export default function ResumeEditor() {
           <div className="hidden w-1/2 md:flex">right</div>
         </div>
       </main>
+      <Footer currentStep={currentStep} setCurrentStep={setStep} />
     </div>
   );
 }

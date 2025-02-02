@@ -1,12 +1,16 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
+import { steps } from "./steps";
 
 interface FooterProps {
-  currentString: string;
+  currentStep: string;
   setCurrentStep: (step: string) => void;
 }
-export default function Footer() {
+export default function Footer({ currentStep, setCurrentStep }: FooterProps) {
+  const previousStep = steps.find(
+    (_, index) => steps[index + 1]?.key === currentStep)?.key,
+  );
   return (
     <footer className="w-full border border-t border-green-500 px-3 py-5">
       <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
