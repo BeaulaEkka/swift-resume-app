@@ -8,9 +8,7 @@ import Footer from "./Footer";
 import { resumeValues } from "@/lib/validation";
 
 export default function ResumeEditor() {
-  const [resumeData, setResumeData] = useState<resumeValues>({
-    
-  });
+  const [resumeData, setResumeData] = useState<resumeValues>({});
   const searchparams = useSearchParams();
 
   const currentStep = searchparams.get("step") || steps[0].key;
@@ -39,7 +37,12 @@ export default function ResumeEditor() {
             {/* <GeneralInfoForm /> */}
             {/* <PersonalInfoForm /> */}
             <BreadCrumbs currentStep={currentStep} setCurrentStep={setStep} />
-            {FormComponent && <FormComponent />}
+            {FormComponent && (
+              <FormComponent
+                resumeData={resumeData}
+                setResumeData={setResumeData}
+              />
+            )}
           </div>
           <div className="grow md:border-r" />
           <div className="hidden w-1/2 md:flex">right</div>
