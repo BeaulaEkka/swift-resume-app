@@ -33,7 +33,7 @@ model Resume{
   phone       String?
   email       String?
 
-  workExperiences workExperience[]
+  workExperiences WorkExperience[]
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -53,5 +53,8 @@ model WorkExperience{
   resumeId    String
   resume      Resume   @relation(fields: [resumeId], references: [id])
 
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
+@@map("work_experiences")
 }
