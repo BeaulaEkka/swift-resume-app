@@ -56,5 +56,5 @@ model WorkExperience{
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-@@map("work_experiences" ) 
+@@map("work_experiences") 
 }
