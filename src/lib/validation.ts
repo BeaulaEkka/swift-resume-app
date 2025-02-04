@@ -33,7 +33,7 @@ export const personalInfoSchema = z.object({
 export type PersonalInfoValues = z.infer<typeof personalInfoSchema>;
 
 export const workExperienceSchema = z.object({
-  workExperience: z
+  workExperiences: z
     .array(
       z.object({
         position: optionalString,
