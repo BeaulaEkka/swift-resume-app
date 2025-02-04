@@ -45,7 +45,7 @@ export const workExperienceSchema = z.object({
     )
     .optional(),
 });
-export type workExperienceValues = z.infer<typeof workExperienceSchema>;
+export type WorkExperienceValues = z.infer<typeof workExperienceSchema>;
 
 export const resumeSchema = z.object({
   ...generalInfoSchema.shape,

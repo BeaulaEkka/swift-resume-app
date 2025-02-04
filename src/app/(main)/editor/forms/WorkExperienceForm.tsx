@@ -1,14 +1,15 @@
+import { Button } from "@/components/ui/button";
 import { EditorFormProps } from "@/lib/types";
-import { workExperienceSchema, workExperienceValues } from "@/lib/validation";
+import { workExperienceSchema, WorkExperienceValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Form, useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
 export default function WorkExperienceForm({
   resumeData,
   setResumeData,
 }: EditorFormProps) {
-  const form = useForm<workExperienceValues>({
+  const form = useForm<WorkExperienceValues>({
     resolver: zodResolver(workExperienceSchema),
     defaultValues: {
       workExperiences: resumeData.workExperiences || [],
@@ -28,4 +29,53 @@ export default function WorkExperienceForm({
     });
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
+
+  const { fields, append } = useFieldArray({
+    control: form.control,
+    name: "workExperiences",
+  });
+
+  return (
+    <div className="mx-auto max-w-xl space-y-6">
+      <div className="space-y-1.5 text-center">
+        <h2 className="text-2xl font-semibold"> work experiences</h2>
+        <p className="text-sm text-muted-foreground">
+          These are your work experiences
+        </p>
+      </div>
+      <Form {...form}>
+        <form action="" className="space-y-3">
+          {fields.map((field) => (
+            <WorkExperienceItem key={field.id} />
+          ))}{" "}
+          <div className="flex justify-center">
+            <Button
+              type="button"
+              onClick={() =>
+                append({
+                  position: "",
+                  company: "",
+                  startDate: "",
+                  endDate: "",
+                  description: "",
+                })
+              }
+            >
+              Add work experience
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  );
+}
+
+interface WorkExperienceItemProps {
+  form: UseFormReturn<WorkExperienceValues>;
+  index: number;
+  remove: (index: number) => void;
+}
+
+function WorkExperienceItem({ form, index, remove }: WorkExperienceItemProps) {
+  return <div>Work Experiences</div>;
 }
