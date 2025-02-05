@@ -58,3 +58,13 @@ model WorkExperience{
 
 @@map("work_experiences") 
 }
+
+model Education{
+  id          String   @id @default(cuid())
+
+  startDate   String?
+  endDate     String?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
