@@ -5,10 +5,10 @@ import { steps } from "./steps";
 import { useSearchParams } from "next/navigation";
 import BreadCrumbs from "./BreadCrumbs";
 import Footer from "./Footer";
-import { resumeValues } from "@/lib/validation";
+import { ResumeValues } from "@/lib/validation";
 
 export default function ResumeEditor() {
-  const [resumeData, setResumeData] = useState<resumeValues>({});
+  const [resumeData, setResumeData] = useState<ResumeValues>({});
   const searchparams = useSearchParams();
 
   const currentStep = searchparams.get("step") || steps[0].key;

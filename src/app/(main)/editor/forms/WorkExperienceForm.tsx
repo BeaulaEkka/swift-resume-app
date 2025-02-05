@@ -1,9 +1,20 @@
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, WorkExperienceValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { GripHorizontal } from "lucide-react";
+
 import { useEffect } from "react";
-import { Form, useFieldArray, useForm, UseFormReturn } from "react-hook-form";
+import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
 export default function WorkExperienceForm({
   resumeData,
@@ -30,7 +41,7 @@ export default function WorkExperienceForm({
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "workExperiences",
   });
@@ -45,8 +56,13 @@ export default function WorkExperienceForm({
       </div>
       <Form {...form}>
         <form action="" className="space-y-3">
-          {fields.map((field) => (
-            <WorkExperienceItem key={field.id} />
+          {fields.map((field, index) => (
+            <WorkExperienceItem
+              key={field.id}
+              form={form}
+              index={index}
+              remove={remove}
+            />
           ))}{" "}
           <div className="flex justify-center">
             <Button
@@ -77,5 +93,27 @@ interface WorkExperienceItemProps {
 }
 
 function WorkExperienceItem({ form, index, remove }: WorkExperienceItemProps) {
-  return <div>Work Experiences</div>;
+  return (
+    <div className="space-y-3 rounded-md border bg-background p-1">
+      <div className="flex items-center justify-between gap-2 p-1">
+        <span className="flex items-center font-semibold capitalize">
+          Work experience {index + 1}
+        </span>
+        <GripHorizontal className="size-5 cursor-grab text-muted-foreground" />
+      </div>
+      <FormField
+        control={form.control}
+        name={`workExperiences.${index}.position`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Job Title</FormLabel>
+            <FormControl>
+              <Input {...field} autoFocus />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </div>
+  );
 }
