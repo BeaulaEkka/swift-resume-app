@@ -69,6 +69,7 @@ export const skillsSchema = z.object({
 
 export type SkillsValues = z.infer<typeof skillsSchema>;
 
+
 export type EducationValues = z.infer<typeof educationSchema>;
 
 export type WorkExperienceValues = z.infer<typeof workExperienceSchema>;
