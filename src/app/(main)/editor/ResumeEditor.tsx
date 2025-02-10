@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import BreadCrumbs from "./BreadCrumbs";
 import Footer from "./Footer";
 import { ResumeValues } from "@/lib/validation";
+import ResumePreview from "@/components/ResumePreview";
 
 export default function ResumeEditor() {
   const [resumeData, setResumeData] = useState<ResumeValues>({});
@@ -34,8 +35,6 @@ export default function ResumeEditor() {
       <main className="grow">
         <div className="flex w-full">
           <div className="w-full p-3 md:w-1/2">
-            {/* <GeneralInfoForm /> */}
-            {/* <PersonalInfoForm /> */}
             <BreadCrumbs currentStep={currentStep} setCurrentStep={setStep} />
             {FormComponent && (
               <FormComponent
@@ -46,7 +45,8 @@ export default function ResumeEditor() {
           </div>
           <div className="grow md:border-r" />
           <div className="hidden w-1/2 md:flex">
-            <pre>{JSON.stringify(resumeData, null, 2)}</pre>
+            <ResumePreview />
+            {/* <pre>{JSON.stringify(resumeData, null, 2)}</pre> */}
           </div>
         </div>
       </main>
