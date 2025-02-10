@@ -11,7 +11,7 @@ export default function ResumePreview({
   className,
 }: ResumePreviwProps) {
   return (
-    <div className={cn("aspect-[210/297] h-fit w-full bg-red-500", className)}>
+    <div className={cn("aspect-[210/297] h-fit w-full ", className)}>
       <h1 className="p-6 text-3xl font-bold">
         This text should change with the size of the container{" "}
       </h1>
