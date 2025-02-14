@@ -1,7 +1,9 @@
 import useDimensions from "@/hooks/useDimensions";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
-import React, { useRef, useState } from "react";
+import Image from "next/image";
+
+import React, { useEffect, useRef, useState } from "react";
 
 interface ResumePreviwProps {
   resumeData: ResumeValues;
@@ -20,11 +22,15 @@ export default function ResumePreview({
       ref={containerRef}
     >
       <div
-        className={cn("space-y-6 p-6", !width && "invisible")}
+        className={cn("space-y-6 p-24", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
-      ></div>
+      >
+        <PersonalInfoHeader resumeData={resumeData} />
+        <SummarySection resumeData={resumeData} />
+        <WorkExperienceSection resumeData={resumeData} />
+      </div>
     </div>
   );
 }
@@ -37,5 +43,70 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   const { photo, firstName, lastName, jobTitle, city, country, phone, email } =
     resumeData;
 
-  const [photo, setPhoto] = useState();
+  const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
+
+  useEffect(() => {
+    const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
+    if (objectUrl) setPhotoSrc(objectUrl);
+    if (photo === null) setPhotoSrc("");
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [photo]);
+
+  return (
+    <div className="flex items-center gap-6">
+      {photoSrc && (
+        <Image
+          src={photoSrc}
+          width={100}
+          height={100}
+          alt="Authot Photo"
+          className="aspect-square object-cover"
+        />
+      )}
+      <div className="space-y-2.5">
+        <div className="space-y-1">
+          <p className="text-3xl font-bold">
+            {firstName}
+            {lastName}
+          </p>
+          <p className="font-medium">{jobTitle}</p>
+          <p className="text-xs text-gray-500">
+            {city}
+            {city && country ? ", " : ""}
+
+            {country}
+            {(city || country) && (phone || email) ? " \| " : ""}
+            <br />
+            {[phone, email].filter(Boolean).join(" \| ")}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SummarySection({ resumeData }: ResumeSectionProps) {
+  const { summary } = resumeData;
+  if (!summary) return null;
+
+  return (
+    <>
+      <hr className="border-2" />
+      <div className="break-inside-avoid space-y-3">
+        <p className="text-lg font-semibold">Professional Profile</p>
+        <div className="whitespace-pre-line text-sm">{summary}</div>
+      </div>
+    </>
+  );
+}
+
+function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
+  const { position, company, startDate, endDate, description } = resumeData;
+  if (!position) return null;
+
+  return (
+    <>
+      <div>Work Experience</div>
+    </>
+  );
 }
