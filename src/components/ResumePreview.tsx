@@ -1,8 +1,9 @@
 import useDimensions from "@/hooks/useDimensions";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
+import { Sanchez } from "next/font/google";
 import Image from "next/image";
-
+import { formatDate } from "date-fns";
 import React, { useEffect, useRef, useState } from "react";
 
 interface ResumePreviwProps {
@@ -103,15 +104,28 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
   const { workExperiences } = resumeData;
   if (!workExperiences) return null;
-  const workExperienceEmpty = workExperiences?.filter(
+  const workExperienceNotEmpty = workExperiences?.filter(
     (exp) => Object.values(exp).filter(Boolean).length > 0,
   );
 
-  if (!workExperienceEmpty?.length) return null;
+  if (!workExperienceNotEmpty?.length) return null;
 
   return (
     <>
-      <div>Work Experience</div>
+      <hr className="border-2" />
+      <div className="space-y-3">
+        <p className="text-lg font-semibold">Work Experience</p>
+        {workExperienceNotEmpty.map((exp, index) => (
+          <div key={index} className="break-inside-avoid space-y-1">
+            <div className="flex items-center justify-between text-sm font-semibold">
+              <span>{exp.position}</span>
+              {exp.startDate && (
+                <span>{formatDate(exp.startDate, "MM/yyyy")-(" ")}</span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
