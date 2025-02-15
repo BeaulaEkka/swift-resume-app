@@ -101,8 +101,13 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 }
 
 function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
-  const { position, company, startDate, endDate, description } = resumeData;
-  if (!position) return null;
+  const { workExperiences } = resumeData;
+  if (!workExperiences) return null;
+  const workExperienceEmpty = workExperiences?.filter(
+    (exp) => Object.values(exp).filter(Boolean).length > 0,
+  );
+
+  if (!workExperienceEmpty?.length) return null;
 
   return (
     <>
