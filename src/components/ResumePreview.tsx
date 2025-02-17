@@ -120,8 +120,15 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
             <div className="flex items-center justify-between text-sm font-semibold">
               <span>{exp.position}</span>
               {exp.startDate && (
-                <span>{formatDate(exp.startDate, "MM/yyyy")-(" ")}</span>
+                <span>
+                  {formatDate(exp.startDate, "MM/yyyy")}-{" "}
+                  {exp.endDate ? formatDate(exp.endDate, "MM/yyyy") : "present"}
+                </span>
               )}
+            </div>
+            <p className="text-sm font-semibold">{exp.company}</p>
+            <div className="flex whitespace-pre-line border border-red-500 text-sm">
+              {exp.description}
             </div>
           </div>
         ))}
@@ -129,3 +136,5 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
     </>
   );
 }
+
+function EducationSection({ resumeData }: ResumeSectionProps) {}
