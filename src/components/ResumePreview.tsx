@@ -174,4 +174,4 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
   );
 }
 
-function SkillsSection() {}
+function SkillsSection({ resumeData }: ResumeSectionProps) {}
