@@ -31,6 +31,8 @@ export default function ResumePreview({
         <PersonalInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />
+        <EducationSection resumeData={resumeData} />
+        <SkillsSection resumeData={resumeData} />
       </div>
     </div>
   );
@@ -137,4 +139,39 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
   );
 }
 
-function EducationSection({ resumeData }: ResumeSectionProps) {}
+function EducationSection({ resumeData }: ResumeSectionProps) {
+  const { educations } = resumeData;
+
+  const educationNotEmpty = educations?.filter(
+    (edu) => Object.values(edu).filter(Boolean).length > 0,
+  );
+  if (!educationNotEmpty?.length) return null;
+  console.log("educationNotEmpty", educationNotEmpty);
+
+  return (
+    <>
+      <hr className="border-2" />
+      <div className="space-y-3">
+        <p className="text-lg font-semibold">Education</p>
+        {educationNotEmpty.map((edu, index) => (
+          <div className="break-inside-avoid space-y-1" key={index}>
+            <div className="flex items-center justify-between text-sm font-semibold">
+              <span className="font-bold capitalize">{edu.degree}</span>
+              <span>{edu.institution}</span>
+              {edu.startDate && (
+                <span>
+                  {formatDate(edu.startDate, "MMM yyyy ")}-{" "}
+                  {edu.endDate
+                    ? formatDate(edu.endDate, "MMM yyyy")
+                    : "present"}
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function SkillsSection() {}
