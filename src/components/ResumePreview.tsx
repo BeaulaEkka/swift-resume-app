@@ -5,6 +5,7 @@ import { Sanchez } from "next/font/google";
 import Image from "next/image";
 import { formatDate } from "date-fns";
 import React, { useEffect, useRef, useState } from "react";
+import { Badge } from "./ui/badge";
 
 interface ResumePreviwProps {
   resumeData: ResumeValues;
@@ -43,8 +44,18 @@ interface ResumeSectionProps {
 }
 
 function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
-  const { photo, firstName, lastName, jobTitle, city, country, phone, email } =
-    resumeData;
+  const {
+    photo,
+    firstName,
+    lastName,
+    jobTitle,
+    city,
+    country,
+    phone,
+    email,
+    colorHex,
+    borderStyle,
+  } = resumeData;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -174,4 +185,25 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
   );
 }
 
-function SkillsSection({ resumeData }: ResumeSectionProps) {}
+function SkillsSection({ resumeData }: ResumeSectionProps) {
+  const { skills } = resumeData;
+  if (!skills?.length) return null;
+  return (
+    <div>
+      <hr className="border-2" />
+      <div className="space-y-3">
+        <p className="text-lg font-semibold">Skills</p>
+        <p>
+          {skills.map((skill, index) => (
+            <Badge
+              key={index}
+              className="mr-2 rounded-md bg-black px-3 py-2 capitalize text-white"
+            >
+              {skill}
+            </Badge>
+          ))}
+        </p>
+      </div>
+    </div>
+  );
+}
