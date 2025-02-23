@@ -11,10 +11,28 @@ interface ResumePreviwProps {
   resumeData: ResumeValues;
   className?: string;
 }
+
+const defaultResumeData: ResumeValues = {
+  firstName: "",
+  lastName: "",
+  jobTitle: "",
+  city: "",
+  country: "",
+  phone: "",
+  email: "",
+  colorHex: "#000000",
+  borderStyle: "solid",
+  photo: null,
+  summary: "",
+  workExperiences: [],
+  educations: [],
+  skills: [],
+};
 export default function ResumePreview({
-  resumeData,
+  resumeData = defaultResumeData,
   className,
 }: ResumePreviwProps) {
+  console.log("resumeData:", resumeData);
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef);
 
@@ -59,11 +77,20 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
+  // useEffect(() => {
+  //   const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
+  //   if (objectUrl) setPhotoSrc(objectUrl);
+  //   if (photo === null) setPhotoSrc("");
+  //   return () => URL.revokeObjectURL(objectUrl);
+  // }, [photo]);
   useEffect(() => {
-    const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
-    if (objectUrl) setPhotoSrc(objectUrl);
-    if (photo === null) setPhotoSrc("");
-    return () => URL.revokeObjectURL(objectUrl);
+    if (photo instanceof File) {
+      const objectUrl = URL.createObjectURL(photo);
+      setPhotoSrc(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl);
+    } else {
+      setPhotoSrc(photo || "");
+    }
   }, [photo]);
 
   return (
@@ -79,10 +106,10 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       )}
       <div className="space-y-2.5">
         <div className="space-y-1">
-          <p className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold" style={{ color: colorHex }}>
             {firstName}
             {lastName}
-          </p>
+          </h1>
           <p className="font-medium">{jobTitle}</p>
           <p className="text-xs text-gray-500">
             {city}
@@ -108,7 +135,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
       <hr className="border-2" />
       <div className="break-inside-avoid space-y-3">
         <p className="text-lg font-semibold">Professional Profile</p>
-        <div className="whitespace-pre-line text-sm">{summary || "No summary provided"}</div>
+        <div className="whitespace-pre-line text-sm">{summary}</div>
       </div>
     </>
   );
@@ -197,7 +224,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
           {skills.map((skill, index) => (
             <Badge
               key={index}
-              className="mr-2 rounded-md bg-black px-3 py-2 capitalize text-white"
+              className="my-2 mr-2 rounded-md bg-black px-3 py-2 capitalize text-white"
             >
               {skill}
             </Badge>
