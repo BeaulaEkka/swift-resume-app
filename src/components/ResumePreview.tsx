@@ -26,7 +26,7 @@ export default function ResumePreview({
       <div
         className={cn("space-y-6 p-24", !width && "invisible")}
         style={{
-          zoom: (1 / 794) * width,
+          zoom: width ? (1 / 794) * width : 1,
         }}
       >
         <PersonalInfoHeader resumeData={resumeData} />
@@ -108,7 +108,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
       <hr className="border-2" />
       <div className="break-inside-avoid space-y-3">
         <p className="text-lg font-semibold">Professional Profile</p>
-        <div className="whitespace-pre-line text-sm">{summary}</div>
+        <div className="whitespace-pre-line text-sm">{summary || "No summary provided"}</div>
       </div>
     </>
   );
@@ -193,7 +193,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
       <hr className="border-2" />
       <div className="space-y-3">
         <p className="text-lg font-semibold">Skills</p>
-        <p>
+        <div>
           {skills.map((skill, index) => (
             <Badge
               key={index}
@@ -202,7 +202,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
               {skill}
             </Badge>
           ))}
-        </p>
+        </div>
       </div>
     </div>
   );
