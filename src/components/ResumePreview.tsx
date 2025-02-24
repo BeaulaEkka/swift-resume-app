@@ -1,17 +1,17 @@
 import useDimensions from "@/hooks/useDimensions";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
-import { Sanchez } from "next/font/google";
+
 import Image from "next/image";
 import { formatDate } from "date-fns";
 import React, { useEffect, useRef, useState } from "react";
 import { Badge } from "./ui/badge";
 
-interface ResumePreviwProps {
+interface ResumePreviewProps {
   resumeData: ResumeValues;
+  contentRef?: React.Ref<HTMLDivElement>;
   className?: string;
 }
-
 const defaultResumeData: ResumeValues = {
   firstName: "",
   lastName: "",
@@ -30,11 +30,13 @@ const defaultResumeData: ResumeValues = {
 };
 export default function ResumePreview({
   resumeData = defaultResumeData,
+  contentRef,
   className,
-}: ResumePreviwProps) {
-  console.log("resumeData:", resumeData);
+}: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+
   const { width } = useDimensions(containerRef);
+
 
   return (
     <div
@@ -44,8 +46,13 @@ export default function ResumePreview({
       <div
         className={cn("space-y-6 p-24", !width && "invisible")}
         style={{
-          zoom: width ? (1 / 794) * width : 1,
+          
+          transform: width ? `scale(${width / 794})` : "scale(1)",
+          transformOrigin: "top left",
+
         }}
+        ref={contentRef}
+        id="resumePreviewContent"
       >
         <PersonalInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
@@ -77,20 +84,11 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
-  // useEffect(() => {
-  //   const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
-  //   if (objectUrl) setPhotoSrc(objectUrl);
-  //   if (photo === null) setPhotoSrc("");
-  //   return () => URL.revokeObjectURL(objectUrl);
-  // }, [photo]);
   useEffect(() => {
-    if (photo instanceof File) {
-      const objectUrl = URL.createObjectURL(photo);
-      setPhotoSrc(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    } else {
-      setPhotoSrc(photo || "");
-    }
+    const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
+    if (objectUrl) setPhotoSrc(objectUrl);
+    if (photo === null) setPhotoSrc("");
+    return () => URL.revokeObjectURL(objectUrl);
   }, [photo]);
 
   return (
@@ -106,10 +104,10 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       )}
       <div className="space-y-2.5">
         <div className="space-y-1">
-          <h1 className="text-3xl font-bold" style={{ color: colorHex }}>
+          <p className="text-3xl font-bold" style={{ color: colorHex }}>
             {firstName}
             {lastName}
-          </h1>
+          </p>
           <p className="font-medium">{jobTitle}</p>
           <p className="text-xs text-gray-500">
             {city}
@@ -127,14 +125,27 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
 }
 
 function SummarySection({ resumeData }: ResumeSectionProps) {
-  const { summary } = resumeData;
+  const { summary, colorHex } = resumeData;
+
   if (!summary) return null;
 
   return (
     <>
-      <hr className="border-2" />
+      <hr
+        className="border-2"
+        style={{
+          borderColor: colorHex,
+        }}
+      />
       <div className="break-inside-avoid space-y-3">
-        <p className="text-lg font-semibold">Professional Profile</p>
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Professional profile
+        </p>
         <div className="whitespace-pre-line text-sm">{summary}</div>
       </div>
     </>
