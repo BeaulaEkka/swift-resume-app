@@ -1,9 +1,24 @@
-import React from 'react'
+import { Button } from "@/components/ui/button";
+import { Squircle } from "lucide-react";
+import React from "react";
 
-export default function BorderStyleButton() {
+interface BorderStyleButtonProps {
+  borderStyle: string | undefined;
+  onChange: (borderStyle: string | undefined) => void;
+}
+export default function BorderStyleButton({
+  borderStyle,
+  onChange,
+}: BorderStyleButtonProps) {
+  function handleClick() {}
   return (
-    <div>
-      
-    </div>
-  )
+    <Button
+      variant="outline"
+      size="icon"
+      title="change border style"
+      onClick={handleClick}
+    >
+      <Squircle className="size-5" />
+    </Button>
+  );
 }

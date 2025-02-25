@@ -2,6 +2,8 @@ import ResumePreview from "@/components/ResumePreview";
 import { ResumeValues } from "@/lib/validation";
 import React from "react";
 import ColorPicker from "./ColorPicker";
+import { colors } from "@clerk/themes/dist/clerk-js/src/ui/foundations/colors";
+import BorderStyleButton from "./BorderStyleButton";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
@@ -19,6 +21,12 @@ export default function ResumePreviewSection({
           onChange={(color) =>
             setResumeData({ ...resumeData, colorHex: color.hex })
           }
+        />
+        <BorderStyleButton
+          borderStyle={resumeData.borderStyle}
+          onChange={(borderStyle) =>
+            setResumeData({ ...resumeData, borderStyle })
+            }
         />
       </div>
       <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3">
