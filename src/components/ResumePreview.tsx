@@ -28,15 +28,14 @@ const defaultResumeData: ResumeValues = {
   educations: [],
   skills: [],
 };
+
 export default function ResumePreview({
-  resumeData = defaultResumeData,
+  resumeData,
   contentRef,
   className,
 }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-
   const { width } = useDimensions(containerRef);
-
 
   return (
     <div
@@ -46,10 +45,8 @@ export default function ResumePreview({
       <div
         className={cn("space-y-6 p-24", !width && "invisible")}
         style={{
-          
-          transform: width ? `scale(${width / 794})` : "scale(1)",
+          transform: width ? `scale(${(1 / 794) * width})` : "scale(1)",
           transformOrigin: "top left",
-
         }}
         ref={contentRef}
         id="resumePreviewContent"
@@ -153,7 +150,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 }
 
 function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
-  const { workExperiences } = resumeData;
+  const { workExperiences, colorHex } = resumeData;
   if (!workExperiences) return null;
   const workExperienceNotEmpty = workExperiences?.filter(
     (exp) => Object.values(exp).filter(Boolean).length > 0,
@@ -163,12 +160,15 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="border-2" />
+      <hr className="border-2" style={{ borderColor: colorHex }} />
       <div className="space-y-3">
         <p className="text-lg font-semibold">Work Experience</p>
         {workExperienceNotEmpty.map((exp, index) => (
           <div key={index} className="break-inside-avoid space-y-1">
-            <div className="flex items-center justify-between text-sm font-semibold">
+            <div
+              className="flex items-center justify-between text-sm font-semibold"
+              style={{ color: colorHex }}
+            >
               <span>{exp.position}</span>
               {exp.startDate && (
                 <span>
@@ -178,7 +178,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
               )}
             </div>
             <p className="text-sm font-semibold">{exp.company}</p>
-            <div className="flex whitespace-pre-line border border-red-500 text-sm">
+            <div className="flex whitespace-pre-line text-sm">
               {exp.description}
             </div>
           </div>
@@ -189,7 +189,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 }
 
 function EducationSection({ resumeData }: ResumeSectionProps) {
-  const { educations } = resumeData;
+  const { educations,colorHex } = resumeData;
 
   const educationNotEmpty = educations?.filter(
     (edu) => Object.values(edu).filter(Boolean).length > 0,
@@ -199,9 +199,11 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="border-2" />
+      <hr className="border-2" style={{ borderColor: colorHex }} />
       <div className="space-y-3">
-        <p className="text-lg font-semibold">Education</p>
+        <p className="text-lg font-semibold" style={{ color: colorHex }}>
+          Education
+        </p>
         {educationNotEmpty.map((edu, index) => (
           <div className="break-inside-avoid space-y-1" key={index}>
             <div className="flex items-center justify-between text-sm font-semibold">
