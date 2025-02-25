@@ -189,7 +189,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 }
 
 function EducationSection({ resumeData }: ResumeSectionProps) {
-  const { educations,colorHex } = resumeData;
+  const { educations, colorHex } = resumeData;
 
   const educationNotEmpty = educations?.filter(
     (edu) => Object.values(edu).filter(Boolean).length > 0,
@@ -206,7 +206,10 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
         </p>
         {educationNotEmpty.map((edu, index) => (
           <div className="break-inside-avoid space-y-1" key={index}>
-            <div className="flex items-center justify-between text-sm font-semibold">
+            <div
+              className="flex items-center justify-between text-sm font-semibold"
+              style={{ color: colorHex }}
+            >
               <span className="font-bold capitalize">{edu.degree}</span>
               <span>{edu.institution}</span>
               {edu.startDate && (
@@ -226,18 +229,21 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 }
 
 function SkillsSection({ resumeData }: ResumeSectionProps) {
-  const { skills } = resumeData;
+  const { skills, colorHex } = resumeData;
   if (!skills?.length) return null;
   return (
     <div>
-      <hr className="border-2" />
+      <hr className="border-2" style={{ borderColor: colorHex }} />
       <div className="space-y-3">
-        <p className="text-lg font-semibold">Skills</p>
+        <p className="text-lg font-semibold" style={{ color: colorHex }}>
+          Skills
+        </p>
         <div>
           {skills.map((skill, index) => (
             <Badge
               key={index}
               className="my-2 mr-2 rounded-md bg-black px-3 py-2 capitalize text-white"
+              style={{ backgroundColor: colorHex }}
             >
               {skill}
             </Badge>
