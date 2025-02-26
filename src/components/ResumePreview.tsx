@@ -39,14 +39,16 @@ export default function ResumePreview({
 
   return (
     <div
-      className={cn("aspect-[210/297] h-fit w-full bg-white", className)}
+      className={cn(
+        "aspect-[210/297] h-fit w-full border border-green-500 bg-white p-12 text-black",
+        className,
+      )}
       ref={containerRef}
     >
       <div
-        className={cn("space-y-6 p-24", !width && "invisible")}
+        className={cn("border border-pink-500", !width && "invisible")}
         style={{
-          transform: width ? `scale(${(1 / 794) * width})` : "scale(1)",
-          transformOrigin: "top left",
+          zoom: (1 / 794) * width,
         }}
         ref={contentRef}
         id="resumePreviewContent"
