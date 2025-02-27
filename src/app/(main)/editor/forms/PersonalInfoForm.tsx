@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { EditorFormProps } from "@/lib/types";
 import { personalInfoSchema, PersonalInfoValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 
 export default function PersonalInfoForm({
@@ -41,6 +42,8 @@ export default function PersonalInfoForm({
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
 
+  const photoInputRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5">
@@ -54,18 +57,34 @@ export default function PersonalInfoForm({
               render={({ field: { value, ...fieldValues } }) => (
                 <FormItem>
                   <FormLabel>Your Photo</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      {...fieldValues}
-                      accept="images/*"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        fieldValues.onChange(file);
+                  <div className="flex items-center gap-2">
+                    <FormControl>
+                      <Input
+                        type="file"
+                        {...fieldValues}
+                        accept="images/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          fieldValues.onChange(file);
+                        }}
+                        ref={photoInputRef}
+                      />
+                    </FormControl>
+                    <Button
+                      className="border"
+                      variant="secondary"
+                      type="button"
+                      onClick={() => {
+                        fieldValues.onChange(null);
+                        if (photoInputRef.current) {
+                          photoInputRef.current.value = "";
+                        }
                       }}
-                    />
-                  </FormControl>
-                  <FormMessage></FormMessage>
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                  <FormMessage />
                 </FormItem>
               )}
             />
