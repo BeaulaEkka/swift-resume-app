@@ -6,6 +6,8 @@ import { steps } from "./steps";
 interface FooterProps {
   currentStep: string;
   setCurrentStep: (step: string) => void;
+  showSmResumePreview: boolean;
+  setshowResumePreview: (show: boolean) => void;
 }
 export default function Footer({ currentStep, setCurrentStep }: FooterProps) {
   const previousStep = steps.find(

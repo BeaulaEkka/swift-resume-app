@@ -18,7 +18,7 @@ export default function ResumePreviewSection({
 }: ResumePreviewSectionProps) {
   return (
     <div
-      className={cn("group relative hidden w-full md:flex md:w-1/2", className)}
+      className={cn("group relative hidden w-full md:flex", className)}
     >
       <div className="lg-left-3 lg-top-3 absolute left-1 flex flex-none flex-col gap-3 opacity-50 transition-opacity group-hover:opacity-100 xl:opacity-100">
         <ColorPicker
