@@ -14,9 +14,10 @@ import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, WorkExperienceValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GripHorizontal } from "lucide-react";
-
+import { useSensors,useSensor,KeyboardSensor,PointerSensor } from "@dnd-kit/core";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
+import {sortableKeyboardCoordinates} from "@dnd-kit/sortable"
 
 export default function WorkExperienceForm({
   resumeData,
@@ -43,10 +44,15 @@ export default function WorkExperienceForm({
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control: form.control,
     name: "workExperiences",
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),useSensor(KeyboardSensor),
+    {coordinateGetter: }
+  );
 
   return (
     <div className="mx-auto max-w-xl space-y-6">
