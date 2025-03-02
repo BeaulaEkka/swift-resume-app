@@ -14,10 +14,17 @@ import { EditorFormProps } from "@/lib/types";
 import { workExperienceSchema, WorkExperienceValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GripHorizontal } from "lucide-react";
-import { useSensors,useSensor,KeyboardSensor,PointerSensor } from "@dnd-kit/core";
+import {
+  useSensors,
+  useSensor,
+  KeyboardSensor,
+  PointerSensor,
+  DragEndEvent,
+  DndContext,
+} from "@dnd-kit/core";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
-import {sortableKeyboardCoordinates} from "@dnd-kit/sortable"
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 export default function WorkExperienceForm({
   resumeData,
@@ -50,9 +57,21 @@ export default function WorkExperienceForm({
   });
 
   const sensors = useSensors(
-    useSensor(PointerSensor),useSensor(KeyboardSensor),
-    {coordinateGetter: }
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor),
+    { coordinateGetter: sortableKeyboardCoordinates },
   );
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = fields.findIndex((field) => field.id === active.id);
+      const newIndex = fields.findIndex((field) => field.id === over.id);
+      move(oldIndex, newIndex);
+      return arrayMove(fields, oldIndex, newIndex);
+    }
+  }
 
   return (
     <div className="mx-auto max-w-xl space-y-6">
@@ -64,14 +83,20 @@ export default function WorkExperienceForm({
       </div>
       <Form {...form}>
         <form action="" className="space-y-3">
-          {fields.map((field, index) => (
-            <WorkExperienceItem
-              key={field.id}
-              form={form}
-              index={index}
-              remove={remove}
-            />
-          ))}{" "}
+          <DndContext
+            sensors={sensors}
+            onDragEnd={handleDragEnd}
+            collisionDetection={closestCenter}
+          >
+            {fields.map((field, index) => (
+              <WorkExperienceItem
+                key={field.id}
+                form={form}
+                index={index}
+                remove={remove}
+              />
+            ))}
+          </DndContext>
           <div className="flex justify-center">
             <Button
               type="button"
