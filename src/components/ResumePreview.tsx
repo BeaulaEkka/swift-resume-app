@@ -41,13 +41,13 @@ export default function ResumePreview({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full border border-green-500 bg-white p-12 text-black",
+        "aspect-[210/297] h-fit w-full   bg-white p-12 text-black",
         className,
       )}
       ref={containerRef}
     >
       <div
-        className={cn("border border-pink-500", !width && "invisible")}
+        className={cn("", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
@@ -171,24 +171,26 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="border-2" style={{ borderColor: colorHex }} />
+      <hr className="mt-4 border-2" style={{ borderColor: colorHex }} />
       <div className="space-y-3">
-        <p className="text-lg font-semibold">Work Experience</p>
+        <p className="text-lg font-semibold" style={{ color: colorHex }}>
+          Work Experience
+        </p>
         {workExperienceNotEmpty.map((exp, index) => (
           <div key={index} className="break-inside-avoid space-y-1">
             <div
               className="flex items-center justify-between text-sm font-semibold"
-              style={{ color: colorHex }}
+              // style={{ color: colorHex }}
             >
-              <span>{exp.position}</span>
+              <span className="text-lg font-bold">{exp.position}</span>
               {exp.startDate && (
-                <span>
+                <span className="text-gray-500">
                   {formatDate(exp.startDate, "MM/yyyy")}-{" "}
                   {exp.endDate ? formatDate(exp.endDate, "MM/yyyy") : "present"}
                 </span>
               )}
             </div>
-            <p className="text-sm font-semibold">{exp.company}</p>
+            <p className="text-sm font-semibold text-gray-500">{exp.company}</p>
             <div className="flex whitespace-pre-line text-sm">
               {exp.description}
             </div>
@@ -210,7 +212,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="border-2" style={{ borderColor: colorHex }} />
+      <hr className="border-2 mt-4" style={{ borderColor: colorHex }} />
       <div className="space-y-3">
         <p className="text-lg font-semibold" style={{ color: colorHex }}>
           Education
@@ -219,10 +221,10 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
           <div className="break-inside-avoid space-y-1" key={index}>
             <div
               className="flex items-center justify-between text-sm font-semibold"
-              style={{ color: colorHex }}
+             
             >
               <span className="font-bold capitalize">{edu.degree}</span>
-              <span>{edu.institution}</span>
+              <span className="capitalize">{edu.institution}</span>
               {edu.startDate && (
                 <span>
                   {formatDate(edu.startDate, "MMM yyyy ")}-{" "}
