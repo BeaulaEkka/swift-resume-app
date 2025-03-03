@@ -21,10 +21,20 @@ import {
   PointerSensor,
   DragEndEvent,
   DndContext,
+  closestCenter,
 } from "@dnd-kit/core";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
-import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { CSS } from "@dnd-kit/utilities";
+import { cn } from "@/lib/utils";
 
 export default function WorkExperienceForm({
   resumeData,
@@ -58,8 +68,9 @@ export default function WorkExperienceForm({
 
   const sensors = useSensors(
     useSensor(PointerSensor),
-    useSensor(KeyboardSensor),
-    { coordinateGetter: sortableKeyboardCoordinates },
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   function handleDragEnd(event: DragEndEvent) {
@@ -87,15 +98,22 @@ export default function WorkExperienceForm({
             sensors={sensors}
             onDragEnd={handleDragEnd}
             collisionDetection={closestCenter}
+            modifiers={[restrictToVerticalAxis]}
           >
-            {fields.map((field, index) => (
-              <WorkExperienceItem
-                key={field.id}
-                form={form}
-                index={index}
-                remove={remove}
-              />
-            ))}
+            <SortableContext
+              items={fields}
+              strategy={verticalListSortingStrategy}
+            >
+              {fields.map((field, index) => (
+                <WorkExperienceItem
+                  id={field.id}
+                  key={field.id}
+                  form={form}
+                  index={index}
+                  remove={remove}
+                />
+              ))}
+            </SortableContext>
           </DndContext>
           <div className="flex justify-center">
             <Button
@@ -123,16 +141,42 @@ interface WorkExperienceItemProps {
   form: UseFormReturn<WorkExperienceValues>;
   index: number;
   remove: (index: number) => void;
+  id: string;
 }
 
-function WorkExperienceItem({ form, index, remove }: WorkExperienceItemProps) {
+function WorkExperienceItem({
+  form,
+  index,
+  remove,
+  id,
+}: WorkExperienceItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
   return (
-    <div className="space-y-3 rounded-md border bg-background p-8">
+    <div
+      className={cn(
+        "space-y-3 rounded-md border bg-background p-8",
+        isDragging &&
+          "z-50 cursor-grab border-2 border-gray-200 bg-gray-50 shadow-xl relative  transition-colors",
+      )}
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+    >
       <div className="flex items-center justify-between gap-2 p-1">
         <span className="flex items-center font-semibold capitalize">
           Work experience {index + 1}
         </span>
-        <GripHorizontal className="size-5 cursor-grab text-muted-foreground" />
+        <GripHorizontal
+          className="size-5 cursor-grab text-muted-foreground focus:outline-none"
+          {...attributes}
+          {...listeners}
+        />
       </div>
       <FormField
         control={form.control}
