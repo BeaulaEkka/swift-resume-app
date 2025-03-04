@@ -87,7 +87,7 @@ export default function WorkExperienceForm({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold"> work experiences</h2>
+        <h2 className="text-2xl font-semibold">work experiences</h2>
         <p className="text-sm text-muted-foreground">
           These are your work experiences
         </p>

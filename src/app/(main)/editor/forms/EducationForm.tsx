@@ -28,6 +28,7 @@ import {
   useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GripHorizontal } from "lucide-react";
 import React, { useEffect } from "react";
@@ -82,7 +83,7 @@ export default function EducationForm({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold"> Education</h2>
+        <h2 className="text-2xl font-semibold">Education</h2>
         <p className="text-sm text-muted-foreground">Your Education</p>
       </div>
       <Form {...form}>
@@ -150,15 +151,10 @@ function EducationItem({ form, index, remove, id }: EducationItemProps) {
     <div
       className={cn(
         "space-y-3 rounded-md border bg-background p-8",
-        isDragging
-          ? "relative z-50 cursor-grab bg-gray-100 shadow-xl"
-          : undefined,
+        isDragging && "relative z-50 cursor-grab bg-gray-100 shadow-xl",
       )}
       ref={setNodeRef}
-      style={{
-        transform: transform ? CSS.Transform.toString(transform) : undefined,
-        transition,
-      }}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
     >
       <div className="flex items-center justify-between gap-2 p-1">
         <span className="flex items-center font-semibold capitalize">
