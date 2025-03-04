@@ -163,7 +163,7 @@ function WorkExperienceItem({
       className={cn(
         "space-y-3 rounded-md border bg-background p-8",
         isDragging &&
-          "z-50 cursor-grab border-2 border-gray-200 bg-gray-50 shadow-xl relative  transition-colors",
+          "relative z-50 cursor-grab border-2 border-gray-200 bg-gray-50 shadow-xl transition-colors",
       )}
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
