@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { resumeSchema, ResumeValues } from "@/lib/validation";
 import { auth } from "@clerk/nextjs/server";
+import {del} from "@vercel/blob"
 
 export async function saveResume(values: ResumeValues) {
   const { id } = values;
