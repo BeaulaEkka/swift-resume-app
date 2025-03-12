@@ -1,27 +1,89 @@
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import useDebounce from "@/hooks/useDebounce";
 import { ResumeValues } from "@/lib/validation";
-import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
+import { saveResume } from "./actions";
 
 export default function useAutoSaveResume(resumeData: ResumeValues) {
+  const searchParams = useSearchParams();
+  const { toast } = useToast();
   const debouncedResumeData = useDebounce(resumeData, 1500);
-  const [lastSaveData, setLastSaveData] = useState(structuredClone(resumeData));
 
+  const [resumeId, setResumeId] = useState(resumeData.id);
+  const [lastSavedData, setLastSavedData] = useState(resumeData);
   const [isSaving, setIsSaving] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    async function save() {
-      setIsSaving(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setLastSaveData(structuredClone(debouncedResumeData));
+    setIsError(false);
+  }, [debouncedResumeData]);
+
+  const save = useCallback(async () => {
+    setIsSaving(true);
+    try {
+      // const newData = structuredClone(debouncedResumeData);
+      const newData = {
+        ...structuredClone(debouncedResumeData),
+        skills: debouncedResumeData.skills ?? [], // Ensure it's always an array
+      };
+
+      const updatedResume = await saveResume({
+        ...newData,
+        ...(lastSavedData.photo?.toString() === newData.photo?.toString()
+          ? { photo: undefined }
+          : {}),
+        id: resumeId,
+      });
+
+      setResumeId(updatedResume.id);
+      setLastSavedData(debouncedResumeData);
+
+      // Update URL if resume ID changes
+      if (searchParams.get("resumeId") !== String(updatedResume.id)) {
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.set("resumeId", updatedResume.id);
+        window.history.replaceState(null, "", `?${newSearchParams.toString()}`);
+      }
+    } catch (error) {
+      setIsError(true);
+      console.error(error);
+
+      const { dismiss } = toast({
+        variant: "destructive",
+        description: (
+          <div className="space-y-3">
+            <p>Could not save changes</p>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                dismiss();
+                save();
+              }}
+            >
+              Retry
+            </Button>
+          </div>
+        ),
+      });
+    } finally {
       setIsSaving(false);
     }
+  }, [debouncedResumeData, lastSavedData, resumeId, searchParams, toast]);
 
+  useEffect(() => {
     const hasUnsavedChanges =
-      JSON.stringify(debouncedResumeData) !== JSON.stringify(lastSaveData);
+      JSON.stringify(debouncedResumeData) !== JSON.stringify(lastSavedData);
 
-    if (hasUnsavedChanges && debouncedResumeData) {
+    if (hasUnsavedChanges && debouncedResumeData && !isSaving && !isError) {
       save();
     }
-  }, [debouncedResumeData, isSaving, lastSaveData]);
-  return { isSaving, hasUnsavedChanges: JSON.stringify(lastSaveData) };
+  }, [debouncedResumeData, isSaving, lastSavedData, isError, save]);
+
+  return {
+    isSaving,
+    hasUnsavedChanges:
+      JSON.stringify(resumeData) !== JSON.stringify(lastSavedData),
+  };
 }

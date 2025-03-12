@@ -9,8 +9,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
-
-
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,22 +27,22 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en"suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system" 
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-          
-          {/* <SignedOut>
+            {/* <SignedOut>
             <SignInButton />{" "}
           </SignedOut>
           <SignedIn>
             <UserButton />
           </SignedIn> */}
-          {children}
+            {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
