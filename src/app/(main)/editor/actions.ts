@@ -1,4 +1,3 @@
-
 "use server";
 
 import prisma from "@/lib/prisma";
@@ -43,6 +42,7 @@ export async function saveResume(values: ResumeValues) {
 
     const blob = await put(`resume_photos/${path.extname(photo.name)}`, photo, {
       access: "public",
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
 
     newPhotoUrl = blob.url; // Fixed assignment
@@ -67,7 +67,7 @@ export async function saveResume(values: ResumeValues) {
             endDate: exp.endDate ? new Date(exp.endDate) : undefined,
           })),
         },
-        educations: {
+        education: {
           deleteMany: {},
           create: educations.map((edu) => ({
             ...edu,
@@ -80,7 +80,7 @@ export async function saveResume(values: ResumeValues) {
     });
   } else {
     return prisma.resume.create({
-      where: { id },
+      // where: { id },
       data: {
         ...resumeValues,
         userId,
@@ -92,7 +92,7 @@ export async function saveResume(values: ResumeValues) {
             endDate: exp.endDate ? new Date(exp.endDate) : undefined,
           })),
         },
-        educations: {
+        education: {
           create: educations.map((edu) => ({
             ...edu,
             startDate: edu.startDate ? new Date(edu.startDate) : undefined,

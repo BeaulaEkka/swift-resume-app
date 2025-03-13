@@ -79,7 +79,16 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
     if (hasUnsavedChanges && debouncedResumeData && !isSaving && !isError) {
       save();
     }
-  }, [debouncedResumeData, isSaving, lastSavedData, isError, save]);
+  }, [
+    debouncedResumeData,
+    isSaving,
+    lastSavedData,
+    isError,
+    save,
+    resumeId,
+    searchParams,
+    toast,
+  ]);
 
   return {
     isSaving,
