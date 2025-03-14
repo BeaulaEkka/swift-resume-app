@@ -2,6 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import ResumeEditor from "./ResumeEditor";
 import { auth } from "@clerk/nextjs/server";
+import { resumeDataInclude } from "@/lib/types";
 
 interface PageProps {
   searchParams: Promise<{ resumeId?: string }>;
@@ -21,13 +22,13 @@ export default async function page({ searchParams }: PageProps) {
           id: resumeId,
           userId,
         },
-        include: 
+        include: resumeDataInclude,
       })
     : null;
 
   return (
     <div>
-      <ResumeEditor />
+      <ResumeEditor resumeToEdit={resumeToEdit} />
     </div>
   );
 }
