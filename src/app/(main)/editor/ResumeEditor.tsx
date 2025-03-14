@@ -46,11 +46,17 @@ export default function ResumeEditor() {
       </header>
       <main className="grow">
         <div className="flex w-full">
-          <div
+          {/* <div
             className={
               (cn("w-full space-y-6 overflow-y-auto p-3 md:w-1/2"),
               showSmResumePreview && "hidden")
             }
+          > */}
+          <div
+            className={cn(
+              "w-full space-y-6 overflow-y-auto p-3 md:w-1/2",
+              showSmResumePreview && "hidden",
+            )}
           >
             <BreadCrumbs currentStep={currentStep} setCurrentStep={setStep} />
             {FormComponent && (

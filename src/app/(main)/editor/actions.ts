@@ -42,7 +42,6 @@ export async function saveResume(values: ResumeValues) {
 
     const blob = await put(`resume_photos/${path.extname(photo.name)}`, photo, {
       access: "public",
-      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
 
     newPhotoUrl = blob.url; // Fixed assignment
