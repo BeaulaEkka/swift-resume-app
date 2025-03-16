@@ -11,8 +11,11 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
   const { toast } = useToast();
   const debouncedResumeData = useDebounce(resumeData, 1500);
 
-  const [resumeId, setResumeId] = useState(resumeData.id);
-  const [lastSavedData, setLastSavedData] = useState(resumeData);
+  // const [resumeId, setResumeId] = useState(resumeData.id);
+  // const [lastSavedData, setLastSavedData] = useState(resumeData);
+  const [resumeId, setResumeId] = useState(resumeData?.id ?? null);
+  const [lastSavedData, setLastSavedData] = useState(resumeData ?? {});
+  
   const [isSaving, setIsSaving] = useState(false);
   const [isError, setIsError] = useState(false);
 

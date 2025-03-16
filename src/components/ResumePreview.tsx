@@ -41,7 +41,7 @@ export default function ResumePreview({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full   bg-white p-12 text-black",
+        "aspect-[210/297] h-fit w-full bg-white p-12 text-black",
         className,
       )}
       ref={containerRef}
@@ -54,7 +54,7 @@ export default function ResumePreview({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <PersonalInfoHeader resumeData={resumeData} />
+        <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />
         <EducationSection resumeData={resumeData} />
@@ -69,6 +69,7 @@ interface ResumeSectionProps {
 }
 
 function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
+  
   const {
     photo,
     firstName,
@@ -212,17 +213,14 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="border-2 mt-4" style={{ borderColor: colorHex }} />
+      <hr className="mt-4 border-2" style={{ borderColor: colorHex }} />
       <div className="space-y-3">
         <p className="text-lg font-semibold" style={{ color: colorHex }}>
           Education
         </p>
         {educationNotEmpty.map((edu, index) => (
           <div className="break-inside-avoid space-y-1" key={index}>
-            <div
-              className="flex items-center justify-between text-sm font-semibold"
-             
-            >
+            <div className="flex items-center justify-between text-sm font-semibold">
               <span className="font-bold capitalize">{edu.degree}</span>
               <span className="capitalize">{edu.institution}</span>
               {edu.startDate && (
