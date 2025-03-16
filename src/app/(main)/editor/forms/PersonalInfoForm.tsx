@@ -22,13 +22,13 @@ export default function PersonalInfoForm({
   const form = useForm<PersonalInfoValues>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
-      firstName: resumeData.firstName || "",
-      lastName: resumeData.lastName || "",
-      jobTitle: resumeData.jobTitle || "",
-      city: resumeData.city || "",
-      country: resumeData.country || "",
-      email: resumeData.email || "",
-      phone: resumeData.phone || "",
+      firstName: resumeData?.firstName || "",
+      lastName: resumeData?.lastName || "",
+      jobTitle: resumeData?.jobTitle || "",
+      city: resumeData?.city || "",
+      country: resumeData?.country || "",
+      email: resumeData?.email || "",
+      phone: resumeData?.phone || "",
     },
   });
 

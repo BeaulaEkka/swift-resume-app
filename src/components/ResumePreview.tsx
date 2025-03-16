@@ -55,10 +55,10 @@ export default function ResumePreview({
         id="resumePreviewContent"
       >
         <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
-        <SummarySection resumeData={resumeData} />
-        <WorkExperienceSection resumeData={resumeData} />
-        <EducationSection resumeData={resumeData} />
-        <SkillsSection resumeData={resumeData} />
+        <SummarySection resumeData={resumeData || defaultResumeData} />
+        <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
+        <EducationSection resumeData={resumeData || defaultResumeData} />
+        <SkillsSection resumeData={resumeData || defaultResumeData} />
       </div>
     </div>
   );

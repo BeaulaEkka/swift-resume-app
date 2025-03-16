@@ -15,7 +15,7 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
   // const [lastSavedData, setLastSavedData] = useState(resumeData);
   const [resumeId, setResumeId] = useState(resumeData?.id ?? null);
   const [lastSavedData, setLastSavedData] = useState(resumeData ?? {});
-  
+
   const [isSaving, setIsSaving] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -29,7 +29,10 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
       // const newData = structuredClone(debouncedResumeData);
       const newData = {
         ...structuredClone(debouncedResumeData),
-        skills: debouncedResumeData.skills ?? [], // Ensure it's always an array
+        skills: debouncedResumeData.skills ?? [], // Ensure skills is an array
+        title: debouncedResumeData.title ?? "", // Ensure title is a string
+        description: debouncedResumeData.description ?? "", // Ensure description is a string
+        summary: debouncedResumeData.summary ?? "", // Ensure summary is a string
       };
 
       const updatedResume = await saveResume({

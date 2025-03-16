@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import ResumeEditor from "./ResumeEditor";
 import { auth } from "@clerk/nextjs/server";
 import { resumeDataInclude } from "@/lib/types";
+import prisma from "@/lib/prisma";
 
 interface PageProps {
   searchParams: Promise<{ resumeId?: string }>;
