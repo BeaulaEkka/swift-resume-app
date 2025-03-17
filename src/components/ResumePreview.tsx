@@ -54,6 +54,7 @@ export default function ResumePreview({
         ref={contentRef}
         id="resumePreviewContent"
       >
+        <pre>{JSON.stringify(resumeData, null, 2)}</pre>
         <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
         <SummarySection resumeData={resumeData || defaultResumeData} />
         <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
@@ -69,7 +70,6 @@ interface ResumeSectionProps {
 }
 
 function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
-  
   const {
     photo,
     firstName,
