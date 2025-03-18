@@ -32,15 +32,19 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     workExperiences: data.workExperiences.map((exp) => ({
       position: exp.position || undefined,
       company: exp.company || undefined,
-      startDate: exp.startDate.toISOString().split("T")[0],
-      endDate: exp.endDate.toISOString().split("T")[0],
+      startDate: exp.startDate
+        ? exp.startDate.toISOString().split("T")[0]
+        : null,
+      endDate: exp.endDate ? exp.endDate.toISOString().split("T")[0] : null,
       description: exp.description || undefined,
     })),
     education: data.education.map((edu) => ({
       institution: edu.institution || undefined,
       degree: edu.degree || undefined,
-      startDate: edu.startDate?.toISOString().split("T")[0],
-      endDate: edu.endDate?.toISOString().split("T")[0],
+      startDate: edu.startDate
+        ? edu.startDate.toISOString().split("T")[0]
+        : null,
+      endDate: edu.endDate ? edu.endDate.toISOString().split("T")[0] : null,
     })),
     skills: data.skills,
     borderStyle: data.borderStyle,

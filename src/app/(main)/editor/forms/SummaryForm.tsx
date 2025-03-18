@@ -11,6 +11,7 @@ import { EditorFormProps } from "@/lib/types";
 import { SummaryValues } from "@/lib/validation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import GenerateSummaryButton from "./GenerateSummaryButton";
 
 export default function SummaryForm({
   resumeData,
@@ -26,6 +27,7 @@ export default function SummaryForm({
     const { unsubscribe } = form.watch(async (values) => {
       const isValid = await form.trigger();
       if (!isValid) return;
+      setResumeData({ ...resumeData, ...values });
 
       setResumeData({
         ...resumeData,
@@ -60,6 +62,12 @@ export default function SummaryForm({
                   />
                 </FormControl>
                 <FormMessage />
+                <GenerateSummaryButton
+                  resumeData={resumeData}
+                  onSummaryGenerated={(summary) =>
+                    form.setValue("summary", summary)
+                  }
+                />
               </FormItem>
             )}
           />
