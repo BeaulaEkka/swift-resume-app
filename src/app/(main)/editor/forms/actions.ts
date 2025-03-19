@@ -1,6 +1,11 @@
 "use server";
 
-import { GenerateSummaryInput, generateSummarySchema } from "@/lib/validation";
+import {
+  GenerateSummaryInput,
+  generateSummarySchema,
+  GenerateWorkExperienceInput,
+  generateWorkExperiencesSchema,
+} from "@/lib/validation";
 import { genAI, model } from "@/lib/geminiai";
 
 export async function generateSummary(input: GenerateSummaryInput) {
@@ -59,4 +64,22 @@ export async function generateSummary(input: GenerateSummaryInput) {
     throw new Error("Failed to genereate AI response");
   }
   return aiResponse;
+}
+
+export async function generateWorkExperience(
+  input: GenerateWorkExperienceInput
+) {
+  //Block for non premium users
+  const { description } = generateWorkExperiencesSchema.parse(input);
+
+  const systemMessage = `
+  You are a job resume generator AI. your task is to generate a single work experience entry based on the user input.Data can be omitted if they cant be infered from the provided information.
+
+  Job Title: <job title>
+  Company:<company name>
+  start date: <format:YYYY-MM-DD> (only if provided)
+  end date: <format:YYYY-MM-DD> (only if provided)
+  Description: <an optimized description in bullet format, might be infered from the job title>
+`;
+  const userMessage = ``;
 }
