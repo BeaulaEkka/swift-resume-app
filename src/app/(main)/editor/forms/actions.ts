@@ -5,8 +5,9 @@ import {
   generateSummarySchema,
   GenerateWorkExperienceInput,
   generateWorkExperiencesSchema,
+  WorkExperience,
 } from "@/lib/validation";
-import { genAI, model } from "@/lib/geminiai";
+import { model } from "@/lib/geminiai";
 
 export async function generateSummary(input: GenerateSummaryInput) {
   // TODO: Block for non-premium users
@@ -81,5 +82,26 @@ export async function generateWorkExperience(
   end date: <format:YYYY-MM-DD> (only if provided)
   Description: <an optimized description in bullet format, might be infered from the job title>
 `;
-  const userMessage = ``;
+  const userMessage = `
+  Plese provide a work experience entry from this description- ${description}`;
+
+  const prompt = `${systemMessage}\n\n${userMessage}`;
+
+  const completion = await model.generateContent(prompt);
+
+  const aiResponse = completion.response.text();
+
+  if (!aiResponse) {
+    throw new Error("Failed to genereate AI response");
+  }
+  return {
+    position: aiResponse.match(/Job Title:\s*(.*)/)?.[1] || "",
+    company: aiResponse.match(/Company:\s*(.*)/)?.[1] || "",
+    startDate:
+      aiResponse.match(/Start Date:\s*([\d]{4}-[\d]{2}-[\d]{2})/)?.[1] || "",
+    endDate:
+      aiResponse.match(/End Date:\s*([\d]{4}-[\d]{2}-[\d]{2})/)?.[1] || "",
+    description:
+      aiResponse.match(/Description:\s*([\s\S]*)/)?.[1]?.trim() || "",
+  } as WorkExperience;
 }
