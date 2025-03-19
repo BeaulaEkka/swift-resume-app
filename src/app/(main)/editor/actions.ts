@@ -62,19 +62,23 @@ export async function saveResume(values: ResumeValues) {
           deleteMany: {},
           create: workExperiences.map((exp) => ({
             ...exp,
-            startDate: exp.startDate ? new Date(exp.startDate) : undefined,
-            endDate: exp.endDate ? new Date(exp.endDate) : undefined,
+            startDate: exp.startDate
+              ? new Date(exp.startDate).toISOString()
+              : null,
+            endDate: exp.endDate ? new Date(exp.endDate).toISOString() : null,
           })),
         },
         education: {
           deleteMany: {},
           create: educations.map((edu) => ({
             ...edu,
-            startDate: edu.startDate ? new Date(edu.startDate) : undefined,
-            endDate: edu.endDate ? new Date(edu.endDate) : undefined,
+            startDate: edu.startDate
+              ? new Date(edu.startDate).toISOString()
+              : null,
+            endDate: edu.endDate ? new Date(edu.endDate).toISOString() : null,
           })),
         },
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       },
     });
   } else {
@@ -87,18 +91,22 @@ export async function saveResume(values: ResumeValues) {
         workExperiences: {
           create: workExperiences.map((exp) => ({
             ...exp,
-            startDate: exp.startDate ? new Date(exp.startDate) : undefined,
-            endDate: exp.endDate ? new Date(exp.endDate) : undefined,
+            startDate: exp.startDate
+              ? new Date(exp.startDate).toISOString()
+              : null,
+            endDate: exp.endDate ? new Date(exp.endDate).toISOString() : null,
           })),
         },
         education: {
           create: educations.map((edu) => ({
             ...edu,
-            startDate: edu.startDate ? new Date(edu.startDate) : undefined,
-            endDate: edu.endDate ? new Date(edu.endDate) : undefined,
+            startDate: edu.startDate
+              ? new Date(edu.startDate).toISOString()
+              : null,
+            endDate: edu.endDate ? new Date(edu.endDate).toISOString() : null,
           })),
         },
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       },
     });
   }

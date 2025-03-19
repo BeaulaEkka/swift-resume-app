@@ -32,19 +32,39 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     workExperiences: data.workExperiences.map((exp) => ({
       position: exp.position || undefined,
       company: exp.company || undefined,
+      // startDate: exp.startDate
+      //   ? exp.startDate.toISOString().split("T")[0]
+      //   : null,
       startDate: exp.startDate
-        ? exp.startDate.toISOString().split("T")[0]
+        ? typeof exp.startDate === "string"
+          ? exp.startDate // Keep as string if already formatted
+          : new Date(exp.startDate).toISOString().split("T")[0] // Convert only if Date object
         : null,
-      endDate: exp.endDate ? exp.endDate.toISOString().split("T")[0] : null,
+      // endDate: exp.endDate ? exp.endDate.toISOString().split("T")[0] : null,
+      endDate: exp.endDate
+        ? typeof exp.endDate === "string"
+          ? exp.endDate
+          : new Date(exp.endDate).toISOString().split("T")[0]
+        : null,
       description: exp.description || undefined,
     })),
     education: data.education.map((edu) => ({
       institution: edu.institution || undefined,
       degree: edu.degree || undefined,
+      // startDate: edu.startDate
+      //   ? edu.startDate.toISOString().split("T")[0]
+      //   : null,
+      // endDate: edu.endDate ? edu.endDate.toISOString().split("T")[0] : null,
       startDate: edu.startDate
-        ? edu.startDate.toISOString().split("T")[0]
+        ? typeof edu.startDate === "string"
+          ? edu.startDate
+          : new Date(edu.startDate).toISOString().split("T")[0]
         : null,
-      endDate: edu.endDate ? edu.endDate.toISOString().split("T")[0] : null,
+      endDate: edu.endDate
+        ? typeof edu.endDate === "string"
+          ? edu.endDate
+          : new Date(edu.endDate).toISOString().split("T")[0]
+        : null,
     })),
     skills: data.skills,
     borderStyle: data.borderStyle,

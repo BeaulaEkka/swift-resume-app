@@ -209,7 +209,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
     (edu) => Object.values(edu).filter(Boolean).length > 0,
   );
   if (!educationNotEmpty?.length) return null;
-  console.log("educationNotEmpty", educationNotEmpty);
+  // console.log("educationNotEmpty", educationNotEmpty);
 
   return (
     <>

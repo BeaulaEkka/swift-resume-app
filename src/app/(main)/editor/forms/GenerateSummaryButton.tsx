@@ -17,7 +17,7 @@ export default function GenerateSummaryButton({
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
-    //TODO :Block for non-primium users
+    //TODO :Block for non-premium users
     try {
       setLoading(true);
       const aiResponse = await generateSummary(resumeData);
@@ -34,7 +34,12 @@ export default function GenerateSummaryButton({
   }
 
   return (
-    <LoadingButton variant="outline" loading={loading} onClick={handleClick}>
+    <LoadingButton
+      type="button"
+      variant="outline"
+      loading={loading}
+      onClick={handleClick}
+    >
       <WandSparklesIcon className="size-4" />
       Generate Summary (AI)
     </LoadingButton>
