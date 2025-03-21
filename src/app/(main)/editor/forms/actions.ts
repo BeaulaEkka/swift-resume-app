@@ -16,7 +16,7 @@ export async function generateSummary(input: GenerateSummaryInput) {
     generateSummarySchema.parse(input);
 
   const systemMessage = `
-    You are a job resume generator AI. Your task is to write a professional introduction summary for a resume given the user's provided data. 
+    You are a job resume generator AI. Your task is to write a professional introduction summary for a resume provided by the user provided data. 
     Only return the summary and do not include any other information in the response. Keep it concise and professional.
   `;
 
@@ -94,6 +94,7 @@ export async function generateWorkExperience(
   if (!aiResponse) {
     throw new Error("Failed to genereate AI response");
   }
+  console.log("aiResponse", aiResponse);
   return {
     position: aiResponse.match(/Job Title:\s*(.*)/)?.[1] || "",
     company: aiResponse.match(/Company:\s*(.*)/)?.[1] || "",
