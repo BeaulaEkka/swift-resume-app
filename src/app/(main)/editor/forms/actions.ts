@@ -80,7 +80,10 @@ export async function generateWorkExperience(
   Company:<company name>
   start date: <format:YYYY-MM-DD> (only if provided)
   end date: <format:YYYY-MM-DD> (only if provided)
-  Description: <an optimized description in bullet format, might be infered from the job title>
+  Description:
+- <bullet point 1>
+- <bullet point 2>
+- <bullet point 3>
 `;
   const userMessage = `
   Plese provide a work experience entry from this description- ${description}`;
