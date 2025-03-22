@@ -1,4 +1,7 @@
 import { Button } from "@/components/ui/button";
+import prisma from "@/lib/prisma";
+import { resumeDataInclude } from "@/lib/types";
+import { auth } from "@clerk/nextjs/server";
 import { PlusSquare } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -8,7 +11,31 @@ import React from "react";
 export const metadata: Metadata = {
   title: "Your Resumes",
 };
-export default function page() {
+export default async function page() {
+  const { userId } = await auth();
+  if (!userId) {
+    return null;
+  }
+
+  const [resumes, totalCount] = await Promise.all([
+    prisma.resume.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        updatedAt: "desc",
+      },
+      include: resumeDataInclude,
+    }),
+    prisma.resume.count({
+      where: {
+        userId,
+      },
+    }),
+  ]);
+
+  //TODO check qota for non-premium users
+
   return (
     <main className="mx-auto w-full max-w-7xl space-y-6 border border-red-500 px-3 py-6">
       <Button asChild className="mx-auto flex w-fit gap-2">
@@ -16,7 +43,16 @@ export default function page() {
           <PlusSquare className="size-5" /> New Resume
         </Link>
       </Button>
-      <p>hier will all the resumes be</p>
+      <p className="capitalize">hier will all the resumes be</p>
+      <div className="space-y-1">
+        <h1 className="text-3xl font-bold">Your resumes</h1>
+        <p>Total:{totalCount}</p>
+      </div>
+      <div className="flex grid-cols-2 flex-col sm:grid md:grid-cols-3 lg:grid-cols-4 w-full gap-3">
+        {resumes.map(resume=>(
+
+        ))}
+      </div>
     </main>
   );
 }
