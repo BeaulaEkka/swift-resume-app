@@ -54,7 +54,7 @@ export default function ResumePreview({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <pre>{JSON.stringify(resumeData, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(resumeData, null, 2)}</pre> */}
         <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
         <SummarySection resumeData={resumeData || defaultResumeData} />
         <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
