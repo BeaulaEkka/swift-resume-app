@@ -6,7 +6,7 @@ import { del } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 
 export async function deleteResume(id: string) {
-  const userId = await auth();
+  const { userId } = await auth();
 
   if (!userId) throw new Error("User is not authenticaticated, Please Sign In");
   const resume = await prisma.resume.findUnique({

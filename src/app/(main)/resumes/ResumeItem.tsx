@@ -17,6 +17,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreVertical, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { deleteResume } from "./actions";
+import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
+import {
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
+import LoadingButton from "@/components/LoadingButton";
 interface ResumeItemProps {
   resume: ResumeServerData;
 }
@@ -68,31 +77,38 @@ function MoreMenu({ resumeId }: MoreMenuProps) {
   const [showDeleteConformation, setShowDeleteConformation] = useState(false);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute right-0.5 top-0.5 opacity-0 transition-opacity group-hover:opacity-100"
-        >
-          <MoreVertical />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="flex items-center gap-2"
-          onClick={() => setShowDeleteConformation(true)}
-        >
-          <Trash2 className="size-4" />
-          Delete
-        </DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-0.5 top-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+          >
+            <MoreVertical />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            className="flex items-center gap-2"
+            onClick={() => setShowDeleteConformation(true)}
+          >
+            <Trash2 className="size-4" />
+            Delete
+          </DropdownMenuItem>
+          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>Team</DropdownMenuItem>
+          <DropdownMenuItem>Subscription</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DeleteConformationDialog
+        open={showDeleteConformation}
+        resumeId={resumeId}
+        onOpenChange={setShowDeleteConformation}
+      />
+    </>
   );
 }
 
@@ -109,4 +125,44 @@ function DeleteConformationDialog({
 }: DeleteConformationDialogProps) {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
+
+  async function handleDelete() {
+    startTransition(async () => {
+      try {
+        await deleteResume(resumeId);
+        onOpenChange(false);
+        
+      } catch (error) {
+        console.log(error);
+        toast({
+          variant: "destructive",
+          description: "Something went wrong.Please try again",
+        });
+      }
+    });
+  }
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Delete Resume?</DialogTitle>
+          <DialogDescription>
+            This resume will be permamently deleted from your account.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <LoadingButton
+            variant="destructive"
+            loading={isPending}
+            onClick={handleDelete}
+          >
+            Delete
+          </LoadingButton>
+          <Button variant="secondary" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
 }
