@@ -5,6 +5,7 @@ import { formatDate } from "date-fns";
 import Link from "next/link";
 import { mapToResumeValues } from "@/lib/utils";
 import ResumePreview from "@/components/ResumePreview";
+import { useState } from "react";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -16,9 +17,8 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
       <div>
         <Link
           href={`/editor?/resumeId=${resume.id}`}
-          className="max-h-30 inline-block w-full  text-center pb-4"
+          className="max-h-30 inline-block w-full pb-4 text-center"
         >
-
           <div className="flex min-h-[40px] flex-col items-center justify-center">
             <p className="line-clamp-1 flex-1 font-semibold capitalize">
               {resume.title || "No title"}
@@ -47,4 +47,12 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
       </div>
     </div>
   );
+}
+
+interface MoreMenuProps {
+  resumeId: string;
+}
+
+function MoreMenu({ resumeId }: MoreMenuProps) {
+  const [showDeleteConformation, setShowDeleteConformation] = useState(false);
 }
