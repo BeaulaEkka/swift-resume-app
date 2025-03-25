@@ -5,15 +5,26 @@ import { formatDate } from "date-fns";
 import Link from "next/link";
 import { mapToResumeValues } from "@/lib/utils";
 import ResumePreview from "@/components/ResumePreview";
-import { useState } from "react";
-
+import { useState, useTransition } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { MoreVertical, Trash2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 interface ResumeItemProps {
   resume: ResumeServerData;
 }
 export default function ResumeItem({ resume }: ResumeItemProps) {
   const wasUpdated = resume.updatedAt !== resume.createdAt;
   return (
-    <div className="group rounded-lg border border-transparent p-2 hover:border-gray-100 hover:bg-gray-50 hover:shadow-sm">
+    <div className="group relative rounded-lg border-transparent p-2 hover:border-gray-100 hover:bg-gray-50 hover:shadow-sm">
+      <MoreMenu resumeId={resume.id} />
       <div>
         <Link
           href={`/editor?/resumeId=${resume.id}`}
@@ -55,4 +66,47 @@ interface MoreMenuProps {
 
 function MoreMenu({ resumeId }: MoreMenuProps) {
   const [showDeleteConformation, setShowDeleteConformation] = useState(false);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-0.5 top-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+        >
+          <MoreVertical />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className="flex items-center gap-2"
+          onClick={() => setShowDeleteConformation(true)}
+        >
+          <Trash2 className="size-4" />
+          Delete
+        </DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Subscription</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+interface DeleteConformationDialogProps {
+  resumeId: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+function DeleteConformationDialog({
+  resumeId,
+  open,
+  onOpenChange,
+}: DeleteConformationDialogProps) {
+  const { toast } = useToast();
+  const [isPending, startTransition] = useTransition();
 }
