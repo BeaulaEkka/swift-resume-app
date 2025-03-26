@@ -5,7 +5,7 @@ import { formatDate } from "date-fns";
 import Link from "next/link";
 import { mapToResumeValues } from "@/lib/utils";
 import ResumePreview from "@/components/ResumePreview";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,6 +30,7 @@ interface ResumeItemProps {
   resume: ResumeServerData;
 }
 export default function ResumeItem({ resume }: ResumeItemProps) {
+  const contentRef = useRef<HTMLDivElement>(null);
   const wasUpdated = resume.updatedAt !== resume.createdAt;
   return (
     <div className="group relative rounded-lg border-transparent p-2 hover:border-gray-100 hover:bg-gray-50 hover:shadow-sm">
@@ -131,7 +132,6 @@ function DeleteConformationDialog({
       try {
         await deleteResume(resumeId);
         onOpenChange(false);
-        
       } catch (error) {
         console.log(error);
         toast({
