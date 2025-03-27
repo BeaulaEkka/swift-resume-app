@@ -88,16 +88,26 @@ export const summarySchema = z.object({ summary: optionalString });
 export type SummaryValues = z.infer<typeof summarySchema>;
 
 //----------------resumeSchema
-export const resumeSchema = z.object({
-  ...generalInfoSchema.shape,
-  ...personalInfoSchema.shape,
-  ...workExperienceSchema.shape,
-  ...educationSchema.shape,
-  ...skillsSchema.shape,
-  ...summarySchema.shape,
-  colorHex: optionalString,
-  borderStyle: optionalString,
-});
+// export const resumeSchema = z.object({
+//   ...generalInfoSchema.shape,
+//   ...personalInfoSchema.shape,
+//   ...workExperienceSchema.shape,
+//   ...educationSchema.shape,
+//   ...skillsSchema.shape,
+//   ...summarySchema.shape,
+//   colorHex: optionalString,
+//   borderStyle: optionalString,
+// });
+export const resumeSchema = generalInfoSchema
+  .merge(personalInfoSchema)
+  .merge(workExperienceSchema)
+  .merge(educationSchema)
+  .merge(skillsSchema)
+  .merge(summarySchema)
+  .extend({
+    colorHex: optionalString,
+    borderStyle: optionalString,
+  });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
   id?: string;
