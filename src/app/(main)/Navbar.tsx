@@ -2,7 +2,7 @@
 import React from "react";
 import logo from "@/assets/resume-builder-logo.png";
 import Image from "next/image";
-// import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { CreditCard } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
