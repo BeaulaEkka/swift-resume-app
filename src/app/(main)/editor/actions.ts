@@ -76,6 +76,8 @@ export async function saveResume(values: ResumeValues) {
               ? new Date(edu.startDate).toISOString()
               : null,
             endDate: edu.endDate ? new Date(edu.endDate).toISOString() : null,
+            degree: edu.degree ?? "",
+            institution: edu.institution ?? "",
           })),
         },
         updatedAt: new Date().toISOString(),
