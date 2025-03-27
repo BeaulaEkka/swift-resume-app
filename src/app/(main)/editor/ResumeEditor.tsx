@@ -6,7 +6,6 @@ import { useSearchParams } from "next/navigation";
 import BreadCrumbs from "./BreadCrumbs";
 import Footer from "./Footer";
 import { ResumeValues } from "@/lib/validation";
-
 import ResumePreviewSection from "./ResumePreviewSection";
 import { cn, mapToResumeValues } from "@/lib/utils";
 import useUnloadWarning from "@/hooks/useUnloadWarning";
@@ -17,9 +16,13 @@ interface ResumeEditorProps {
   resumeToEdit: ResumeServerData | null;
 }
 export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
-  const [resumeData, setResumeData] = useState<ResumeValues>(
-    resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
+  // const [resumeData, setResumeData] = useState<ResumeValues>(
+  //   resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
+  // );
+  const [resumeData, setResumeData] = useState<ResumeValues | undefined>(
+    resumeToEdit ? mapToResumeValues(resumeToEdit) : undefined,
   );
+
   const searchparams = useSearchParams();
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
 
