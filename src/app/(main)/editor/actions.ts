@@ -95,7 +95,6 @@
 //       // where: { id },
 //       data: {
 //         ...resumeValues,
-        
 
 //         userId,
 //         photoUrl: newPhotoUrl,
@@ -122,7 +121,6 @@
 //     });
 //   }
 // }
-
 
 "use server";
 
@@ -179,33 +177,37 @@ export async function saveResume(values: ResumeValues) {
   }
 
   if (id) {
-    return await prisma.resume.update({
+    return prisma.resume.update({
       where: { id },
       data: {
         ...resumeValues,
-        skills: resumeValues.skills?.filter((skill) => skill && skill.trim() !== "") || [],
-        colorHex: resumeValues.colorHex ?? undefined,
-        photoUrl: newPhotoUrl ?? null,
+
+        // colorHex: resumeValues.colorHex ?? undefined,
+        photoUrl: newPhotoUrl,
         borderStyle: resumeValues.borderStyle ?? undefined,
         workExperiences: {
           deleteMany: {},
           create: workExperiences.map((exp) => ({
             ...exp,
-            startDate: exp.startDate ? new Date(exp.startDate).toISOString() : null,
+            startDate: exp.startDate
+              ? new Date(exp.startDate).toISOString()
+              : null,
             endDate: exp.endDate ? new Date(exp.endDate).toISOString() : null,
-            description: exp.description ?? undefined,
-            position: exp.position ?? undefined,
-            company: exp.company ?? undefined,
+            // description: exp.description ?? undefined,
+            // position: exp.position ?? undefined,
+            // company: exp.company ?? undefined,
           })),
         },
         education: {
           deleteMany: {},
           create: educations.map((edu) => ({
             ...edu,
-            startDate: edu.startDate ? new Date(edu.startDate).toISOString() : null,
+            startDate: edu.startDate
+              ? new Date(edu.startDate).toISOString()
+              : null,
             endDate: edu.endDate ? new Date(edu.endDate).toISOString() : null,
-            degree: edu.degree ?? "",
-            institution: edu.institution ?? "",
+            // degree: edu.degree ?? "",
+            // institution: edu.institution ?? "",
           })),
         },
         updatedAt: new Date().toISOString(),
@@ -220,15 +222,23 @@ export async function saveResume(values: ResumeValues) {
         workExperiences: {
           create: workExperiences.map((exp) => ({
             ...exp,
-            startDate: exp.startDate ? new Date(exp.startDate).toISOString() : null,
-            endDate: exp.endDate ? new Date(exp.endDate).toISOString() : null,
+            startDate: exp.startDate
+              ? new Date(exp.startDate).toISOString()
+              : undefined,
+            endDate: exp.endDate
+              ? new Date(exp.endDate).toISOString()
+              : undefined,
           })),
         },
         education: {
           create: educations.map((edu) => ({
             ...edu,
-            startDate: edu.startDate ? new Date(edu.startDate).toISOString() : null,
-            endDate: edu.endDate ? new Date(edu.endDate).toISOString() : null,
+            startDate: edu.startDate
+              ? new Date(edu.startDate).toISOString()
+              : undefined,
+            endDate: edu.endDate
+              ? new Date(edu.endDate).toISOString()
+              : undefined,
           })),
         },
         updatedAt: new Date().toISOString(),
