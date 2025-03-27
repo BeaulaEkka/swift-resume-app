@@ -16,14 +16,12 @@ interface ResumeEditorProps {
   resumeToEdit: ResumeServerData | null;
 }
 export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
-  // const [resumeData, setResumeData] = useState<ResumeValues>(
-  //   resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
-  // );
-  const [resumeData, setResumeData] = useState<ResumeValues | undefined>(
-    resumeToEdit ? mapToResumeValues(resumeToEdit) : undefined,
+  const searchparams = useSearchParams();
+
+  const [resumeData, setResumeData] = useState<ResumeValues>(
+    resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
   );
 
-  const searchparams = useSearchParams();
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
 
   const { isSaving, hasUnsavedChanges } = useAutoSaveResume(resumeData);
