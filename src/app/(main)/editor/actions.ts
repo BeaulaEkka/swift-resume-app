@@ -57,6 +57,8 @@ export async function saveResume(values: ResumeValues) {
       where: { id },
       data: {
         ...resumeValues,
+        skills:
+          resumeValues.skills?.filter((skill) => skill !== undefined) || [],
         colorHex: resumeValues.colorHex ?? undefined,
         photoUrl: newPhotoUrl ?? null,
         borderStyle: resumeValues.borderStyle ?? undefined,
