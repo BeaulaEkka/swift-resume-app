@@ -59,6 +59,7 @@ export async function saveResume(values: ResumeValues) {
         ...resumeValues,
         colorHex: resumeValues.colorHex ?? undefined,
         photoUrl: newPhotoUrl ?? null,
+        borderStyle: resumeValues.borderStyle ?? undefined,
         workExperiences: {
           deleteMany: {},
           create: workExperiences.map((exp) => ({
