@@ -67,6 +67,7 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
             <BreadCrumbs currentStep={currentStep} setCurrentStep={setStep} />
             {FormComponent && (
               <FormComponent
+                key={currentStep}
                 resumeData={resumeData}
                 setResumeData={setResumeData}
               />
