@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Circle, Square, Squircle } from "lucide-react";
+import { Squircle } from "lucide-react";
 import React from "react";
 
 export const BorderStyles = {
@@ -23,12 +23,12 @@ export default function BorderStyleButton({
     onChange(borderStyles[nextIndex]);
   }
 
-  const Icon =
-    borderStyle === "square"
-      ? Square
-      : borderStyle === "circle"
-        ? Circle
-        : Squircle;
+  // const Icon =
+  //   borderStyle === "square"
+  //     ? Square
+  //     : borderStyle === "circle"
+  //       ? Circle
+  //       : Squircle;
   return (
     <Button
       variant="outline"

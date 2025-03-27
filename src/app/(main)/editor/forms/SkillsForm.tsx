@@ -80,4 +80,4 @@ export default function SkillsForm({
   );
 }
 
-function SkillsItem();
+// function SkillsItem();

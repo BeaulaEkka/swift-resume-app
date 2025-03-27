@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import BreadCrumbs from "./BreadCrumbs";
 import Footer from "./Footer";
 import { ResumeValues } from "@/lib/validation";
-import ResumePreview from "@/components/ResumePreview";
+
 import ResumePreviewSection from "./ResumePreviewSection";
 import { cn, mapToResumeValues } from "@/lib/utils";
 import useUnloadWarning from "@/hooks/useUnloadWarning";
