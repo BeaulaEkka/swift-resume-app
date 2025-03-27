@@ -57,7 +57,8 @@ export async function saveResume(values: ResumeValues) {
       where: { id },
       data: {
         ...resumeValues,
-        photoUrl: newPhotoUrl,
+        colorHex: resumeValues.colorHex ?? undefined,
+        photoUrl: newPhotoUrl ?? null,
         workExperiences: {
           deleteMany: {},
           create: workExperiences.map((exp) => ({
@@ -66,6 +67,9 @@ export async function saveResume(values: ResumeValues) {
               ? new Date(exp.startDate).toISOString()
               : null,
             endDate: exp.endDate ? new Date(exp.endDate).toISOString() : null,
+            description: exp.description ?? undefined,
+            position: exp.position ?? undefined,
+            company: exp.company ?? undefined,
           })),
         },
         education: {
