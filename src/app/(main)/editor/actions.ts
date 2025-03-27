@@ -95,6 +95,8 @@ export async function saveResume(values: ResumeValues) {
       // where: { id },
       data: {
         ...resumeValues,
+        colorHex: resumeValues.colorHex === null ? undefined : resumeValues.colorHex,
+
         userId,
         photoUrl: newPhotoUrl,
         workExperiences: {
