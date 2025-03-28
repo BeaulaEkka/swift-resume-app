@@ -193,7 +193,7 @@ function WorkExperienceItem({
           <FormItem>
             <FormLabel>Job Title</FormLabel>
             <FormControl>
-              <Input {...field} autoFocus />
+              <Input {...field} autoFocus value={field.value ?? ""} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -206,7 +206,7 @@ function WorkExperienceItem({
           <FormItem>
             <FormLabel>Company</FormLabel>
             <FormControl>
-              <Input {...field} autoFocus />
+              <Input {...field} autoFocus value={field.value ?? ""} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -262,7 +262,7 @@ function WorkExperienceItem({
           <FormItem>
             <FormLabel>Description</FormLabel>
             <FormControl>
-              <Textarea {...field} autoFocus />
+              <Textarea {...field} autoFocus value={field.value ?? ""} />
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -61,8 +61,7 @@ export default function PersonalInfoForm({
                     <FormControl>
                       <Input
                         type="file"
-                        {...fieldValues}
-                        accept="images/*"
+                        accept="image/*"
                         onChange={(e) => {
                           const file = e.target.files?.[0];
                           fieldValues.onChange(file);
@@ -123,7 +122,7 @@ export default function PersonalInfoForm({
                 <FormItem>
                   <FormLabel>Job Title</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} value={field.value ?? ""} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -137,7 +136,7 @@ export default function PersonalInfoForm({
                   <FormItem>
                     <FormLabel>City</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value ?? ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -150,7 +149,7 @@ export default function PersonalInfoForm({
                   <FormItem>
                     <FormLabel>Country</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value ?? ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -164,7 +163,7 @@ export default function PersonalInfoForm({
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input {...field} type="tel" />
+                    <Input {...field} type="tel" value={field.value ?? ""} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -177,7 +176,7 @@ export default function PersonalInfoForm({
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} type="email" />
+                    <Input {...field} type="email" value={field.value ?? ""} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
