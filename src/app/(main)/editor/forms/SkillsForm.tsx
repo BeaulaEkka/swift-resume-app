@@ -63,13 +63,21 @@ export default function SkillsForm({
                   <Textarea
                     {...field}
                     placeholder="eg.React.js, Node etc"
+                    // onChange={(e) => {
+                    //   const skills = e.target.value.split(",");
+                    //   field.onChange(skills);
+                    // }}
                     onChange={(e) => {
-                      const skills = e.target.value.split(",");
-                      field.onChange(skills);
+                      field.onChange(
+                        e.target.value.split(",").map((skill) => skill.trim()),
+                      );
                     }}
+                    value={field.value ? field.value.join(", ") : ""}
                   />
                 </FormControl>
-                <FormDescription>Seperate each skill with a comma.</FormDescription>
+                <FormDescription>
+                  Seperate each skill with a comma.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
