@@ -21,7 +21,7 @@ export default async function page({ searchParams }: PageProps) {
     ? await prisma.resume.findUnique({
         where: {
           id: resumeId,
-          userId,
+          userId: userId || undefined,
         },
         include: resumeDataInclude,
       })
