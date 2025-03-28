@@ -50,7 +50,7 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
         : null,
       description: exp.description || undefined,
     })),
-    educations: data.education.map((edu) => ({
+    educations: data.educations.map((edu) => ({
       institution: edu.institution || undefined,
       degree: edu.degree || undefined,
       // startDate: edu.startDate
