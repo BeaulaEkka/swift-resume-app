@@ -4,7 +4,7 @@ import { ResumeValues } from "@/lib/validation";
 
 import Image from "next/image";
 import { formatDate } from "date-fns";
-import React, { useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import { Badge } from "./ui/badge";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
 
@@ -36,7 +36,7 @@ export default function ResumePreview({
   className,
 }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { width } = useDimensions(containerRef);
+  const { width } = useDimensions(containerRef as RefObject<HTMLElement>);
 
   return (
     <div
