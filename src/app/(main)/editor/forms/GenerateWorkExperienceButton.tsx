@@ -64,6 +64,7 @@ export default function GenerateWorkExperienceButton({
 interface InputDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onWorkExperienceGenerated: (workExperience: WorkExperience) => void;
 }
 
 function InputDialog({
@@ -86,7 +87,7 @@ function InputDialog({
       onWorkExperienceGenerated(response);
     } catch (error) {
       console.log(error);
-      toast({
+      toast.toast({
         variant: "destructive",
         description: " Something went wrong.Please try again",
       });
