@@ -113,7 +113,10 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       )}
       <div className="space-y-2.5">
         <div className="space-y-1">
-          <p className="text-3xl font-bold" style={{ color: colorHex }}>
+          <p
+            className="text-3xl font-bold"
+            style={{ color: colorHex ?? "#000" }}
+          >
             {firstName}
             {lastName}
           </p>
@@ -140,17 +143,12 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr
-        className="border-2"
-        style={{
-          borderColor: colorHex,
-        }}
-      />
+      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="break-inside-avoid space-y-3">
         <p
           className="text-lg font-semibold"
           style={{
-            color: colorHex,
+            color: colorHex ?? "#000",
           }}
         >
           Professional profile
@@ -172,9 +170,15 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="mt-4 border-2" style={{ borderColor: colorHex }} />
+      <hr
+        className="mt-4 border-2"
+        style={{ borderColor: colorHex ?? "#000" }}
+      />
       <div className="space-y-3">
-        <p className="text-lg font-semibold" style={{ color: colorHex }}>
+        <p
+          className="text-lg font-semibold"
+          style={{ color: colorHex ?? "#000" }}
+        >
           Work Experience
         </p>
         {workExperienceNotEmpty.map((exp, index) => (
@@ -213,9 +217,15 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="mt-4 border-2" style={{ borderColor: colorHex }} />
+      <hr
+        className="mt-4 border-2"
+        style={{ borderColor: colorHex ?? "#000" }}
+      />
       <div className="space-y-3">
-        <p className="text-lg font-semibold" style={{ color: colorHex }}>
+        <p
+          className="text-lg font-semibold"
+          style={{ color: colorHex ?? "#000" }}
+        >
           Education
         </p>
         {educationNotEmpty.map((edu, index) => (
@@ -244,9 +254,12 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
   if (!skills?.length) return null;
   return (
     <div>
-      <hr className="border-2" style={{ borderColor: colorHex }} />
+      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="space-y-3">
-        <p className="text-lg font-semibold" style={{ color: colorHex }}>
+        <p
+          className="text-lg font-semibold"
+          style={{ color: colorHex ?? "#000" }}
+        >
           Skills
         </p>
         <div>
@@ -255,7 +268,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
               key={index}
               className="my-2 mr-2 rounded-md bg-black px-3 py-2 capitalize text-white"
               style={{
-                backgroundColor: colorHex,
+                backgroundColor: colorHex ?? "#000",
                 borderRadius:
                   borderStyle === BorderStyles.SQUARE
                     ? "0px"
