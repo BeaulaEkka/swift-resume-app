@@ -2,6 +2,7 @@ import Image from "next/image";
 import logo from "@/assets/resume-builder-logo.png";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import resumePreviewImage from "@/assets/resume-builder-logo.png";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gray-100 px-5 py-12 text-center text-gray-900 md:flex-row md:text-start lg:gap-12">
@@ -25,13 +26,29 @@ export default function Home() {
           design a professional resume even if you are not very smart
         </p>
         <Button asChild size="lg" variant="premium">
-          <Link
-            href="/resumes"
-            
-          >
-            Get started
-          </Link>
+          <Link href="/resumes">Get started</Link>
         </Button>
+      </div>
+      <div className="relative">
+        {/* Bottom Resume (Tilted More) */}
+
+        {/* Top Resume (Main One) */}
+        <Image
+          src={resumePreviewImage}
+          width={550}
+          height={550}
+          alt="resume preview"
+          className="relative rounded-sm bg-white shadow lg:rotate-[2.5deg]"
+        />
+        <div className="absolute right-5 top-0 rotate-[-30.5deg] ">
+          <Image
+            src={resumePreviewImage}
+            width={550}
+            height={550}
+            alt="resume preview"
+            className="rounded-sm bg-white shadow"
+          />
+        </div>
       </div>
     </main>
   );
