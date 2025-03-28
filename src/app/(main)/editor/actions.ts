@@ -46,12 +46,15 @@ export async function saveResume(values: ResumeValues) {
     }
     newPhotoUrl = null;
   }
-
+  const updatedSkills = resumeValues.skills.filter(
+    (skill) => skill !== undefined
+  );
   if (id) {
     return prisma.resume.update({
       where: { id },
       data: {
         ...resumeValues,
+        skills: updatedSkills.length > 0 ? updatedSkills : [],
         photoUrl: newPhotoUrl,
         workExperiences: {
           deleteMany: {},
@@ -76,6 +79,7 @@ export async function saveResume(values: ResumeValues) {
     return prisma.resume.create({
       data: {
         ...resumeValues,
+        skills: [],
         userId,
         photoUrl: newPhotoUrl,
         workExperiences: {
