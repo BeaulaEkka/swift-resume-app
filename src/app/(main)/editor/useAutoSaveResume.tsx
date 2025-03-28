@@ -26,20 +26,21 @@ export default function useAutoSaveResume(
   }, [debouncedResumeData]);
 
   const save = useCallback(async () => {
+    if (!debouncedResumeData) return; // Prevents running save if data is null/undefined
     setIsSaving(true);
     try {
       // const newData = structuredClone(debouncedResumeData);
       const newData = {
-        ...structuredClone(debouncedResumeData),
-        skills: debouncedResumeData.skills ?? [], // Ensure skills is an array
-        title: debouncedResumeData.title ?? "", // Ensure title is a string
-        description: debouncedResumeData.description ?? "", // Ensure description is a string
-        summary: debouncedResumeData.summary ?? "", // Ensure summary is a string
+        ...structuredClone(debouncedResumeData ?? {}),
+        skills: debouncedResumeData?.skills ?? [],
+        title: debouncedResumeData?.title ?? "",
+        description: debouncedResumeData?.description ?? "",
+        summary: debouncedResumeData?.summary ?? "",
       };
 
       const updatedResume = await saveResume({
         ...newData,
-        ...(lastSavedData.photo?.toString() === newData.photo?.toString()
+        ...(lastSavedData?.photo?.toString() === newData.photo?.toString()
           ? { photo: undefined }
           : {}),
         id: resumeId,
