@@ -18,6 +18,13 @@ export default function GenerateSummaryButton({
 
   async function handleClick() {
     //TODO :Block for non-premium users
+    if (!resumeData) {
+      toast({
+        variant: "destructive",
+        description: "Resume data is missing. Please try again.",
+      });
+      return;
+    }
     try {
       setLoading(true);
       const aiResponse = await generateSummary(resumeData);
@@ -39,6 +46,7 @@ export default function GenerateSummaryButton({
       variant="outline"
       loading={loading}
       onClick={handleClick}
+      
     >
       <WandSparklesIcon className="size-4" />
       Generate Summary (AI)

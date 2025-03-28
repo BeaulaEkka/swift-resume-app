@@ -36,7 +36,7 @@ export default function GeneralInfoForm({
     });
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
-  
+
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
@@ -54,7 +54,12 @@ export default function GeneralInfoForm({
               <FormItem>
                 <FormLabel>Project Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="My cool resume" autoFocus />
+                  <Input
+                    {...field}
+                    placeholder="My cool resume"
+                    autoFocus
+                    value={field.value ?? ""}
+                  />
                 </FormControl>
               </FormItem>
             )}
@@ -71,6 +76,7 @@ export default function GeneralInfoForm({
                     {...field}
                     placeholder="Project Description"
                     autoFocus
+                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormDescription>

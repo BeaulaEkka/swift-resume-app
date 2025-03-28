@@ -6,7 +6,9 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import { saveResume } from "./actions";
 
-export default function useAutoSaveResume(resumeData: ResumeValues | undefined | null) {
+export default function useAutoSaveResume(
+  resumeData: ResumeValues | undefined | null,
+) {
   const searchParams = useSearchParams();
   const { toast } = useToast();
   const debouncedResumeData = useDebounce(resumeData, 1500);
