@@ -1,19 +1,21 @@
+"use client";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Check, CheckCheck } from "lucide-react";
+import { Check } from "lucide-react";
 import { Button } from "../ui/button";
+import usePremiumModal from "@/hooks/usePremiumModal";
 
 const premiumFeatures = ["AI tools", "Up to 3 resumes"];
 const premiumPlusFeatures = ["Infinite resumes", "Design customizations"];
 export default function PremiumModal() {
+  const { open, setOpen } = usePremiumModal();
   return (
-    <Dialog open>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Resume Builder Premium</DialogTitle>
