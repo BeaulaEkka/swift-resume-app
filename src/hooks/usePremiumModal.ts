@@ -7,6 +7,8 @@ interface PremiumModalState{
 }
 
 const usePremiumModal=create<PremiumModalState>()((set)=>({
+    open:false,
+    setOpen:(open:boolean)=>set({open})
 
 }))
 
