@@ -16,5 +16,15 @@ export async function createCheckoutSession(priceId: string) {
     success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/billing/success`,
     cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/billing`,
     customerr_email: user.emailAddresses[0].emailAddress,
+    subscription_data: {
+      metadata: {
+        user_id: user.id,
+      },
+    },
+    custom_text: {
+      terms_of_service_acceptance: {
+        message: `I have read AI Resume Builder's [terms of server]()`,
+      },
+    },
   });
 }
