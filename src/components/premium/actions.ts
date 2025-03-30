@@ -11,6 +11,10 @@ export async function createCheckoutSession(priceId: string) {
   }
 
   const session = await stripe.checkout.sessions.create({
-    
+    line_items: [{ price: priceId, qualtity: 1 }],
+    mode: "subscription",
+    success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/billing/success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/billing`,
+    customerr_email: user.emailAddresses[0].emailAddress,
   });
 }
