@@ -2,9 +2,8 @@ import prisma from "@/lib/prisma";
 import { resumeDataInclude } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
-import React from "react";
-import ResumeItem from "./ResumeItem";
 import CreateResumeButton from "./CreateResumeButton";
+import ResumeItem from "./ResumeItem";
 
 //page title
 export const metadata: Metadata = {

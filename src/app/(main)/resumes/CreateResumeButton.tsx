@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import usePremiumModal from "@/hooks/usePremiumModal";
 import { PlusSquare } from "lucide-react";
@@ -14,11 +14,13 @@ export default function CreateResumeButton({
   const premiumModal = usePremiumModal();
 
   if (canCreate) {
-    <Button asChild className="mx-auto flex w-fit gap-2">
-      <Link href="/editor">
-        <PlusSquare className="size-5" /> New Resume
-      </Link>
-    </Button>;
+    return (
+      <Button asChild className="mx-auto flex w-fit gap-2">
+        <Link href="/editor">
+          <PlusSquare className="size-5" /> New Resume
+        </Link>
+      </Button>
+    );
   }
   return (
     <Button
