@@ -22,7 +22,7 @@ export default function PremiumModal() {
 
   const [loading,setLoading]=useState(false)
 
-  const handlePremiumClick(priceId:string){
+  const handlePremiumClick=async(priceId:string)=>{
     try {
       setLoading(true)
       const redirectUrl = await createCheckoutSession(priceId);
