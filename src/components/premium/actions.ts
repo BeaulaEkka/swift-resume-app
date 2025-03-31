@@ -18,7 +18,7 @@ export async function createCheckoutSession(priceId: string) {
     customer_email: user.emailAddresses[0].emailAddress,
     subscription_data: {
       metadata: {
-        user_id: user.id,
+        user_id: user.id
       },
     },
     custom_text: {
