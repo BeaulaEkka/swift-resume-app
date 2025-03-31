@@ -12,13 +12,13 @@ export async function createCheckoutSession(priceId: string) {
 
   const session = await stripe.checkout.sessions.create({
     line_items: [{ price: priceId, quantity: 1 }],
-    mode: "subscription"
+    mode: "subscription",
     success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/billing/success`,
     cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/billing`,
     customer_email: user.emailAddresses[0].emailAddress,
     subscription_data: {
       metadata: {
-        user_id: user.id
+        user_id: user.id,
       },
     },
     custom_text: {
