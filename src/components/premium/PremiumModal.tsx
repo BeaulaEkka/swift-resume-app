@@ -9,13 +9,37 @@ import {
 import { Check } from "lucide-react";
 import { Button } from "../ui/button";
 import usePremiumModal from "@/hooks/usePremiumModal";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import { createCheckoutSession } from "./actions";
 
 const premiumFeatures = ["AI tools", "Up to 3 resumes"];
 const premiumPlusFeatures = ["Infinite resumes", "Design customizations"];
 export default function PremiumModal() {
   const { open, setOpen } = usePremiumModal();
+
+  const { toast } = useToast();
+
+  const [loading,setLoading]=useState(false)
+
+  const handlePremiumClick(priceId:string){
+    try {
+      setLoading(true)
+      const redirectUrl = await createCheckoutSession(priceId);
+      window.location.href = redirectUrl;
+      
+    } catch (error) {
+      console.log("error",error)
+      toast({
+        variant:"destructive",
+        description:"Something went wrong. Please try again."
+      })
+    }finally{
+      setLoading(false)
+    }
+  }
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={()=>{if(!loading)setOpen(open)}}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Resume Builder Premium</DialogTitle>
@@ -33,7 +57,7 @@ export default function PremiumModal() {
                   </li>
                 ))}
               </ul>
-              <Button>Get Premium</Button>
+              <Button onClick={()=>handlePremiumClick(process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_MONTHLY!)} disabled={loading}>Get Premium</Button>
             </div>
             <div className="border-1 mx-6 border" />
             <div className="flex w-1/2 flex-col space-y-5">
@@ -48,7 +72,7 @@ export default function PremiumModal() {
                   </li>
                 ))}
               </ul>
-              <Button variant="premium">Get Premium plus</Button>
+              <Button variant="premium" onClick={()=>handlePremiumClick(process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_PLUS_MONTHLY!)} disabled={loading}>Get Premium plus</Button>
             </div>
           </div>
         </DialogHeader>
