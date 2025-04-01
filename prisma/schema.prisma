@@ -78,3 +78,7 @@ model Education{
 
   @@map("educations") 
 }
+
+model Usersubscription{
+  
+}
