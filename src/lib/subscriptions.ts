@@ -3,7 +3,7 @@ import { cache } from "react";
 
 export type SubscriptionLevel = "free" | "pro" | "pro_plus";
 
-export const getUserSubscriptionlevel = cache(
+export const getUserSubscriptionLevel = cache(
   async (UserId: string): Promise<SubscriptionLevel> => {
     const subscription = await prisma.userSubscription.findUnique({
       where: {
