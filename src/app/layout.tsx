@@ -4,10 +4,10 @@ import "./globals.css";
 
 import {
   ClerkProvider,
-  // SignedIn,
-  // SignedOut,
-  // SignInButton,
-  // UserButton,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
 } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
@@ -36,12 +36,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {/* <SignedOut>
-            <SignInButton />{" "}
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn> */}
+            <SignedOut>
+              <SignInButton />{" "}
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
             {children}
             <Toaster />
           </ThemeProvider>
