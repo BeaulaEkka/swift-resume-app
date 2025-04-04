@@ -10,7 +10,7 @@ export function canCreateResume(
     pro_plus: Infinity,
   };
 
-  const maxResumes = maxResumeMap(subscriptionLevel);
+  const maxResumes = maxResumeMap[subscriptionLevel];
 
   return currentResumeCount < maxResumes;
 }
