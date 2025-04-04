@@ -14,3 +14,5 @@ export function canCreateResume(
 
   return currentResumeCount < maxResumes;
 }
+
+export function canUseAITools() {}
