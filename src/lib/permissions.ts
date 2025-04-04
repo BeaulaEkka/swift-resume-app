@@ -15,4 +15,10 @@ export function canCreateResume(
   return currentResumeCount < maxResumes;
 }
 
-export function canUseAITools() {}
+export function canUseAITools(subscriptionLevel: SubscriptionLevel) {
+  return subscriptionLevel !== "free";
+}
+
+export function canUseCustomizations(subscriptionLevel: SubscriptionLevel) {
+  return subscriptionLevel === "pro_plus";
+}
