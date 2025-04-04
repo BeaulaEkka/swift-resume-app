@@ -1,16 +1,20 @@
 import { env } from "@/env";
 import { cache } from "react";
+import prisma from "./prisma";
 
 export type SubscriptionLevel = "free" | "pro" | "pro_plus";
 
 export const getUserSubscriptionLevel = cache(
-  async (UserId: string): Promise<SubscriptionLevel> => {
+  async (userId: string): Promise<SubscriptionLevel> => {
     const subscription = await prisma.userSubscription.findUnique({
       where: {
         userId,
       },
     });
-    if (!subscription || subscription.stripeCurrentPeriodEnd < new Date()) {
+    if (
+      !subscription ||
+      new Date(subscription.stripeCurrentPeriodEnd).getTime() < Date.now()
+    ) {
       return "free";
     }
     if (

@@ -11,9 +11,8 @@ export default async function layout({
 }) {
   const { userId } = await auth();
 
-  const userSubscriptionLevel = await getUserSubscriptionLevel(userId);
-
   if (!userId) return null;
+  const userSubscriptionLevel = await getUserSubscriptionLevel(userId);
   return (
     <SubscriptionLevelProvider userSubscriptionLevel={userSubscriptionLevel}>
       <div className="flex min-h-screen flex-col">
