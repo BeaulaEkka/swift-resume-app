@@ -12,6 +12,8 @@ export async function createCheckoutSession(priceId: string) {
   }
 
   const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card", "ideal"],
+
     line_items: [{ price: priceId, quantity: 1 }],
     mode: "subscription",
     success_url: `${env.NEXT_PUBLIC_BASE_URL}/billing/success`,
