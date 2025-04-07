@@ -1,0 +1,25 @@
+// components/Header.tsx
+"use client";
+
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useSubscriptionLevel } from "../(main)/SubscriptionLevelProvider";
+
+export default function Header() {
+  const subscriptionLevel = useSubscriptionLevel();
+
+  return (
+    <header className="flex items-center justify-between border-b p-4">
+      <SignedIn>
+        <div className="flex items-center gap-4">
+          <UserButton />
+          <span className="text-sm text-gray-600">
+            Plan: <strong>{subscriptionLevel}</strong>
+          </span>
+        </div>
+      </SignedIn>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+    </header>
+  );
+}

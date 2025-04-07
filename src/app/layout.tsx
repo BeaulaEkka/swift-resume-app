@@ -4,13 +4,15 @@ import "./globals.css";
 
 import {
   ClerkProvider,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
+  // SignedIn,
+  // SignedOut,
+  // SignInButton,
+  // UserButton,
 } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
+import AppWrapper from "./components/AppWrapper";
+import Header from "./components/Header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,14 +38,17 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SignedOut>
+            {/* <SignedOut>
               <SignInButton />{" "}
             </SignedOut>
             <SignedIn>
               <UserButton />
-            </SignedIn>
-            {children}
-            <Toaster />
+            </SignedIn> */}
+            <AppWrapper>
+              <Header />
+              {children}
+              <Toaster />{" "}
+            </AppWrapper>
           </ThemeProvider>
         </body>
       </html>

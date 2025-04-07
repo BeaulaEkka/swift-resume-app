@@ -11,6 +11,14 @@ export const getUserSubscriptionLevel = cache(
         userId,
       },
     });
+
+    console.log("Subscription from DB:", subscription);
+    console.log(
+      "Expected priceId:",
+      env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_PLUS_MONTHLY
+    );
+    console.log("Current date:", new Date().toISOString());
+    console.log("End date:", subscription?.stripeCurrentPeriodEnd);
     if (
       !subscription ||
       new Date(subscription.stripeCurrentPeriodEnd).getTime() < Date.now()
