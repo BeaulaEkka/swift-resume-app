@@ -42,6 +42,12 @@ export async function saveResume(values: ResumeValues) {
     throw new Error("Resume not found");
   }
 
+  const hasCustomizations =
+    resumeValues.borderStyle &&
+    resumeValues.borderStyle !== existingResume?.borderStyle &&
+    resumeValues.colorHex &&
+    resumeValues.colorHex !== existingResume?.colorHex;
+
   let newPhotoUrl: string | undefined | null = undefined;
 
   if (photo instanceof File) {
