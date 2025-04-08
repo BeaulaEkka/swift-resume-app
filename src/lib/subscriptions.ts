@@ -8,9 +8,10 @@ export const getUserSubscriptionLevel = cache(
   async (userId: string): Promise<SubscriptionLevel> => {
     const subscription = await prisma.userSubscription.findUnique({
       where: {
-        userId,
+        userId: userId,
       },
     });
+    console.log("subscription", subscription);
 
     console.log("Subscription from DB:", subscription);
     console.log(

@@ -13,16 +13,14 @@ export async function createCheckoutSession(priceId: string) {
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card", "ideal"],
-
     line_items: [{ price: priceId, quantity: 1 }],
     mode: "subscription",
     success_url: `${env.NEXT_PUBLIC_BASE_URL}/billing/success`,
     cancel_url: `${env.NEXT_PUBLIC_BASE_URL}/billing`,
     customer_email: user.emailAddresses[0].emailAddress,
-    subscription_data: {
-      metadata: {
-        userId: user.id,
-      },
+
+    metadata: {
+      userId: user.id,
     },
     custom_text: {
       terms_of_service_acceptance: {

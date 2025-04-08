@@ -43,10 +43,10 @@ export async function saveResume(values: ResumeValues) {
   }
 
   const hasCustomizations =
-    resumeValues.borderStyle &&
-    resumeValues.borderStyle !== existingResume?.borderStyle &&
-    resumeValues.colorHex &&
-    resumeValues.colorHex !== existingResume?.colorHex;
+    (resumeValues.borderStyle &&
+      resumeValues.borderStyle !== existingResume?.borderStyle) ||
+    (resumeValues.colorHex &&
+      resumeValues.colorHex !== existingResume?.colorHex);
 
   let newPhotoUrl: string | undefined | null = undefined;
 
