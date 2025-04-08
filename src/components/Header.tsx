@@ -2,7 +2,7 @@
 "use client";
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { useSubscriptionLevel } from "../(main)/SubscriptionLevelProvider";
+import { useSubscriptionLevel } from "../app/(main)/SubscriptionLevelProvider";
 
 export default function Header() {
   const subscriptionLevel = useSubscriptionLevel();

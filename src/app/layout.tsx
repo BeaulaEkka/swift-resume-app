@@ -11,8 +11,8 @@ import {
 } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
-import AppWrapper from "./components/AppWrapper";
-import Header from "./components/Header";
+import AppWrapper from "../components/AppWrapper";
+import Header from "../components/Header";
 
 const inter = Inter({
   subsets: ["latin"],

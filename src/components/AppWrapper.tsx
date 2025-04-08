@@ -4,7 +4,7 @@
 import { useUser } from "@clerk/nextjs";
 
 import { SubscriptionLevel } from "@/lib/subscriptions";
-import SubscriptionLevelProvider from "../(main)/SubscriptionLevelProvider";
+import SubscriptionLevelProvider from "../app/(main)/SubscriptionLevelProvider";
 
 export default function AppWrapper({
   children,
