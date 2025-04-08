@@ -1,8 +1,8 @@
 // components/Header.tsx
 "use client";
 
+import { useSubscriptionLevel } from "@/app/(main)/SubscriptionLevelProvider";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { useSubscriptionLevel } from "../app/(main)/SubscriptionLevelProvider";
 
 export default function Header() {
   const subscriptionLevel = useSubscriptionLevel();
