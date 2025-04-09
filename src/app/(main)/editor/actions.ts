@@ -1,6 +1,6 @@
 "use server";
 
-import { canCreateResume } from "@/lib/permissions";
+import { canCreateResume, canUseCustomizations } from "@/lib/permissions";
 import prisma from "@/lib/prisma";
 import { getUserSubscriptionLevel } from "@/lib/subscriptions";
 import { resumeSchema, ResumeValues } from "@/lib/validation";
@@ -30,7 +30,9 @@ export async function saveResume(values: ResumeValues) {
       },
     });
     if (!canCreateResume(subscriptionLevel, resumeCount)) {
-      throw new Error("Maximum resume count reached for this subsction Level");
+      throw new Error(
+        "Maximum resume count reached for this subscription Level"
+      );
     }
   }
 
@@ -47,6 +49,27 @@ export async function saveResume(values: ResumeValues) {
       resumeValues.borderStyle !== existingResume?.borderStyle) ||
     (resumeValues.colorHex &&
       resumeValues.colorHex !== existingResume?.colorHex);
+
+  // if (hasCustomizations) {
+  //   await prisma.resume.updateMany({
+  //     where: {
+  //       userId,
+  //       id: {
+  //         not: id,
+  //       },
+  //     },
+  //     data: {
+  //       borderStyle: null,
+  //       colorHex: null,
+  //     },
+  //   });
+  // }
+
+  if (hasCustomizations && !canUseCustomizations(subscriptionLevel)) {
+    throw new Error(
+      "Customizations are not available for this subscription level"
+    );
+  }
 
   let newPhotoUrl: string | undefined | null = undefined;
 

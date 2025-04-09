@@ -12,6 +12,7 @@ export const getUserSubscriptionLevel = cache(
       },
     });
     console.log("subscription", subscription);
+    console.log("userId", userId);
 
     console.log("Subscription from DB:", subscription);
     console.log(

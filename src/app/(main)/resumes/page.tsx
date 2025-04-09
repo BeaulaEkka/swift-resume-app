@@ -43,6 +43,10 @@ export default async function page() {
         canCreate={canCreateResume(subscriptionLevel, totalCount)}
       />
       <p className="capitalize">Your Resumes</p>
+      <p className="Capitalize">
+        <span className="text-xl text-bold">Subscription: </span>
+        {subscriptionLevel}
+      </p>
       <div className="space-y-1">
         <h1 className="text-3xl font-bold">Your resumes</h1>
         <p>Total:{totalCount}</p>

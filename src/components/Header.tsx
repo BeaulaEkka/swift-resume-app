@@ -6,6 +6,9 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   const subscriptionLevel = useSubscriptionLevel();
+  console.log("Subscription Level:", subscriptionLevel);
+  console.log("Current date:", new Date().toISOString());
+  
 
   return (
     <header className="flex items-center justify-between border-b p-4">

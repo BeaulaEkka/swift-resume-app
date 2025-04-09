@@ -1,6 +1,11 @@
-import { buffer } from "micro";
-import Stripe from "stripe";
+import { NextRequest } from "next/server";
+import { headers } from "next/headers";
+import { Stripe } from "stripe";
 import prisma from "@/lib/prisma";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+//   apiVersion: "2023-10-16",
+});
 
 export const config = {
   api: {
@@ -8,27 +13,22 @@ export const config = {
   },
 };
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2023-10-16",
-});
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-
-export default async function handler(req: any, res: any) {
-  if (req.method !== "POST") {
-    return res.status(405).end("Method Not Allowed");
-  }
-
-  const buf = await buffer(req);
-  const sig = req.headers["stripe-signature"];
+export async function POST(req: NextRequest) {
+  const body = await req.arrayBuffer(); // raw body needed for Stripe signature
+  const rawBody = Buffer.from(body);
+  const signature = headers().get("stripe-signature") as string;
 
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(buf, sig!, webhookSecret);
-  } catch (err) {
-    console.error("Webhook signature verification failed.", err);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    event = stripe.webhooks.constructEvent(
+      rawBody,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (err: any) {
+    console.error("Webhook signature verification failed.", err.message);
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
   }
 
   switch (event.type) {
@@ -39,7 +39,6 @@ export default async function handler(req: any, res: any) {
       const customerId = session.customer as string;
       const subscriptionId = session.subscription as string;
 
-      // Fetch subscription details
       const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
       if (userId && subscription) {
@@ -66,9 +65,10 @@ export default async function handler(req: any, res: any) {
               stripeCancelAtPeriodEnd: subscription.cancel_at_period_end,
             },
           });
-          console.log("Subscription saved in DB");
+
+          console.log("✅ Subscription saved in DB");
         } catch (err) {
-          console.error("Failed to save subscription:", err);
+          console.error("❌ Failed to save subscription:", err);
         }
       }
       break;
@@ -77,5 +77,5 @@ export default async function handler(req: any, res: any) {
       console.log(`Unhandled event type: ${event.type}`);
   }
 
-  res.status(200).json({ received: true });
+  return new Response(JSON.stringify({ received: true }), { status: 200 });
 }
