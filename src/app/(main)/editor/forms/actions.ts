@@ -8,9 +8,22 @@ import {
   WorkExperience,
 } from "@/lib/validation";
 import { model } from "@/lib/geminiai";
+import { auth } from "@clerk/nextjs/server";
+import { getUserSubscriptionLevel } from "@/lib/subscriptions";
+import { canUseCustomizations } from "@/lib/permissions";
 
 export async function generateSummary(input: GenerateSummaryInput) {
-  // TODO: Block for non-premium users
+  // Block for non-premium users
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
+  const subscriptionLevel = await getUserSubscriptionLevel(userId);
+  if (!canUseCustomizations(subscriptionLevel)) {
+    throw new Error("You need a premium subscription to use this feature.");
+  }
+  // Validate input data
 
   const { jobTitle, workExperiences, educations, skills } =
     generateSummarySchema.parse(input);
@@ -71,6 +84,18 @@ export async function generateWorkExperience(
   input: GenerateWorkExperienceInput
 ) {
   //Block for non premium users
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
+  const subscriptionLevel = await getUserSubscriptionLevel(userId);
+  
+  if (!canUseCustomizations(subscriptionLevel)) {
+    throw new Error("You need a premium subscription to use this feature.");
+  }
+
   const { description } = generateWorkExperiencesSchema.parse(input);
 
   const systemMessage = `

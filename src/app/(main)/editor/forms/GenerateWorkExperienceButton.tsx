@@ -27,6 +27,9 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import LoadingButton from "@/components/LoadingButton";
+import { useSubscriptionLevel } from "../../SubscriptionLevelProvider";
+import usePremiumModal from "@/hooks/usePremiumModal";
+import { canUseAITools } from "@/lib/permissions";
 
 interface GenerateWorkExperienceButtonProps {
   onWorkExperienceGenerated: (workExperience: WorkExperience) => void;
@@ -37,13 +40,22 @@ export default function GenerateWorkExperienceButton({
 }: GenerateWorkExperienceButtonProps) {
   const [showInputDialog, setShowInputDialog] = useState(false);
 
+  const subscription = useSubscriptionLevel();
+  const premiumMode = usePremiumModal();
+
   return (
     <>
       <Button
         variant="outline"
         type="button"
         // todo:block for non-premium users
-        onClick={() => setShowInputDialog(true)}
+        onClick={() => {
+          if (!canUseAITools(subscription)) {
+            premiumMode.setOpen(true);
+            return;
+          }
+          setShowInputDialog(true);
+        }}
       >
         <WandSparklesIcon />
         Smart Fill (AI)
