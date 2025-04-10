@@ -4,6 +4,9 @@ import { ResumeValues } from "@/lib/validation";
 import { WandSparklesIcon } from "lucide-react";
 import { useState } from "react";
 import { generateSummary } from "./actions";
+import { useSubscriptionLevel } from "../../SubscriptionLevelProvider";
+import usePremiumModal from "@/hooks/usePremiumModal";
+import { canUseAITools } from "@/lib/permissions";
 
 interface GenerateSummaryButtonProps {
   resumeData: ResumeValues;
@@ -16,8 +19,14 @@ export default function GenerateSummaryButton({
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
+  const subscription = useSubscriptionLevel();
+  const premiumMode = usePremiumModal();
+
   async function handleClick() {
-    //TODO :Block for non-premium users
+    if (!canUseAITools(subscription)) {
+      premiumMode.setOpen(true);
+      return;
+    }
     if (!resumeData) {
       toast({
         variant: "destructive",
@@ -33,7 +42,7 @@ export default function GenerateSummaryButton({
       console.error(error);
       toast({
         variant: "destructive",
-        description: "Something went wrong. Please ty again",
+        description: "Something went wrong. Please try again",
       });
     } finally {
       setLoading(false);
@@ -46,7 +55,8 @@ export default function GenerateSummaryButton({
       variant="outline"
       loading={loading}
       onClick={handleClick}
-      
+      disabled={loading}
+      aria-label="Generate AI Summary"
     >
       <WandSparklesIcon className="size-4" />
       Generate Summary (AI)

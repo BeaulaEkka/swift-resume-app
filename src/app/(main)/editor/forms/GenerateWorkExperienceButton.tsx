@@ -48,7 +48,6 @@ export default function GenerateWorkExperienceButton({
       <Button
         variant="outline"
         type="button"
-        // todo:block for non-premium users
         onClick={() => {
           if (!canUseAITools(subscription)) {
             premiumMode.setOpen(true);
