@@ -108,7 +108,6 @@ export async function POST(req: Request) {
         },
         update: {
           stripePriceId: subscription.items.data[0].price.id,
-          stripeStatus: subscription.status,
           currentPeriodEnd: new Date(subscription.current_period_end * 1000),
           stripeCurrentPeriodEnd: new Date(
             subscription.current_period_end * 1000
