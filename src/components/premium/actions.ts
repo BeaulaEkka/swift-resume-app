@@ -11,13 +11,22 @@ export async function createCheckoutSession(priceId: string) {
     throw new Error("Unauthorized");
   }
 
+  //because there could be similar email addresses in the database, we need to use the userId to identify the user
+  const stripeCustomerId = user.publicMetadata.stripeCustomerId as
+    | string
+    | undefined;
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card", "ideal"],
     line_items: [{ price: priceId, quantity: 1 }],
     mode: "subscription",
     success_url: `${env.NEXT_PUBLIC_BASE_URL}/billing/success`,
     cancel_url: `${env.NEXT_PUBLIC_BASE_URL}/billing`,
-    customer_email: user.emailAddresses[0].emailAddress,
+    customer: stripeCustomerId,
+    //we cant use both email and customerId in the same request, so we need to check if the customerId is present or not
+    customer_email: stripeCustomerId
+      ? undefined
+      : user.emailAddresses[0].emailAddress,
 
     metadata: {
       userId: user.id,
@@ -29,7 +38,7 @@ export async function createCheckoutSession(priceId: string) {
     },
     custom_text: {
       terms_of_service_acceptance: {
-        message: `I have read AI Resume Builder's [terms of service](${env.NEXT_PUBLIC_BASE_URL}/tos) and agree to them`,
+        message: `I have read and understood AI Resume Builder's [Terms of Service](${env.NEXT_PUBLIC_BASE_URL}/tos) and agree to them`,
       },
     },
     consent_collection: {
