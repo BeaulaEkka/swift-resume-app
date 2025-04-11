@@ -50,6 +50,7 @@ export async function POST(req: Request) {
   async function handleSessionCompleted(session: Stripe.Checkout.Session) {
     console.log("Session completed:", session);
     // Here you can handle the session completion, e.g., update your database
+    const userId = session.metadata.userId;
   }
 
   async function handleSubscriptionCreatedOrUpdated(subscriptionId: string) {
