@@ -118,14 +118,17 @@ export async function POST(req: Request) {
     } else {
       await prisma.userSubscription.deleteMany({
         where: {
-          stripeCustomerId: subscription.customer as string,
+          stripeCustomer: subscription.customer as string,
         },
       });
     }
   }
 
   async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
-    console.log("Subscription deleted:", subscription.id);
-    // Here you can handle the subscription deletion, e.g., update your database
+    await prisma.userSubscription.deleteMany({
+      where: {
+        stripeCustomer: subscription.customer as string,
+      },
+    });
   }
 }
