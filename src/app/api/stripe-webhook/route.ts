@@ -108,7 +108,6 @@ export async function POST(req: Request) {
         },
         update: {
           stripePriceId: subscription.items.data[0].price.id,
-          currentPeriodEnd: new Date(subscription.current_period_end * 1000),
           stripeCurrentPeriodEnd: new Date(
             subscription.current_period_end * 1000
           ),
@@ -118,7 +117,7 @@ export async function POST(req: Request) {
     } else {
       await prisma.userSubscription.deleteMany({
         where: {
-          stripeCustomer: subscription.customer as string,
+          stripeCustomerId: subscription.customer as string,
         },
       });
     }
@@ -127,7 +126,7 @@ export async function POST(req: Request) {
   async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     await prisma.userSubscription.deleteMany({
       where: {
-        stripeCustomer: subscription.customer as string,
+        stripeCustomerId: subscription.customer as string,
       },
     });
   }
