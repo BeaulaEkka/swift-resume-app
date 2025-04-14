@@ -36,6 +36,7 @@ export async function createCheckoutSession(priceId: string) {
         userId: user.id,
       },
     },
+    client_reference_id: user.id,
     custom_text: {
       terms_of_service_acceptance: {
         message: `I have read and understood AI Resume Builder's [Terms of Service](${env.NEXT_PUBLIC_BASE_URL}/tos) and agree to them`,

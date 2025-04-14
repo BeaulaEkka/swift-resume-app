@@ -33,12 +33,12 @@ export default function BorderStyleButton({
     onChange(borderStyles[nextIndex]);
   }
 
-  const Icon =
-    borderStyle === "square"
-      ? Square
-      : borderStyle === "circle"
-        ? Circle
-        : Squircle;
+  // const Icon =
+  //   borderStyle === "square"
+  //     ? Square
+  //     : borderStyle === "circle"
+  //       ? Circle
+  //       : Squircle;
   return (
     <Button
       variant="outline"
