@@ -8,6 +8,7 @@ import { getUserSubscriptionLevel } from "@/lib/subscriptions";
 import { canCreateResume } from "@/lib/permissions";
 import stripe from "@/lib/stripe";
 import { JSX } from "react";
+import Stripe from "stripe";
 
 //page title
 export const metadata: Metadata = {
@@ -26,7 +27,9 @@ export default async function page(): Promise<JSX.Element | null> {
   });
 
   const priceInfo = subscription
-    ? await stripe.prices.retrieve(subscription.stripePriceId)
+    ? await stripe.prices.retrieve(subscription.stripePriceId, {
+        expand: ["product"],
+      })
     : null;
 
   const [resumes, totalCount, subscriptionLevel] = await Promise.all([
@@ -57,7 +60,7 @@ export default async function page(): Promise<JSX.Element | null> {
       <p className="capitalize">Your Resumes</p>
       <p className="capitalize">
         <span className="text-bold text-xl">Subscription: </span>
-        {subscriptionLevel}
+        {priceInfo ? (priceInfo.product as Stripe.Product).name : "Free"}
       </p>
       <div className="space-y-1">
         <h1 className="text-3xl font-bold">Your resumes</h1>
