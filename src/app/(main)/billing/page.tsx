@@ -1,11 +1,14 @@
-import React from 'react'
+import { auth } from "@clerk/nextjs/server";
+import { Metadata } from "next";
 
-export default function page() {
-  return (
-    <main>billing
-      
-    </main>
-  )
+export const metadata: Metadata = {
+  title: "Billing",
+};
+
+export default async function page() {
+  const { userId } = await auth();
+  if (!userId) {
+    return null;
+  }
+  return <main>billing</main>;
 }
-
-

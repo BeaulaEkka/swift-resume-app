@@ -6,16 +6,28 @@ import CreateResumeButton from "./CreateResumeButton";
 import ResumeItem from "./ResumeItem";
 import { getUserSubscriptionLevel } from "@/lib/subscriptions";
 import { canCreateResume } from "@/lib/permissions";
+import stripe from "@/lib/stripe";
+import { JSX } from "react";
 
 //page title
 export const metadata: Metadata = {
   title: "Your Resumes",
 };
-export default async function page() {
+export default async function page(): Promise<JSX.Element | null> {
   const { userId } = await auth();
   if (!userId) {
     return null;
   }
+
+  const subscription = await prisma.userSubscription.findUnique({
+    where: {
+      userId,
+    },
+  });
+
+  const priceInfo = subscription
+    ? await stripe.prices.retrieve(subscription.stripePriceId)
+    : null;
 
   const [resumes, totalCount, subscriptionLevel] = await Promise.all([
     prisma.resume.findMany({
@@ -43,8 +55,8 @@ export default async function page() {
         canCreate={canCreateResume(subscriptionLevel, totalCount)}
       />
       <p className="capitalize">Your Resumes</p>
-      <p className="Capitalize">
-        <span className="text-xl text-bold">Subscription: </span>
+      <p className="capitalize">
+        <span className="text-bold text-xl">Subscription: </span>
         {subscriptionLevel}
       </p>
       <div className="space-y-1">
