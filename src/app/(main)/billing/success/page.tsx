@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 
+
 export default function Page() {
   return (
     <main className="mx-auto max-w-7xl space-y-6 px-3 py-6 text-center">
@@ -10,6 +11,7 @@ export default function Page() {
       <Button asChild>
         <Link href="/resumes">Go to resumes</Link>
       </Button>
+      
     </main>
   );
 }

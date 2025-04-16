@@ -3,7 +3,7 @@
 import stripe from "@/lib/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 
-export async function createCustomerPoralSession() {
+export async function createCustomerPortalSession() {
   const user = await currentUser();
   if (!user) {
     throw new Error("User not found");
