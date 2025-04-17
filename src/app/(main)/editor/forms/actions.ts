@@ -65,8 +65,7 @@ export async function generateSummary(input: GenerateSummaryInput) {
 
     Skills: ${skills?.join(", ") || "N/A"}
   `;
-  console.log("system message", systemMessage);
-  console.log("User message", userMessage);
+
 
   const prompt = `${systemMessage}\n\n${userMessage}`;
 
@@ -122,7 +121,7 @@ export async function generateWorkExperience(
   if (!aiResponse) {
     throw new Error("Failed to genereate AI response");
   }
-  console.log("aiResponse", aiResponse);
+  
   return {
     position: aiResponse.match(/Job Title:\s*(.*)/)?.[1] || "",
     company: aiResponse.match(/Company:\s*(.*)/)?.[1] || "",

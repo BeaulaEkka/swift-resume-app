@@ -8,7 +8,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
 });
 
 export async function POST(req: Request) {
-  console.log("🔥 Webhook endpoint hit");
   const signature = req.headers.get("stripe-signature") || "";
   const payload = await req.text();
 
@@ -25,7 +24,6 @@ export async function POST(req: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET || ""
     );
-    console.log(`Webhook event received: ${event.type}`, event.data.object);
 
     // Handle the event
     switch (event.type) {
@@ -40,7 +38,6 @@ export async function POST(req: Request) {
         await handleSubscriptionDeleted(event.data.object);
         break;
       default:
-        console.log(`Unhandled event type ${event.type}`);
         break;
     }
 
@@ -52,7 +49,6 @@ export async function POST(req: Request) {
   }
 
   async function handleSessionCompleted(session: Stripe.Checkout.Session) {
-    console.log("Session completed:", session);
     // Here you can handle the session completion, e.g., update your database
     const userId = session.metadata?.userId;
 
@@ -77,14 +73,12 @@ export async function POST(req: Request) {
           subscribed: true,
         },
       });
-      console.log("User metadata updated in Clerk.");
     } catch (err) {
       console.error("Failed to update user metadata in Clerk:", err);
     }
   }
 
   async function handleSubscriptionCreatedOrUpdated(subscriptionId: string) {
-    console.log("Subscription created or updated:", subscriptionId);
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
     if (
@@ -92,7 +86,6 @@ export async function POST(req: Request) {
       subscription.status === "trialing" ||
       subscription.status === "past_due"
     ) {
-      console.log("Upserting subscription to database...");
       await prisma.userSubscription.upsert({
         where: {
           userId: subscription.metadata.userId,
@@ -117,7 +110,6 @@ export async function POST(req: Request) {
           stripeCancelAtPeriodEnd: subscription.cancel_at_period_end,
         },
       });
-      console.log("Upsert complete.");
     } else {
       await prisma.userSubscription.deleteMany({
         where: {
