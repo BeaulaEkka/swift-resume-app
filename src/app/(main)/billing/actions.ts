@@ -9,7 +9,7 @@ export async function createCustomerPortalSession() {
     throw new Error("User not found");
   }
 
-  const stripeCustomerId = user.publicMetadata.stripeCustomer as
+  const stripeCustomerId = user.privateMetadata.stripeCustomerId as
     | string
     | undefined;
   if (!stripeCustomerId) {
@@ -18,7 +18,7 @@ export async function createCustomerPortalSession() {
 
   const session = await stripe.billingPortal.sessions.create({
     customer: stripeCustomerId,
-    return_url: process.env.NEXT_PUBLIC_SITE_URL,
+    return_url: process.env.NEXT_PUBLIC_BASE_URL,
   });
   if (!session.url) {
     throw new Error("Session URL not found");

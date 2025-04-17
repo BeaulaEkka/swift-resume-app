@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Stripe from "stripe";
 import GetSubscriptionButton from "./GetSubscriptionButton";
 import { formatDate } from "date-fns";
+import ManageSubscriptionButton from "./success/ManageSubscriptionButton";
 
 export const metadata: Metadata = {
   title: "Billing",
@@ -40,9 +41,10 @@ export default async function page() {
           {subscription.stripeCancelAtPeriodEnd && (
             <p>
               Your subscription will end on{" "}
-              {formatDate(subscription.stripeCurrentPeriodEnd, "MMM dd,yyyy")}
+              {formatDate(subscription.stripeCurrentPeriodEnd, "MMMM dd,yyyy")}
             </p>
           )}
+          <ManageSubscriptionButton />
         </>
       ) : (
         <GetSubscriptionButton />

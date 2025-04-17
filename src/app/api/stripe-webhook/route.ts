@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
 });
 
 export async function POST(req: Request) {
-   console.log("🔥 Webhook endpoint hit");
+  console.log("🔥 Webhook endpoint hit");
   const signature = req.headers.get("stripe-signature") || "";
   const payload = await req.text();
 
@@ -108,7 +108,7 @@ export async function POST(req: Request) {
           ),
           stripeCancelAtPeriodEnd: subscription.cancel_at_period_end,
         },
-        
+
         update: {
           stripePriceId: subscription.items.data[0].price.id,
           stripeCurrentPeriodEnd: new Date(

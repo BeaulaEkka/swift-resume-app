@@ -16,7 +16,7 @@ export const config = {
 export async function POST(req: NextRequest) {
   const body = await req.arrayBuffer(); // raw body needed for Stripe signature
   const rawBody = Buffer.from(body);
-  const signature = headers().get("stripe-signature") as string;
+  const signature = (await headers()).get("stripe-signature") as string;
 
   let event: Stripe.Event;
 
