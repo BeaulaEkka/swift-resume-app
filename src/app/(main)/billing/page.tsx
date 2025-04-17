@@ -39,9 +39,14 @@ export default async function page() {
       {subscription ? (
         <>
           {subscription.stripeCancelAtPeriodEnd && (
-            <p>
+            <p className="text-sm text-red-500">
               Your subscription will end on{" "}
-              {formatDate(subscription.stripeCurrentPeriodEnd, "MMMM dd,yyyy")}
+              <span className="font-semibold">
+                {formatDate(
+                  subscription.stripeCurrentPeriodEnd,
+                  "MMMM dd, yyyy",
+                )}
+              </span>
             </p>
           )}
           <ManageSubscriptionButton />
