@@ -2,7 +2,6 @@ import ResumePreview from "@/components/ResumePreview";
 import { ResumeValues } from "@/lib/validation";
 import React from "react";
 import ColorPicker from "./ColorPicker";
-// import { colors } from "@clerk/themes/dist/clerk-js/src/ui/foundations/colors";
 import BorderStyleButton from "./BorderStyleButton";
 import { cn } from "@/lib/utils";
 

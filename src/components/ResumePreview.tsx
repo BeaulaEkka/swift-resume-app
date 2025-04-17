@@ -54,7 +54,6 @@ export default function ResumePreview({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        {/* <pre>{JSON.stringify(resumeData, null, 2)}</pre> */}
         <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
         <SummarySection resumeData={resumeData || defaultResumeData} />
         <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
@@ -114,22 +113,21 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       <div className="space-y-2.5">
         <div className="space-y-1">
           <p
-            className="text-3xl font-bold"
+            className="text-3xl font-bold capitalize"
             style={{ color: colorHex ?? "#000" }}
           >
-            {firstName}
-            {lastName}
+            {firstName} <span>{lastName}</span>
           </p>
           <p className="font-medium">{jobTitle}</p>
-          <p className="text-xs text-gray-500">
+          <div className="space-y-1 text-sm text-gray-500">
             {city}
             {city && country ? ", " : ""}
 
             {country}
-            {(city || country) && (phone || email) ? " \| " : ""}
+            {(city || country) && (phone || email) ? " " : ""}
             <br />
-            {[phone, email].filter(Boolean).join(" \| ")}
-          </p>
+            <p> {[phone, email].filter(Boolean).join(" \| ")}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -142,7 +140,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
   if (!summary) return null;
 
   return (
-    <>
+    <div className="space-y-3 pt-4">
       <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="break-inside-avoid space-y-3">
         <p
@@ -155,7 +153,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
         </p>
         <div className="whitespace-pre-line text-sm">{summary}</div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -169,7 +167,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
   if (!workExperienceNotEmpty?.length) return null;
 
   return (
-    <>
+    <div className="space-y-3 pt-4">
       <hr
         className="mt-4 border-2"
         style={{ borderColor: colorHex ?? "#000" }}
@@ -202,7 +200,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -216,7 +214,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
   // console.log("educationNotEmpty", educationNotEmpty);
 
   return (
-    <>
+    <div className="space-y-3 pt-4">
       <hr
         className="mt-4 border-2"
         style={{ borderColor: colorHex ?? "#000" }}
@@ -245,7 +243,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -253,7 +251,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
   const { skills, colorHex, borderStyle } = resumeData;
   if (!skills?.length) return null;
   return (
-    <div>
+    <div className="space-y-3 pt-4">
       <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="space-y-3">
         <p
