@@ -100,7 +100,7 @@ function InputDialog({
       console.log(error);
       toast.toast({
         variant: "destructive",
-        description: " Something went wrong.Please try again",
+        description: " Something went wrong. Please try again",
       });
     }
   }
@@ -113,8 +113,8 @@ function InputDialog({
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>
-            Describe this work experience and the AI will generate an optimized
-            entry for you.
+            Describe your work experience and the AI will generate an optimized
+            version for you.
           </DialogDescription>
         </DialogHeader>
 
@@ -129,7 +129,7 @@ function InputDialog({
                   <FormControl>
                     <Textarea
                       {...field}
-                      placeholder={`Eg. I worked at Google as a software engineer,tasks were:...`}
+                      placeholder={`Eg. I worked at Google as a software engineer, tasks were: ...`}
                       autoFocus
                     />
                   </FormControl>

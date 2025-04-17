@@ -211,7 +211,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
     (edu) => Object.values(edu).filter(Boolean).length > 0,
   );
   if (!educationNotEmpty?.length) return null;
-  // console.log("educationNotEmpty", educationNotEmpty);
+  
 
   return (
     <div className="space-y-3 pt-4">

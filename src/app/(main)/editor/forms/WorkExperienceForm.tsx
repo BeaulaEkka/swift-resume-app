@@ -251,7 +251,7 @@ function WorkExperienceItem({
         />
       </div>
       <FormDescription>
-        Leave <span className="font-semibold">end date</span> empty if you are
+        Leave <span className="font-semibold">End Date</span> empty if you are
         currently working here.
       </FormDescription>
 
