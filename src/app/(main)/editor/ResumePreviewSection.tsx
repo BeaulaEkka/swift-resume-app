@@ -5,7 +5,7 @@ import ColorPicker from "./ColorPicker";
 import BorderStyleButton from "./BorderStyleButton";
 import { cn } from "@/lib/utils";
 
-import LayoutStyleButton from "./LayoutStyleButton";
+import LayoutStyleButton from "./layouts/LayoutStyleButton";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;

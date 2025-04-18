@@ -1,20 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { LayoutDashboardIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function LayoutStyleButton() {
-  function handleClick() {
-    // Logic to change the layout style goes here
-    console.log("Layout style changed!");
-  }
+  const router = useRouter();
+
   return (
     <Button
       variant="outline"
       size="icon"
       title="change layout style"
-      onClick={handleClick}
+      onClick={() => router.push("/editor/layouts")}
     >
       <LayoutDashboardIcon className="size-5" />
+      Change Layout
     </Button>
   );
 }
