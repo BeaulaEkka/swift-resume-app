@@ -3,17 +3,17 @@ export type ResumeLayout = "classic" | "modern" | "creative";
 export const layoutStyles = {
   classic: {
     id: "classic",
-    name: "Classic",
+    name: "Layout1",
     className: "resume-classic",
   },
   modern: {
     id: "modern",
-    name: "Modern",
+    name: "Layout2",
     className: "resume-modern",
   },
   creative: {
     id: "creative",
-    name: "Creative",
+    name: "Layout3",
     className: "resume-creative",
   },
 };

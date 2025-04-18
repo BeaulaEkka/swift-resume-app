@@ -4,7 +4,6 @@ import React from "react";
 import ColorPicker from "./ColorPicker";
 import BorderStyleButton from "./BorderStyleButton";
 import { cn } from "@/lib/utils";
-
 import LayoutStyleButton from "./layouts/LayoutStyleButton";
 
 interface ResumePreviewSectionProps {

@@ -1,30 +1,28 @@
 "use client";
-
-import { layoutStyles } from "@/lib/layoutStyles";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
 
 export default function LayoutSelectionPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const resumeId = searchParams.get("resumeId");
 
-  const handleSelect = (layoutId: string) => {
-    router.push(`/?selectedLayout=${layoutId}`);
+  const selectLayout = (layoutName: string) => {
+    if (!resumeId) return;
+    router.push(`/editor?resumeId=${resumeId}&layout=${layoutName}`);
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 md:grid-cols-3">
-      {Object.values(layoutStyles).map((layout) => (
-        <div
-          key={layout.id}
-          className="cursor-pointer rounded border p-4 shadow hover:bg-gray-100"
-          onClick={() => handleSelect(layout.id)}
-        >
-          <h3 className="text-lg font-semibold">{layout.name}</h3>
-          {/* optionally preview layout thumbnails */}
-          <div className={`h-40 w-full ${layout.className}`}>
-            [Preview Here]
-          </div>
-        </div>
-      ))}
+    <div className="p-6">
+      <h1 className="mb-4 text-xl font-bold">Choose a layout</h1>
+      <div className="flex gap-4">
+        <button onClick={() => selectLayout("Layout1")} className="border p-4">
+          Layout 1
+        </button>
+        <button onClick={() => selectLayout("Layout2")} className="border p-4">
+          Layout 2
+        </button>
+      </div>
     </div>
   );
 }
