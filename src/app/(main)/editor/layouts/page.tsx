@@ -1,28 +1,94 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
 
-export default function LayoutSelectionPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const resumeId = searchParams.get("resumeId");
+import React, { useState } from "react";
 
-  const selectLayout = (layoutName: string) => {
-    if (!resumeId) return;
-    router.push(`/editor?resumeId=${resumeId}&layout=${layoutName}`);
-  };
+import { useSearchParams } from "next/navigation";
+
+import { ResumeValues } from "@/lib/validation";
+
+import { cn, mapToResumeValues } from "@/lib/utils";
+import useUnloadWarning from "@/hooks/useUnloadWarning";
+
+import { ResumeServerData } from "@/lib/types";
+import useAutoSaveResume from "../useAutoSaveResume";
+import { steps } from "../steps";
+import BreadCrumbs from "../BreadCrumbs";
+import ResumePreviewSection from "../ResumePreviewSection";
+import Footer from "../Footer";
+
+interface ResumeEditorProps {
+  resumeToEdit: ResumeServerData | null;
+}
+
+export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
+  const searchparams = useSearchParams();
+
+  const [resumeData, setResumeData] = useState<ResumeValues>(
+    resumeToEdit
+      ? mapToResumeValues(resumeToEdit)
+      : { skills: [], title: "", description: "", firstName: "", lastName: "" },
+  );
+
+  const [showSmResumePreview, setShowSmResumePreview] = useState(false);
+
+  const { isSaving, hasUnsavedChanges } = useAutoSaveResume(resumeData);
+
+  useUnloadWarning(hasUnsavedChanges);
+
+  const currentStep = searchparams.get("step") || steps[0].key;
+
+  function setStep(key: string) {
+    const newSearchParams = new URLSearchParams(searchparams);
+    newSearchParams.set("step", key);
+    window.history.pushState(null, "", `?${newSearchParams.toString()}`);
+  }
+
+  const FormComponent = steps.find(
+    (step) => step.key === currentStep,
+  )?.component;
 
   return (
-    <div className="p-6">
-      <h1 className="mb-4 text-xl font-bold">Choose a layout</h1>
-      <div className="flex gap-4">
-        <button onClick={() => selectLayout("Layout1")} className="border p-4">
-          Layout 1
-        </button>
-        <button onClick={() => selectLayout("Layout2")} className="border p-4">
-          Layout 2
-        </button>
-      </div>
+    <div className="flex grow flex-col border border-red-500">
+      <header className="space-y-1.5 border-b px-3 py-5 text-center">
+        <h1 className="text-2xl font-bold">Design your resume</h1>
+        <p className="text-sm text-muted-foreground">
+          Follow the steps below to create your resume. Your progress will be
+          saved automatically
+        </p>
+      </header>
+      <main className="grow">
+        <div className="flex w-full">
+          <div
+            className={cn(
+              "w-full space-y-6 overflow-y-auto p-3 md:w-1/2",
+              showSmResumePreview && "hidden",
+            )}
+          >
+            <BreadCrumbs currentStep={currentStep} setCurrentStep={setStep} />
+            {FormComponent && (
+              <FormComponent
+                key={currentStep}
+                resumeData={resumeData}
+                setResumeData={setResumeData}
+              />
+            )}
+          </div>
+          <div className="grow md:border-r" />
+
+          <ResumePreviewSection
+            resumeData={resumeData}
+            setResumeData={setResumeData}
+            className={cn(showSmResumePreview && "flex")}
+          />
+        </div>
+      </main>
+      <Footer
+        currentStep={currentStep}
+        setCurrentStep={setStep}
+        showSmResumePreview={showSmResumePreview}
+        setShowSmResumePreview={setShowSmResumePreview}
+        isSaving={isSaving}
+      />
     </div>
   );
 }
