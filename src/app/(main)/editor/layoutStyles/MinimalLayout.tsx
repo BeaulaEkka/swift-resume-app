@@ -5,8 +5,9 @@ import { ResumeValues } from "@/lib/validation";
 import Image from "next/image";
 import { formatDate } from "date-fns";
 import React, { RefObject, useEffect, useRef, useState } from "react";
-import { Badge } from "./ui/badge";
+
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
+import { Badge } from "@/components/ui/badge";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -30,7 +31,7 @@ const defaultResumeData: ResumeValues = {
   skills: [],
 };
 
-export default function ResumePreview({
+export default function MinimalLayout({
   resumeData,
   contentRef,
   className,

@@ -7,12 +7,18 @@ import { formatDate } from "date-fns";
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import { Badge } from "./ui/badge";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
+import {
+  DefaultLayout,
+  LayoutType,
+  MinimalLayout,
+  ModernLayout,
+} from "@/app/(main)/editor/layoutStyles/layoutStyles";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
+  selectedLayout?: LayoutType;
   contentRef?: React.Ref<HTMLDivElement>;
   className?: string;
-  
 }
 const defaultResumeData: ResumeValues = {
   firstName: "",
@@ -29,17 +35,27 @@ const defaultResumeData: ResumeValues = {
   workExperiences: [],
   educations: [],
   skills: [],
-  
 };
 
 export default function ResumePreview({
   resumeData,
+  selectedLayout = LayoutType.DEFAULT,
   contentRef,
   className,
 }: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef as RefObject<HTMLElement>);
 
+  const getLayoutComponent = () => {
+    switch (selectedLayout) {
+      case LayoutType.MODERN:
+        return <ModernLayout resumeData={resumeData} />;
+      case LayoutType.MINIMAL:
+        return <MinimalLayout resumeData={resumeData} />;
+      default:
+        return <DefaultLayout resumeData={resumeData} />;
+    }
+  };
   return (
     <div
       className={cn(
@@ -56,11 +72,12 @@ export default function ResumePreview({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+        {getLayoutComponent()}
+        {/* <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
         <SummarySection resumeData={resumeData || defaultResumeData} />
         <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
         <EducationSection resumeData={resumeData || defaultResumeData} />
-        <SkillsSection resumeData={resumeData || defaultResumeData} />
+        <SkillsSection resumeData={resumeData || defaultResumeData} /> */}
       </div>
     </div>
   );
