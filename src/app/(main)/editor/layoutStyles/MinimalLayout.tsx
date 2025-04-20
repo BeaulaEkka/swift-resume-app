@@ -12,7 +12,6 @@ interface ResumePreviewProps {
   resumeData: ResumeValues;
   contentRef?: React.Ref<HTMLDivElement>;
   className?: string;
-  
 }
 const defaultResumeData: ResumeValues = {
   firstName: "",
@@ -29,7 +28,6 @@ const defaultResumeData: ResumeValues = {
   workExperiences: [],
   educations: [],
   skills: [],
-  
 };
 
 export default function ResumePreview({
@@ -94,7 +92,7 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   }, [photo]);
 
   return (
-    <div className="flex items-center gap-6">
+    <div className="border-5 flex items-center gap-6 border-green-500">
       {photoSrc && (
         <Image
           src={photoSrc}
