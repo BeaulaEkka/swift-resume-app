@@ -12,6 +12,8 @@ import { cn, mapToResumeValues } from "@/lib/utils";
 import useUnloadWarning from "@/hooks/useUnloadWarning";
 import useAutoSaveResume from "./useAutoSaveResume";
 import { ResumeServerData } from "@/lib/types";
+import { LayoutType } from "./layoutStyles/layoutStyles";
+import LayoutPicker from "./layoutStyles/LayoutPicker";
 
 interface ResumeEditorProps {
   resumeToEdit: ResumeServerData | null;
@@ -26,6 +28,9 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
       : { skills: [], title: "", description: "", firstName: "", lastName: "" },
   );
 
+ const [selectedLayout, setSelectedLayout] = useState<LayoutType>(
+   LayoutType.DEFAULT,
+ );
 
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
 
@@ -72,9 +77,13 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
             )}
           </div>
           <div className="grow md:border-r" />
-
+          <LayoutPicker
+            selected={selectedLayout}
+            onSelect={setSelectedLayout}
+          />
           <ResumePreviewSection
             resumeData={resumeData}
+            layout={selectedLayout}
             setResumeData={setResumeData}
             className={cn(showSmResumePreview && "flex")}
           />

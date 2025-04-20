@@ -5,16 +5,23 @@ import ColorPicker from "./ColorPicker";
 import BorderStyleButton from "./BorderStyleButton";
 import { cn } from "@/lib/utils";
 import LayoutStyleButton from "./layoutStyles/LayoutStyleButton";
+import {
+  DefaultLayout,
+  LayoutType,
+  ModernLayout,
+} from "./layoutStyles/layoutStyles";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
   setResumeData: (data: ResumeValues) => void;
   className?: string;
+  layout: LayoutType;
 }
 export default function ResumePreviewSection({
   resumeData,
   setResumeData,
   className,
+  layout,
 }: ResumePreviewSectionProps) {
   return (
     <div
@@ -37,8 +44,18 @@ export default function ResumePreviewSection({
           />
         </div>
       </div>
+      <div className={cn("preview-container", className)}>
+        {layout === LayoutType.DEFAULT && (
+          <DefaultLayout resumeData={resumeData} />
+        )}
+        {layout === LayoutType.MODERN && (
+          <ModernLayout resumeData={resumeData} />
+        )}
+
+        {/* Add more layouts as needed */}
+      </div>
       <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3 pt-14">
-        <ResumePreview resumeData={resumeData} className="max-w-2xl border" />
+        {/* <ResumePreview resumeData={resumeData} className="max-w-2xl border" /> */}
       </div>
     </div>
   );
