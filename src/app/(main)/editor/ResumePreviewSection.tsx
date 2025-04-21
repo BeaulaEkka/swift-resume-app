@@ -44,18 +44,25 @@ export default function ResumePreviewSection({
           />
         </div>
       </div>
-      <div className={cn("preview-container", className)}>
-        {layout === LayoutType.DEFAULT && (
-          <DefaultLayout resumeData={resumeData} />
-        )}
-        {layout === LayoutType.MODERN && (
-          <ModernLayout resumeData={resumeData} />
-        )}
 
-        {/* Add more layouts as needed */}
-      </div>
       <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3 pt-14">
         {/* <ResumePreview resumeData={resumeData} className="max-w-2xl border" /> */}
+        <div className={cn("preview-container", className)}>
+          {layout === LayoutType.DEFAULT && (
+            <DefaultLayout
+              resumeData={resumeData}
+              className="max-w-2xl border"
+            />
+          )}
+          {layout === LayoutType.MODERN && (
+            <ModernLayout
+              resumeData={resumeData}
+              className="max-w-2xl border"
+            />
+          )}
+
+          {/* Add more layouts as needed */}
+        </div>
       </div>
     </div>
   );

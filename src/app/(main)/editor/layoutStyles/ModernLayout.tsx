@@ -41,10 +41,7 @@ export default function ModernLayout({
 
   return (
     <div
-      className={cn(
-        "aspect-[210/297] h-fit w-full bg-white p-12 text-black",
-        className,
-      )}
+      className="flex h-[1122px] w-[794px] bg-white text-black shadow-md"
       ref={containerRef}
     >
       <div
@@ -55,11 +52,18 @@ export default function ModernLayout({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
-        <SummarySection resumeData={resumeData || defaultResumeData} />
-        <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
-        <EducationSection resumeData={resumeData || defaultResumeData} />
-        <SkillsSection resumeData={resumeData || defaultResumeData} />
+        <div className="flex w-[100%]">
+          <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+          <div className="w-[70%] border border-green-500 p-5">
+            {" "}
+            <SummarySection resumeData={resumeData || defaultResumeData} />
+            <WorkExperienceSection
+              resumeData={resumeData || defaultResumeData}
+            />
+            <EducationSection resumeData={resumeData || defaultResumeData} />
+            <SkillsSection resumeData={resumeData || defaultResumeData} />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -93,41 +97,41 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   }, [photo]);
 
   return (
-    <div className="flex items-center gap-6 border border-red-500">
-      {photoSrc && (
-        <Image
-          src={photoSrc}
-          width={100}
-          height={100}
-          alt="Authot Photo"
-          className="aspect-square object-cover"
-          style={{
-            borderRadius:
-              borderStyle === BorderStyles.SQUARE
-                ? "0px"
-                : borderStyle === BorderStyles.CIRCLE
-                  ? "9999px"
-                  : "10%",
-          }}
-        />
-      )}
-      <div className="space-y-2.5">
-        <div className="space-y-1">
-          <p
-            className="text-3xl font-bold capitalize"
-            style={{ color: colorHex ?? "#000" }}
-          >
-            {firstName} <span>{lastName}</span>
-          </p>
-          <p className="font-medium">{jobTitle}</p>
-          <div className="space-y-1 text-sm text-gray-500">
-            {city}
-            {city && country ? ", " : ""}
+    <div className="flex flex-col items-center gap-6 py-10 pl-10 pr-1">
+      <div className="h-full bg-gray-300">
+        {photoSrc && (
+          <div>
+            <Image
+              src={photoSrc}
+              width={100}
+              height={100}
+              alt="Authot Photo"
+              className="aspect-square h-full w-[100%] object-cover"
+              style={{
+                borderRadius:
+                  borderStyle === BorderStyles.SQUARE
+                    ? "0px"
+                    : borderStyle === BorderStyles.CIRCLE
+                      ? "9999px"
+                      : "10%",
+              }}
+            />
+          </div>
+        )}
+        <div className="space-y-2.5 p-5">
+          <div className="space-y-1">
+            <div className="space-y-2 text-sm text-gray-700">
+              {city}
+              {city && country ? ", " : ""}
 
-            {country}
-            {(city || country) && (phone || email) ? " " : ""}
-            <br />
-            <p> {[phone, email].filter(Boolean).join(" \| ")}</p>
+              <span className="font-semibold">{country}</span>
+              {(city || country) && (phone || email) ? " " : ""}
+
+              <p className="mt-2">
+                {" "}
+                {[phone, email].filter(Boolean).join(" ")}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -136,13 +140,20 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
 }
 
 function SummarySection({ resumeData }: ResumeSectionProps) {
-  const { summary, colorHex } = resumeData;
+  const { summary, colorHex, firstName, lastName, jobTitle } = resumeData;
 
   if (!summary) return null;
 
   return (
     <div className="space-y-3 pt-4">
-      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
+      <p
+        className="text-3xl font-bold capitalize"
+        style={{ color: colorHex ?? "#000" }}
+      >
+        {firstName} <span>{lastName}</span>
+      </p>
+      <p className="font-medium">{jobTitle}</p>
+      {/* <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} /> */}
       <div className="break-inside-avoid space-y-3">
         <p
           className="text-lg font-semibold"
@@ -169,10 +180,10 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr
+      {/* <hr
         className="mt-4 border-2"
         style={{ borderColor: colorHex ?? "#000" }}
-      />
+      /> */}
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
