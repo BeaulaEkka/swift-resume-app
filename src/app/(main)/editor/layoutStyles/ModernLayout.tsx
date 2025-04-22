@@ -1,13 +1,10 @@
 import useDimensions from "@/hooks/useDimensions";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
-
 import Image from "next/image";
 import { formatDate } from "date-fns";
 import React, { RefObject, useEffect, useRef, useState } from "react";
-
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
-import { Badge } from "@/components/ui/badge";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -52,16 +49,20 @@ export default function ModernLayout({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="flex w-[100%]">
-          <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
-          <div className="w-[70%] border border-green-500 p-5">
+        <div className="flex h-[92%]">
+          <div className="ml-10 mr-5 mt-10 flex h-[100%] flex-grow flex-col bg-gray-200">
+            {" "}
+            <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+            <SkillsSection resumeData={resumeData || defaultResumeData} />
+          </div>
+
+          <div className="mt-5 w-[70%] pr-5">
             {" "}
             <SummarySection resumeData={resumeData || defaultResumeData} />
             <WorkExperienceSection
               resumeData={resumeData || defaultResumeData}
             />
             <EducationSection resumeData={resumeData || defaultResumeData} />
-            <SkillsSection resumeData={resumeData || defaultResumeData} />
           </div>
         </div>
       </div>
@@ -97,8 +98,8 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   }, [photo]);
 
   return (
-    <div className="flex flex-col items-center gap-6 py-10 pl-10 pr-1">
-      <div className="h-full bg-gray-300">
+    <div className="flex flex-col items-center gap-6">
+      <div className="w-full">
         {photoSrc && (
           <div>
             <Image
@@ -153,10 +154,10 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
         {firstName} <span>{lastName}</span>
       </p>
       <p className="font-medium">{jobTitle}</p>
-      {/* <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} /> */}
+
       <div className="break-inside-avoid space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="text-xl font-bold capitalize"
           style={{
             color: colorHex ?? "#000",
           }}
@@ -180,13 +181,9 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      {/* <hr
-        className="mt-4 border-2"
-        style={{ borderColor: colorHex ?? "#000" }}
-      /> */}
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="text-xl font-bold capitalize"
           style={{ color: colorHex ?? "#000" }}
         >
           Work Experience
@@ -197,7 +194,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
               className="flex items-center justify-between text-sm font-semibold"
               // style={{ color: colorHex }}
             >
-              <span className="text-lg font-bold">{exp.position}</span>
+              <span className="text-lg font-semibold">{exp.position}</span>
               {exp.startDate && (
                 <span className="text-gray-500">
                   {formatDate(exp.startDate, "MM/yyyy")}-{" "}
@@ -206,9 +203,14 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
               )}
             </div>
             <p className="text-sm font-semibold text-gray-500">{exp.company}</p>
-            <div className="flex whitespace-pre-line text-sm">
-              {exp.description}
-            </div>
+            {/* <div className="flex whitespace-pre-line text-sm">{exp.description}</div> */}
+            {exp.description && (
+              <ul className="list-disc pl-4 text-sm">
+                {exp.description.split("\n").map((line, idx) => (
+                  <li key={idx}>{line.replace(/^- /, "")}</li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </div>
@@ -226,10 +228,6 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr
-        className="mt-4 border-2"
-        style={{ borderColor: colorHex ?? "#000" }}
-      />
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
@@ -262,8 +260,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
   const { skills, colorHex, borderStyle } = resumeData;
   if (!skills?.length) return null;
   return (
-    <div className="space-y-3 pt-4">
-      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
+    <div className="space-y-3 pl-5 pt-4">
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
@@ -273,21 +270,21 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
         </p>
         <div>
           {skills.map((skill, index) => (
-            <Badge
+            <ul
               key={index}
-              className="my-2 mr-2 rounded-md bg-black px-3 py-2 capitalize text-white"
-              style={{
-                backgroundColor: colorHex ?? "#000",
-                borderRadius:
-                  borderStyle === BorderStyles.SQUARE
-                    ? "0px"
-                    : borderStyle === BorderStyles.CIRCLE
-                      ? "9999px"
-                      : "8px",
-              }}
+              className="mr-2 flex gap-2 font-semibold capitalize"
+              // style={{
+              //   backgroundColor: colorHex ?? "#000",
+              //   borderRadius:
+              //     borderStyle === BorderStyles.SQUARE
+              //       ? "0px"
+              //       : borderStyle === BorderStyles.CIRCLE
+              //         ? "9999px"
+              //         : "8px",
+              // }}
             >
-              {skill}
-            </Badge>
+              <li className="bullet">{skill}</li>
+            </ul>
           ))}
         </div>
       </div>
