@@ -53,6 +53,7 @@ export default function ModernLayout({
           <div className="ml-10 mr-5 mt-10 flex h-[100%] flex-grow flex-col bg-gray-200">
             {" "}
             <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+            <EducationSection resumeData={resumeData || defaultResumeData} />
             <SkillsSection resumeData={resumeData || defaultResumeData} />
           </div>
 
@@ -62,7 +63,6 @@ export default function ModernLayout({
             <WorkExperienceSection
               resumeData={resumeData || defaultResumeData}
             />
-            <EducationSection resumeData={resumeData || defaultResumeData} />
           </div>
         </div>
       </div>
@@ -120,6 +120,14 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           </div>
         )}
         <div className="space-y-2.5 p-5">
+          <h1
+            className="text-xl font-bold capitalize"
+            style={{
+              color: colorHex ?? "#000",
+            }}
+          >
+            Contact
+          </h1>
           <div className="space-y-1">
             <div className="space-y-2 text-sm text-gray-700">
               {city}
@@ -203,7 +211,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
               )}
             </div>
             <p className="text-sm font-semibold text-gray-500">{exp.company}</p>
-            {/* <div className="flex whitespace-pre-line text-sm">{exp.description}</div> */}
+
             {exp.description && (
               <ul className="list-disc pl-4 text-sm">
                 {exp.description.split("\n").map((line, idx) => (
@@ -227,25 +235,23 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
   if (!educationNotEmpty?.length) return null;
 
   return (
-    <div className="space-y-3 pt-4">
+    <div className="space-y-3 pl-5 pt-4">
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="text-xl font-bold capitalize"
           style={{ color: colorHex ?? "#000" }}
         >
           Education
         </p>
         {educationNotEmpty.map((edu, index) => (
-          <div className="break-inside-avoid space-y-1" key={index}>
-            <div className="flex items-center justify-between text-sm font-semibold">
-              <span className="font-bold capitalize">{edu.degree}</span>
-              <span className="capitalize">{edu.institution}</span>
+          <div className="space-y-1" key={index}>
+            <div className="mt-2 flex flex-col text-sm font-semibold capitalize">
+              <span className="text-md font-bold">{edu.degree}</span>
+              <span className="text-md text-gray-500">{edu.institution}</span>
               {edu.startDate && (
-                <span>
-                  {formatDate(edu.startDate, "MMM yyyy ")}-{" "}
-                  {edu.endDate
-                    ? formatDate(edu.endDate, "MMM yyyy")
-                    : "present"}
+                <span className="text-sm font-light text-gray-500">
+                  {formatDate(edu.startDate, "MMM  yy ")}-{" "}
+                  {edu.endDate ? formatDate(edu.endDate, "MMM yy") : "present"}
                 </span>
               )}
             </div>
@@ -261,31 +267,19 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
   if (!skills?.length) return null;
   return (
     <div className="space-y-3 pl-5 pt-4">
-      <div className="space-y-3">
+      <div className="space-y-3 mt-4">
         <p
-          className="text-lg font-semibold"
+          className="text-xl font-bold capitalize"
           style={{ color: colorHex ?? "#000" }}
         >
           Skills
         </p>
         <div>
-          {skills.map((skill, index) => (
-            <ul
-              key={index}
-              className="mr-2 flex gap-2 font-semibold capitalize"
-              // style={{
-              //   backgroundColor: colorHex ?? "#000",
-              //   borderRadius:
-              //     borderStyle === BorderStyles.SQUARE
-              //       ? "0px"
-              //       : borderStyle === BorderStyles.CIRCLE
-              //         ? "9999px"
-              //         : "8px",
-              // }}
-            >
-              <li className="bullet">{skill}</li>
-            </ul>
-          ))}
+          <ul className="list-disc space-y-1 pl-5 font-semibold capitalize">
+            {skills.map((skill, index) => (
+              <li key={index}>{skill}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

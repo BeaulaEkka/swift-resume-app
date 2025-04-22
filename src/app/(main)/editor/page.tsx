@@ -6,7 +6,6 @@ import { resumeDataInclude } from "@/lib/types";
 import prisma from "@/lib/prisma";
 
 interface PageProps {
-  // searchParams: Promise<{ resumeId?: string }>;
   searchParams: { resumeId?: string };
 }
 
