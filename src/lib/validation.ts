@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 import { z } from "zod";
 
 export const optionalString = z
@@ -111,7 +112,7 @@ export const resumeSchema = generalInfoSchema
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
   id?: string;
-  photo?: File | string | null;
+  photo?: File | string | StaticImageData | null;
 };
 
 //----------------generateSummarySchema

@@ -1,4 +1,5 @@
 import { ResumeValues } from "@/lib/validation";
+import defaultPhoto from "../assets/defaultPhoto.jpeg";
 
 export const mockupResumeData: ResumeValues = {
   firstName: "Jane",
@@ -10,7 +11,7 @@ export const mockupResumeData: ResumeValues = {
   email: "jane.doe@example.com",
   colorHex: "#1f2937", // Tailwind's gray-800
   borderStyle: "rounded",
-  photo: null,
+  photo: defaultPhoto,
   summary: `Passionate developer with 5+ years of experience in building scalable web applications. Strong background in JavaScript, React, and Laravel.`,
   workExperiences: [
     {
