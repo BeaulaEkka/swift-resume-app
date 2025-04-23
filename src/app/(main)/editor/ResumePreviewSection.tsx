@@ -1,4 +1,4 @@
-import ResumePreview from "@/components/ResumePreview";
+
 import { ResumeValues } from "@/lib/validation";
 import React from "react";
 import ColorPicker from "./ColorPicker";

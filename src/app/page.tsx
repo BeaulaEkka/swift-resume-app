@@ -40,7 +40,7 @@ export default function Home() {
           alt="resume preview"
           className="relative rounded-sm bg-white shadow lg:rotate-[2.5deg]"
         />
-        <div className="absolute right-5 top-0 rotate-[-30.5deg] ">
+        <div className="absolute right-5 top-0 rotate-[-30.5deg]">
           <Image
             src={resumePreviewImage}
             width={550}

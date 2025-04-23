@@ -6,14 +6,14 @@ import { resumeDataInclude } from "@/lib/types";
 import prisma from "@/lib/prisma";
 
 interface PageProps {
-  searchParams: { resumeId?: string };
+  searchParams: Promise<{ resumeId?: string }>;
 }
 
 export const metadata: Metadata = {
   title: "Design your resume",
 };
 export default async function Page({ searchParams }: PageProps) {
-  const { resumeId } = searchParams;
+  const { resumeId } = await searchParams;
 
   const { userId } = await auth();
 
