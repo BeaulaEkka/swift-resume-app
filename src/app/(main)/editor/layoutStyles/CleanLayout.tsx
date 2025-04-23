@@ -55,7 +55,11 @@ export default function CleanLayout({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+        <div className="bg-blue-500">
+          {" "}
+          <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+        </div>
+
         <SummarySection resumeData={resumeData || defaultResumeData} />
         <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
         <EducationSection resumeData={resumeData || defaultResumeData} />

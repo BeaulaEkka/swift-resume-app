@@ -1,4 +1,3 @@
-
 import { ResumeValues } from "@/lib/validation";
 import React from "react";
 import ColorPicker from "./ColorPicker";
@@ -6,10 +5,13 @@ import BorderStyleButton from "./BorderStyleButton";
 import { cn } from "@/lib/utils";
 import LayoutStyleButton from "./layoutStyles/LayoutStyleButton";
 import {
+  CleanLayout,
   DefaultLayout,
   LayoutType,
+  MinimalLayout,
   ModernLayout,
 } from "./layoutStyles/layoutStyles";
+import ResumePreview from "@/components/ResumePreview";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
@@ -29,7 +31,6 @@ export default function ResumePreviewSection({
     >
       <div className="absolute left-3 top-3 flex flex-none flex-col gap-3 opacity-50 transition-opacity group-hover:opacity-100 lg:left-36 xl:opacity-100">
         <div className="mx-auto flex gap-3">
-          <LayoutStyleButton />
           <ColorPicker
             color={resumeData?.colorHex ?? "#000000"}
             onChange={(color) =>
@@ -60,8 +61,18 @@ export default function ResumePreviewSection({
               className="max-w-2xl border"
             />
           )}
-
-          {/* Add more layouts as needed */}
+          {layout === LayoutType.MINIMAL && (
+            <MinimalLayout
+              resumeData={resumeData}
+              className="max-w-2xl border"
+            />
+          )}
+          {layout === LayoutType.CLEAN && (
+            <CleanLayout resumeData={resumeData} className="max-w-2xl border" />
+          )}
+          {layout === LayoutType.ELEGANT && (
+            <CleanLayout resumeData={resumeData} className="max-w-2xl border" />
+          )}
         </div>
       </div>
     </div>

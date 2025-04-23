@@ -5,7 +5,9 @@ import { ResumeValues } from "@/lib/validation";
 import React, { RefObject, useRef } from "react";
 
 import {
+  CleanLayout,
   DefaultLayout,
+  ElegantLayout,
   LayoutType,
   MinimalLayout,
   ModernLayout,
@@ -49,6 +51,10 @@ export default function ResumePreview({
         return <ModernLayout resumeData={resumeData} />;
       case LayoutType.MINIMAL:
         return <MinimalLayout resumeData={resumeData} />;
+      case LayoutType.CLEAN:
+        return <CleanLayout resumeData={resumeData} />;
+      case LayoutType.ELEGANT:
+        return <ElegantLayout resumeData={resumeData} />;
       default:
         return <DefaultLayout resumeData={resumeData} />;
     }

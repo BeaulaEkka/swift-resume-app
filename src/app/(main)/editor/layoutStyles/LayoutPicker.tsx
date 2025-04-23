@@ -9,7 +9,7 @@ import {
 } from "./layoutStyles";
 import { cn } from "@/lib/utils";
 
-// import any other layouts...
+
 
 interface LayoutPickerProps {
   selected: LayoutType;
@@ -39,7 +39,7 @@ export default function LayoutPicker({
   return (
     <div className="flex flex-col space-y-2 border-l p-5">
       <h2 className="text-sm font-medium uppercase text-muted-foreground">
-        Choose Layout
+        Choose a Layout
       </h2>
       <div className="flex w-full flex-col gap-4">
         {Object.entries(layoutComponents).map(([type, Component]) => (
@@ -54,7 +54,7 @@ export default function LayoutPicker({
             )}
           >
             <div className="relative aspect-[794/1123] w-full max-w-[160px] overflow-hidden rounded border bg-white shadow">
-              <div className="pointer-events-none absolute left-0 top-0 h-[1123px] w-[794px] origin-top-left scale-[0.2]">
+              <div className="pointer-events-none absolute left-0 top-0 h-[1123px] w-[794px] origin-top-left scale-[0.13]">
                 <Component resumeData={mockupResumeData} />
               </div>
             </div>

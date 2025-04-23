@@ -55,7 +55,10 @@ export default function ElegantLayout({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+        <div className="bg-green-500">
+          <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+        </div>
+
         <SummarySection resumeData={resumeData || defaultResumeData} />
         <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
         <EducationSection resumeData={resumeData || defaultResumeData} />

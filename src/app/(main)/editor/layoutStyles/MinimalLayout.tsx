@@ -55,7 +55,11 @@ export default function MinimalLayout({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+        <div className="bg-yellow-400">
+
+          <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+        </div>
+
         <SummarySection resumeData={resumeData || defaultResumeData} />
         <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
         <EducationSection resumeData={resumeData || defaultResumeData} />
