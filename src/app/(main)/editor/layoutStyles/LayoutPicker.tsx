@@ -1,7 +1,12 @@
-
-
-import { mockResumeData } from "@/lib/mockupResumeData";
-import { DefaultLayout, LayoutType, ModernLayout } from "./layoutStyles";
+import { mockupResumeData } from "@/lib/mockupResumeData";
+import {
+  CleanLayout,
+  DefaultLayout,
+  ElegantLayout,
+  LayoutType,
+  MinimalLayout,
+  ModernLayout,
+} from "./layoutStyles";
 import { cn } from "@/lib/utils";
 
 // import any other layouts...
@@ -14,13 +19,17 @@ interface LayoutPickerProps {
 const layoutComponents: Record<LayoutType, React.ComponentType<any>> = {
   [LayoutType.DEFAULT]: DefaultLayout,
   [LayoutType.MODERN]: ModernLayout,
-  // Add other layouts here
+  [LayoutType.MINIMAL]: MinimalLayout,
+  [LayoutType.CLEAN]: CleanLayout,
+  [LayoutType.ELEGANT]: ElegantLayout,
 };
 
 const layoutLabels: Record<LayoutType, string> = {
   [LayoutType.DEFAULT]: "Default",
   [LayoutType.MODERN]: "Modern",
-  // Add other labels here
+  [LayoutType.MINIMAL]: "Minimal",
+  [LayoutType.CLEAN]: "Clean",
+  [LayoutType.ELEGANT]: "Elegant",
 };
 
 export default function LayoutPicker({
@@ -28,7 +37,7 @@ export default function LayoutPicker({
   onSelect,
 }: LayoutPickerProps) {
   return (
-    <div className="flex flex-col items-center space-y-2 border-l p-2 md:w-1/2">
+    <div className="flex flex-col space-y-2 border-l p-5">
       <h2 className="text-sm font-medium uppercase text-muted-foreground">
         Choose Layout
       </h2>
@@ -38,7 +47,7 @@ export default function LayoutPicker({
             key={type}
             onClick={() => onSelect(type as LayoutType)}
             className={cn(
-              "flex flex-col items-center transition-all",
+              "flex flex-col transition-all",
               selected === type
                 ? "border-primary ring-2 ring-primary"
                 : "ring-muted hover:ring-1",
@@ -46,7 +55,7 @@ export default function LayoutPicker({
           >
             <div className="relative aspect-[794/1123] w-full max-w-[160px] overflow-hidden rounded border bg-white shadow">
               <div className="pointer-events-none absolute left-0 top-0 h-[1123px] w-[794px] origin-top-left scale-[0.2]">
-                <Component resumeData={mockResumeData} />
+                <Component resumeData={mockupResumeData} />
               </div>
             </div>
             <p className="mt-2 text-center text-sm font-semibold">

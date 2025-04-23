@@ -10,8 +10,12 @@ export enum LayoutType {
   DEFAULT = "default",
   MODERN = "modern",
   MINIMAL = "minimal",
+  CLEAN = "clean",
+  ELEGANT = "elegant",
 }
 
 export { default as DefaultLayout } from "./DefaultLayout";
 export { default as ModernLayout } from "./ModernLayout";
 export { default as MinimalLayout } from "./MinimalLayout";
+export { default as CleanLayout } from "./CleanLayout";
+export { default as ElegantLayout } from "./ElegantLayout";
