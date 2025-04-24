@@ -3,7 +3,6 @@ import React from "react";
 import ColorPicker from "./ColorPicker";
 import BorderStyleButton from "./BorderStyleButton";
 import { cn } from "@/lib/utils";
-import LayoutStyleButton from "./layoutStyles/LayoutStyleButton";
 import {
   CleanLayout,
   DefaultLayout,
@@ -11,7 +10,6 @@ import {
   MinimalLayout,
   ModernLayout,
 } from "./layoutStyles/layoutStyles";
-import ResumePreview from "@/components/ResumePreview";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
@@ -71,6 +69,9 @@ export default function ResumePreviewSection({
             <CleanLayout resumeData={resumeData} className="max-w-2xl border" />
           )}
           {layout === LayoutType.ELEGANT && (
+            <CleanLayout resumeData={resumeData} className="max-w-2xl border" />
+          )}
+          {layout === LayoutType.CREATIVE && (
             <CleanLayout resumeData={resumeData} className="max-w-2xl border" />
           )}
         </div>
