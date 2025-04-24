@@ -47,10 +47,10 @@
 //             <SignedIn>
 //               <UserButton />
 //             </SignedIn>
-           
+
 //             <Navbar />
 //             {children}
-//             <Toaster /> 
+//             <Toaster />
 //           </ThemeProvider>
 //         </body>
 //       </html>
@@ -58,16 +58,11 @@
 //   );
 // }
 
-
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import {
-  ClerkProvider,
-  
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "./(main)/Navbar";
@@ -94,18 +89,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {/* Auth Buttons */}
-            {/* <div className="flex items-center justify-end gap-4 p-4">
-              <SignedOut>
-                <SignInButton />
-                <SignUpButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-                <SignOutButton />
-              </SignedIn>
-            </div> */}
-
             <Navbar />
             {children}
             <Toaster />
