@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import resumePreviewImage from "@/assets/resume-builder-logo.png";
 import Section1 from "./(main)/Section1";
+import Section2 from "./(main)/Section2";
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center gap-6 bg-gray-100 px-5 py-12 text-center text-gray-900 w-[80%] mx-auto">
@@ -16,7 +17,7 @@ export default function Home() {
             alt="logo"
             className="mx-auto md:ms-0"
           />
-          <h1 className="scrolm20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
             <span>Create a </span>
             <span className="inline-block bg-gradient-to-r from-blue-300 to-blue-800 bg-clip-text text-7xl font-extrabold text-transparent">
               perfect Resume
@@ -55,6 +56,7 @@ export default function Home() {
       </div>
 
       <Section1 />
+      <Section2 />
     </main>
   );
 }
