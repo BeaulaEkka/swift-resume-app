@@ -6,10 +6,9 @@ import {
   LayoutType,
   MinimalLayout,
   ModernLayout,
+  CreativeLayout,
 } from "./layoutStyles";
 import { cn } from "@/lib/utils";
-
-
 
 interface LayoutPickerProps {
   selected: LayoutType;
@@ -22,6 +21,7 @@ const layoutComponents: Record<LayoutType, React.ComponentType<any>> = {
   [LayoutType.MINIMAL]: MinimalLayout,
   [LayoutType.CLEAN]: CleanLayout,
   [LayoutType.ELEGANT]: ElegantLayout,
+  [LayoutType.CREATIVE]: CreativeLayout,
 };
 
 const layoutLabels: Record<LayoutType, string> = {
@@ -30,6 +30,7 @@ const layoutLabels: Record<LayoutType, string> = {
   [LayoutType.MINIMAL]: "Minimal",
   [LayoutType.CLEAN]: "Clean",
   [LayoutType.ELEGANT]: "Elegant",
+  [LayoutType.CREATIVE]: "Creative",
 };
 
 export default function LayoutPicker({
@@ -54,7 +55,7 @@ export default function LayoutPicker({
             )}
           >
             <div className="relative aspect-[794/1123] w-full max-w-[160px] overflow-hidden rounded border bg-white shadow">
-              <div className="pointer-events-none absolute left-0 top-0 h-[1123px] w-[794px] origin-top-left scale-[0.13]">
+              <div className="pointer-events-none absolute left-0 top-0 h-[1123px] w-[794px] origin-top-left scale-[0.15]">
                 <Component resumeData={mockupResumeData} />
               </div>
             </div>

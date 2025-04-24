@@ -12,6 +12,7 @@ export enum LayoutType {
   MINIMAL = "minimal",
   CLEAN = "clean",
   ELEGANT = "elegant",
+  CREATIVE = "creative",
 }
 
 export { default as DefaultLayout } from "./DefaultLayout";
@@ -19,3 +20,4 @@ export { default as ModernLayout } from "./ModernLayout";
 export { default as MinimalLayout } from "./MinimalLayout";
 export { default as CleanLayout } from "./CleanLayout";
 export { default as ElegantLayout } from "./ElegantLayout";
+export { default as CreativeLayout } from "./CreativeLayout";
