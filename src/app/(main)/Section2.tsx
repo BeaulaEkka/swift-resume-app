@@ -31,7 +31,7 @@ const reviews = [
 
 export default function Section2() {
   return (
-    <section className="my-16 px-4">
+    <section className="mx-auto my-16 w-[87%] px-4 text-left">
       <header className="mb-10 text-center">
         <h1 className="text-3xl font-bold">
           Backed by Users. Chosen by Professionals.
@@ -58,7 +58,7 @@ export default function Section2() {
                 />
               ))}
             </div>
-            <p className="italic text-gray-800">"{review.text}"</p>
+            <p className="italic text-gray-800">&quot;{review.text}&quot;</p>
             <p className="mt-4 font-semibold text-gray-900">— {review.name}</p>
           </div>
         ))}
