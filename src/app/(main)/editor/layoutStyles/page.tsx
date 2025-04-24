@@ -1,14 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-
 import { useSearchParams } from "next/navigation";
-
 import { ResumeValues } from "@/lib/validation";
-
 import { cn, mapToResumeValues } from "@/lib/utils";
 import useUnloadWarning from "@/hooks/useUnloadWarning";
-
 import { ResumeServerData } from "@/lib/types";
 import useAutoSaveResume from "../useAutoSaveResume";
 import { steps } from "../steps";
@@ -48,7 +44,7 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
   )?.component;
 
   return (
-    <div className="flex grow flex-col border border-red-500">
+    <div className="flex grow flex-col ">
       <header className="space-y-1.5 border-b px-3 py-5 text-center">
         <h1 className="text-2xl font-bold">Design your resume</h1>
         <p className="text-sm text-muted-foreground">

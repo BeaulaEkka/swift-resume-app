@@ -50,7 +50,7 @@ export default async function page(): Promise<JSX.Element | null> {
     getUserSubscriptionLevel(userId),
   ]);
 
-  //TODO check qota for non-premium users
+
 
   return (
     <main className="mx-auto w-full max-w-7xl space-y-6 border border-gray-100 px-3 py-6">

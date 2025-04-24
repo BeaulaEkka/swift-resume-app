@@ -1,22 +1,78 @@
+// import type { Metadata } from "next";
+// import { Inter } from "next/font/google";
+// import "./globals.css";
+
+// import {
+//   ClerkProvider,
+//   SignedIn,
+//   SignedOut,
+//   SignInButton,
+//   UserButton,
+//   // SignedIn,
+//   // SignedOut,
+//   // SignInButton,
+//   // UserButton,
+// } from "@clerk/nextjs";
+// import { ThemeProvider } from "next-themes";
+// import { Toaster } from "@/components/ui/toaster";
+// import Navbar from "./(main)/Navbar";
+
+// const inter = Inter({
+//   subsets: ["latin"],
+// });
+
+// export const metadata: Metadata = {
+//   title: "Swift Resume Builder",
+//   description: "AI ResumeBuilder",
+// };
+
+// export default function RootLayout({
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode;
+// }>) {
+//   return (
+//     <ClerkProvider>
+//       <html lang="en" suppressHydrationWarning>
+//         <body className={inter.className}>
+//           <ThemeProvider
+//             attribute="class"
+//             defaultTheme="system"
+//             enableSystem
+//             disableTransitionOnChange
+//           >
+//             <SignedOut>
+//               <SignInButton />{" "}
+//             </SignedOut>
+//             <SignedIn>
+//               <UserButton />
+//             </SignedIn>
+           
+//             <Navbar />
+//             {children}
+//             <Toaster /> 
+//           </ThemeProvider>
+//         </body>
+//       </html>
+//     </ClerkProvider>
+//   );
+// }
+
+
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 import {
   ClerkProvider,
-  // SignedIn,
-  // SignedOut,
-  // SignInButton,
-  // UserButton,
+  
 } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
-import AppWrapper from "@/components/AppWrapper";
-import Header from "@/components/Header";
+import Navbar from "./(main)/Navbar";
 
-const inter = Inter({
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Swift Resume Builder",
@@ -38,17 +94,21 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {/* <SignedOut>
-              <SignInButton />{" "}
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn> */}
-            <AppWrapper>
-              <Header />
-              {children}
-              <Toaster />{" "}
-            </AppWrapper>
+            {/* Auth Buttons */}
+            {/* <div className="flex items-center justify-end gap-4 p-4">
+              <SignedOut>
+                <SignInButton />
+                <SignUpButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+                <SignOutButton />
+              </SignedIn>
+            </div> */}
+
+            <Navbar />
+            {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
