@@ -11,9 +11,7 @@ import prisma from "@/lib/prisma";
 import ManageSubscriptionButton from "./success/ManageSubscriptionButton";
 import GetSubscriptionButton from "./GetSubscriptionButton";
 
-export const metadata: Metadata = {
-  title: "Billing",
-};
+
 
 export default async function page() {
   const { userId } = await auth();
@@ -25,12 +23,16 @@ export default async function page() {
       userId,
     },
   });
+  console.log("Subscription", subscription);
+  console.log("UserId", userId);
 
   const priceInfo = subscription
     ? await stripe.prices.retrieve(subscription.stripePriceId, {
         expand: ["product"],
       })
     : null;
+
+    
 
   return (
     <div className="flex min-h-screen bg-gray-100">

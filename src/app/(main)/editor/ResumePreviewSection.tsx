@@ -5,7 +5,9 @@ import BorderStyleButton from "./BorderStyleButton";
 import { cn } from "@/lib/utils";
 import {
   CleanLayout,
+  CreativeLayout,
   DefaultLayout,
+  ElegantLayout,
   LayoutType,
   MinimalLayout,
   ModernLayout,
@@ -69,10 +71,16 @@ export default function ResumePreviewSection({
             <CleanLayout resumeData={resumeData} className="max-w-2xl border" />
           )}
           {layout === LayoutType.ELEGANT && (
-            <CleanLayout resumeData={resumeData} className="max-w-2xl border" />
+            <ElegantLayout
+              resumeData={resumeData}
+              className="max-w-2xl border"
+            />
           )}
           {layout === LayoutType.CREATIVE && (
-            <CleanLayout resumeData={resumeData} className="max-w-2xl border" />
+            <CreativeLayout
+              resumeData={resumeData}
+              className="max-w-2xl border"
+            />
           )}
         </div>
       </div>

@@ -5,6 +5,7 @@ import { ResumeValues } from "@/lib/validation";
 import Image from "next/image";
 import { formatDate } from "date-fns";
 import React, { RefObject, useEffect, useRef, useState } from "react";
+import creativeLayoutBackground from "@/assets/creativeLayoutImages/creativeLayoutBackground.png";
 
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
 import { Badge } from "@/components/ui/badge";
@@ -51,6 +52,10 @@ export default function CreativeLayout({
         className={cn("", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
+          backgroundImage: `url(${creativeLayoutBackground.src})`, // or '/creativeLayoutImages/creativeLayoutBackground.png'
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
         }}
         ref={contentRef}
         id="resumePreviewContent"
