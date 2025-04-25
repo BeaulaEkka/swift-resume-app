@@ -49,7 +49,7 @@ export default function CreativeLayout({
       ref={containerRef}
       style={{
         backgroundImage: `url(${creativeLayoutBackground.src})`,
-        backgroundSize: "cover",
+        backgroundSize: "fill",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
