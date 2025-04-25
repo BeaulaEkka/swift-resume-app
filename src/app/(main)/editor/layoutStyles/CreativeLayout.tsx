@@ -43,19 +43,21 @@ export default function CreativeLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white p-12 text-black",
+        "aspect-[210/297] w-full bg-white p-12 text-black",
         className,
       )}
       ref={containerRef}
+      style={{
+        backgroundImage: `url(${creativeLayoutBackground.src})`,
+        backgroundSize: "fill",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
     >
       <div
         className={cn("", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
-          backgroundImage: `url(${creativeLayoutBackground.src})`, // or '/creativeLayoutImages/creativeLayoutBackground.png'
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
         }}
         ref={contentRef}
         id="resumePreviewContent"
