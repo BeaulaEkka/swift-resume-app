@@ -48,7 +48,7 @@ export default function MinimalLayout({
       ref={containerRef}
     >
       <div
-        className={cn("flex", !width && "invisible")}
+        className={cn("flex h-full", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
@@ -100,14 +100,14 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   }, [photo]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col">
       {photoSrc && (
         <Image
           src={photoSrc}
           width={100}
           height={100}
           alt="Author Photo"
-          className="h-96 w-full object-cover"
+          className="h-96 w-full snap-center object-cover"
           style={{
             borderRadius:
               borderStyle === BorderStyles.SQUARE
@@ -118,16 +118,32 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           }}
         />
       )}
-      <div className="border border-green-500 p-5 text-white">
+      <div className="p-5 text-white">
         <div className="space-y-1">
           <div className="space-y-1 text-sm">
+            <p
+              className="py-2 text-lg font-semibold uppercase tracking-wider text-white"
+              style={{
+                color:
+                  colorHex?.toLowerCase() === "#000000"
+                    ? "#fff"
+                    : (colorHex ?? "#000"),
+              }}
+            >
+              contact
+            </p>
             {city}
             {city && country ? ", " : ""}
 
             {country}
             {(city || country) && (phone || email) ? " " : ""}
             <br />
-            <p> {[phone, email].filter(Boolean).join(" \| ")}</p>
+            <p>
+              {" "}
+              <span className="font-semibold">Phone:</span>{" "}
+              {[phone].filter(Boolean).join("  ")}
+            </p>
+            <p>{email}</p>
           </div>
         </div>
       </div>
@@ -147,7 +163,12 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
         <div className="mt-5 bg-yellow-400 px-5 py-10">
           <p
             className="text-3xl font-bold uppercase leading-relaxed tracking-wider"
-            style={{ color: colorHex ?? "#000" }}
+            style={{
+              color:
+                colorHex?.toLowerCase() === "#fcb900"
+                  ? "#000"
+                  : (colorHex ?? "#000"),
+            }}
           >
             {firstName} <span className="font-light">{lastName}</span>
           </p>
@@ -229,13 +250,18 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
       <div className="space-y-3">
         <p
           className="text-lg font-semibold uppercase tracking-wider text-white"
-          // style={{ color: colorHex ?? "#000" }}
+          style={{
+            color:
+              colorHex?.toLowerCase() === "#000000"
+                ? "#fff"
+                : (colorHex ?? "#000"),
+          }}
         >
           Education
         </p>
         {educationNotEmpty.map((edu, index) => (
           <div className="break-inside-avoid space-y-1" key={index}>
-            <div className="flex flex-col text-sm font-semibold text-white">
+            <div className="flex flex-col space-y-1 pt-2 text-sm font-semibold text-white">
               <div className="font-bold uppercase">{edu.degree}</div>
               <div className="text-md capitalize text-gray-400">
                 {edu.institution}
