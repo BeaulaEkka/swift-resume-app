@@ -42,26 +42,26 @@ export default function MinimalLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white text-black",
+        "aspect-[210/297] min-h-[310px] bg-white text-black",
         className,
       )}
       ref={containerRef}
     >
       <div
-        className={cn("flex h-full gap-2", !width && "invisible")}
+        className={cn("flex", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="h-[100%] w-1/3 bg-gray-950 pr-4">
+        <div className="w-[35%] bg-gray-900">
           <div className="">
             <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
           </div>
           <EducationSection resumeData={resumeData || defaultResumeData} />
         </div>
-        <div>
+        <div className="w-[65%] bg-white">
           <SummarySection resumeData={resumeData || defaultResumeData} />
           <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
 
@@ -100,14 +100,14 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   }, [photo]);
 
   return (
-    <div className="border-5 flex items-center gap-6">
+    <div className="flex flex-col items-center">
       {photoSrc && (
         <Image
           src={photoSrc}
           width={100}
           height={100}
-          alt="Authot Photo"
-          className="aspect-square object-cover"
+          alt="Author Photo"
+          className="h-96 w-full object-cover"
           style={{
             borderRadius:
               borderStyle === BorderStyles.SQUARE
@@ -118,16 +118,9 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           }}
         />
       )}
-      <div className="space-y-2.5">
+      <div className="border border-green-500 p-5 text-white">
         <div className="space-y-1">
-          <p
-            className="text-3xl font-bold capitalize"
-            style={{ color: colorHex ?? "#000" }}
-          >
-            {firstName} <span>{lastName}</span>
-          </p>
-          <p className="font-medium">{jobTitle}</p>
-          <div className="space-y-1 text-sm text-gray-500">
+          <div className="space-y-1 text-sm">
             {city}
             {city && country ? ", " : ""}
 
@@ -143,22 +136,38 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
 }
 
 function SummarySection({ resumeData }: ResumeSectionProps) {
-  const { summary, colorHex } = resumeData;
+  const { summary, colorHex, firstName, lastName, jobTitle } = resumeData;
 
   if (!summary) return null;
 
   return (
-    <div className="space-y-3 pt-4">
+    <div className="min-h-[200px] space-y-3 pt-4">
+      {" "}
       <div className="break-inside-avoid space-y-3">
-        <p
-          className="text-lg font-semibold"
-          style={{
-            color: colorHex ?? "#000",
-          }}
-        >
-          Professional profile
-        </p>
-        <div className="whitespace-pre-line text-sm">{summary}</div>
+        <div className="mt-5 bg-yellow-400 px-5 py-10">
+          <p
+            className="text-3xl font-bold uppercase leading-relaxed tracking-wider"
+            style={{ color: colorHex ?? "#000" }}
+          >
+            {firstName} <span className="font-light">{lastName}</span>
+          </p>
+          <p className="font-light uppercase tracking-wider">{jobTitle}</p>
+        </div>
+        <div>
+          <p
+            className="pl-5 text-lg font-semibold uppercase tracking-wider"
+            style={{
+              color: colorHex ?? "#000",
+            }}
+          >
+            Professional profile
+          </p>
+          {summary && (
+            <div className="whitespace-pre-line pl-5 pt-2 text-sm">
+              {summary}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -177,13 +186,13 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
     <div className="space-y-3 pt-4">
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="pl-5 text-lg font-semibold uppercase tracking-wider"
           style={{ color: colorHex ?? "#000" }}
         >
           Work Experience
         </p>
         {workExperienceNotEmpty.map((exp, index) => (
-          <div key={index} className="break-inside-avoid space-y-1">
+          <div key={index} className="break-inside-avoid space-y-1 pl-5">
             <div
               className="flex items-center justify-between text-sm font-semibold"
               // style={{ color: colorHex }}
@@ -216,26 +225,28 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
   if (!educationNotEmpty?.length) return null;
 
   return (
-    <div className="space-y-3 pt-4">
+    <div className="space-y-3 px-5 pt-4">
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
-          style={{ color: colorHex ?? "#000" }}
+          className="text-lg font-semibold uppercase tracking-wider text-white"
+          // style={{ color: colorHex ?? "#000" }}
         >
           Education
         </p>
         {educationNotEmpty.map((edu, index) => (
           <div className="break-inside-avoid space-y-1" key={index}>
-            <div className="flex items-center justify-between text-sm font-semibold">
-              <span className="font-bold capitalize">{edu.degree}</span>
-              <span className="capitalize">{edu.institution}</span>
+            <div className="flex flex-col text-sm font-semibold text-white">
+              <div className="font-bold uppercase">{edu.degree}</div>
+              <div className="text-md capitalize text-gray-400">
+                {edu.institution}
+              </div>
               {edu.startDate && (
-                <span>
+                <div className="font-light text-gray-400">
                   {formatDate(edu.startDate, "MMM yyyy ")}-{" "}
                   {edu.endDate
                     ? formatDate(edu.endDate, "MMM yyyy")
                     : "present"}
-                </span>
+                </div>
               )}
             </div>
           </div>
@@ -252,12 +263,12 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
     <div className="space-y-3 pt-4">
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="pl-5 text-lg font-semibold uppercase tracking-wider"
           style={{ color: colorHex ?? "#000" }}
         >
           Skills
         </p>
-        <div>
+        <div className="pl-5">
           {skills.map((skill, index) => (
             <Badge
               key={index}
