@@ -43,13 +43,13 @@ export default function CreativeLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] w-full bg-white p-12 text-black",
+        "aspect-[210/297] w-full bg-white p-20 text-black",
         className,
       )}
       ref={containerRef}
       style={{
         backgroundImage: `url(${creativeLayoutBackground.src})`,
-        backgroundSize: "cover",
+        backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
@@ -62,7 +62,7 @@ export default function CreativeLayout({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="bg-yellow-400">
+        <div className="">
           <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
         </div>
 
@@ -103,7 +103,7 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   }, [photo]);
 
   return (
-    <div className="border-5 flex items-center gap-6 border-green-500">
+    <div className="border-5 flex items-center gap-6">
       {photoSrc && (
         <Image
           src={photoSrc}
@@ -123,13 +123,16 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       )}
       <div className="space-y-2.5">
         <div className="space-y-1">
-          <p
-            className="text-3xl font-bold capitalize"
-            style={{ color: colorHex ?? "#000" }}
-          >
-            {firstName} <span>{lastName}</span>
-          </p>
-          <p className="font-medium">{jobTitle}</p>
+          <div className="flex flex-col items-center justify-center gap-2 border-4 border-purple-950 p-3">
+            <p
+              className="text-4xl font-bold capitalize"
+              style={{ color: colorHex ?? "#000" }}
+            >
+              {firstName} <span>{lastName}</span>
+            </p>
+            <p className="text-lg font-medium">{jobTitle}</p>
+          </div>
+
           <div className="space-y-1 text-sm text-gray-500">
             {city}
             {city && country ? ", " : ""}
@@ -152,16 +155,20 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="break-inside-avoid space-y-3">
-        <p
-          className="text-lg font-semibold"
-          style={{
-            color: colorHex ?? "#000",
-          }}
-        >
-          Professional profile
-        </p>
+        <div className="flex items-center justify-center">
+          <div className="w-[35%] border-4 border-purple-950 p-3 text-center">
+            <p
+              className="text-lg font-semibold"
+              style={{
+                color: colorHex ?? "#000",
+              }}
+            >
+              Professional profile
+            </p>
+          </div>
+        </div>
+
         <div className="whitespace-pre-line text-sm">{summary}</div>
       </div>
     </div>
@@ -179,17 +186,19 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr
-        className="mt-4 border-2"
-        style={{ borderColor: colorHex ?? "#000" }}
-      />
       <div className="space-y-3">
-        <p
-          className="text-lg font-semibold"
-          style={{ color: colorHex ?? "#000" }}
-        >
-          Work Experience
-        </p>
+        <div className="flex items-center justify-center">
+          <div className="w-[35%] border-4 border-purple-950 p-3 text-center">
+            {" "}
+            <p
+              className="text-lg font-semibold"
+              style={{ color: colorHex ?? "#000" }}
+            >
+              Work Experience
+            </p>
+          </div>
+        </div>
+
         {workExperienceNotEmpty.map((exp, index) => (
           <div key={index} className="break-inside-avoid space-y-1">
             <div
@@ -225,17 +234,18 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr
-        className="mt-4 border-2"
-        style={{ borderColor: colorHex ?? "#000" }}
-      />
       <div className="space-y-3">
-        <p
-          className="text-lg font-semibold"
-          style={{ color: colorHex ?? "#000" }}
-        >
-          Education
-        </p>
+        <div className="flex items-center justify-center">
+          <div className="w-[35%] border-4 border-purple-950 p-3 text-center">
+            <p
+              className="text-lg font-semibold"
+              style={{ color: colorHex ?? "#000" }}
+            >
+              Education
+            </p>
+          </div>
+        </div>
+
         {educationNotEmpty.map((edu, index) => (
           <div className="break-inside-avoid space-y-1" key={index}>
             <div className="flex items-center justify-between text-sm font-semibold">
@@ -262,14 +272,19 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
   if (!skills?.length) return null;
   return (
     <div className="space-y-3 pt-4">
-      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
+      
       <div className="space-y-3">
-        <p
-          className="text-lg font-semibold"
-          style={{ color: colorHex ?? "#000" }}
-        >
-          Skills
-        </p>
+        <div className="flex items-center justify-center">
+          <div className="w-[35%] border-4 border-purple-950 p-3 text-center">
+            <p
+              className="text-lg font-semibold"
+              style={{ color: colorHex ?? "#000" }}
+            >
+              Skills
+            </p>
+          </div>
+        </div>
+
         <div>
           {skills.map((skill, index) => (
             <Badge

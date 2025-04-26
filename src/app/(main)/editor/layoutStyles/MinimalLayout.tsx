@@ -42,28 +42,31 @@ export default function MinimalLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white p-12 text-black",
+        "aspect-[210/297] h-fit w-full bg-white text-black",
         className,
       )}
       ref={containerRef}
     >
       <div
-        className={cn("", !width && "invisible")}
+        className={cn("flex h-full gap-2", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="bg-yellow-400">
-
-          <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+        <div className="h-[100%] w-1/3 bg-gray-950 pr-4">
+          <div className="">
+            <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
+          </div>
+          <EducationSection resumeData={resumeData || defaultResumeData} />
         </div>
+        <div>
+          <SummarySection resumeData={resumeData || defaultResumeData} />
+          <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
 
-        <SummarySection resumeData={resumeData || defaultResumeData} />
-        <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
-        <EducationSection resumeData={resumeData || defaultResumeData} />
-        <SkillsSection resumeData={resumeData || defaultResumeData} />
+          <SkillsSection resumeData={resumeData || defaultResumeData} />
+        </div>
       </div>
     </div>
   );
@@ -97,7 +100,7 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   }, [photo]);
 
   return (
-    <div className="border-5 flex items-center gap-6 border-green-500">
+    <div className="border-5 flex items-center gap-6">
       {photoSrc && (
         <Image
           src={photoSrc}
@@ -146,7 +149,6 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="break-inside-avoid space-y-3">
         <p
           className="text-lg font-semibold"
@@ -173,10 +175,6 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr
-        className="mt-4 border-2"
-        style={{ borderColor: colorHex ?? "#000" }}
-      />
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
@@ -219,10 +217,6 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr
-        className="mt-4 border-2"
-        style={{ borderColor: colorHex ?? "#000" }}
-      />
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
@@ -256,7 +250,6 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
   if (!skills?.length) return null;
   return (
     <div className="space-y-3 pt-4">
-      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
