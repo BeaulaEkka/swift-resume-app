@@ -203,7 +203,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
   if (!workExperienceNotEmpty?.length) return null;
 
   return (
-    <div className="space-y-3 pt-4">
+    <div className="space-y-3 py-12">
       <div className="space-y-3">
         <p
           className="pl-5 text-lg font-semibold uppercase tracking-wider"
