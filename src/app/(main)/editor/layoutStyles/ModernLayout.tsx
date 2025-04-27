@@ -52,8 +52,8 @@ export default function ModernLayout({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="flex h-[1123px] border border-green-500">
-          <div className="mr-5 flex h-full flex-grow flex-col border border-red-500 bg-gray-200">
+        <div className="flex">
+          <div className="mr-5 flex flex-grow flex-col bg-gray-200">
             {" "}
             <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
             <EducationSection resumeData={resumeData || defaultResumeData} />

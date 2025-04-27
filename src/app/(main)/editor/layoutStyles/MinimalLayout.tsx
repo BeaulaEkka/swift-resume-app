@@ -7,7 +7,7 @@ import { formatDate } from "date-fns";
 import React, { RefObject, useEffect, useRef, useState } from "react";
 
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
-import { Badge } from "@/components/ui/badge";
+
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -42,13 +42,13 @@ export default function MinimalLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] min-h-[310px] bg-white text-black",
+        "aspect-[210/297] h-fit bg-white text-black",
         className,
       )}
       ref={containerRef}
     >
       <div
-        className={cn("flex h-full", !width && "invisible")}
+        className={cn("flex", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
