@@ -60,12 +60,11 @@ export default function MinimalLayout({
             <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
           </div>
           <EducationSection resumeData={resumeData || defaultResumeData} />
+          <SkillsSection resumeData={resumeData || defaultResumeData} />
         </div>
         <div className="w-[65%] bg-white">
           <SummarySection resumeData={resumeData || defaultResumeData} />
           <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
-
-          <SkillsSection resumeData={resumeData || defaultResumeData} />
         </div>
       </div>
     </div>
@@ -249,12 +248,12 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
     <div className="space-y-3 px-5 pt-4">
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold uppercase tracking-wider text-white"
+          className="text-lg font-semibold uppercase tracking-wider text-yellow-500"
           style={{
             color:
               colorHex?.toLowerCase() === "#000000"
                 ? "#fff"
-                : (colorHex ?? "#000"),
+                : (colorHex ?? "#fcb"),
           }}
         >
           Education
@@ -289,28 +288,24 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
     <div className="space-y-3 pt-4">
       <div className="space-y-3">
         <p
-          className="pl-5 text-lg font-semibold uppercase tracking-wider"
-          style={{ color: colorHex ?? "#000" }}
+          className="mt-5 pl-5 text-lg font-semibold uppercase tracking-wider text-yellow-500"
+          // style={{
+          //   color:
+          //     colorHex?.toLowerCase() === "#000000"
+          //       ? "#fff"
+          //       : (colorHex ?? "#000"),
+          // }}
         >
           Skills
         </p>
         <div className="pl-5">
           {skills.map((skill, index) => (
-            <Badge
+            <div
               key={index}
-              className="my-2 mr-2 rounded-md bg-black px-3 py-2 capitalize text-white"
-              style={{
-                backgroundColor: colorHex ?? "#000",
-                borderRadius:
-                  borderStyle === BorderStyles.SQUARE
-                    ? "0px"
-                    : borderStyle === BorderStyles.CIRCLE
-                      ? "9999px"
-                      : "8px",
-              }}
+              className="my-4 mr-2 pl-2 border-l-4 border-yellow-500  capitalize text-white"
             >
               {skill}
-            </Badge>
+            </div>
           ))}
         </div>
       </div>

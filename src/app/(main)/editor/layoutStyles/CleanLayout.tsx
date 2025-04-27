@@ -42,10 +42,15 @@ export default function CleanLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white p-12 text-black",
+        "inset-4 aspect-[210/297] h-fit w-full bg-white p-12 text-black",
         className,
       )}
       ref={containerRef}
+      style={{
+        borderWidth: "10px",
+        borderStyle: "solid",
+        borderImage: "linear-gradient(to right, #06b6d4, #3b82f6) 1",
+      }}
     >
       <div
         className={cn("", !width && "invisible")}
@@ -55,7 +60,7 @@ export default function CleanLayout({
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="bg-blue-500">
+        <div className="">
           {" "}
           <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
         </div>
