@@ -55,6 +55,7 @@ export default function ResumePreviewSection({
               className="max-w-2xl border"
             />
           )}
+          {/** */}
           {layout === LayoutType.MODERN && (
             <ModernLayout
               resumeData={resumeData}

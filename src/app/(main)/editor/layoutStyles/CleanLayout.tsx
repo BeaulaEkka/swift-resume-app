@@ -151,10 +151,9 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="break-inside-avoid space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="inline-block bg-gradient-to-r from-cyan-400 to-blue-400 px-2 py-1 text-lg font-semibold uppercase text-white"
           style={{
             color: colorHex ?? "#000",
           }}
@@ -178,13 +177,9 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr
-        className="mt-4 border-2"
-        style={{ borderColor: colorHex ?? "#000" }}
-      />
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="inline-block bg-gradient-to-r from-cyan-400 to-blue-400 px-2 py-1 text-lg font-semibold uppercase"
           style={{ color: colorHex ?? "#000" }}
         >
           Work Experience
@@ -224,13 +219,9 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <div className="space-y-3 pt-4">
-      <hr
-        className="mt-4 border-2"
-        style={{ borderColor: colorHex ?? "#000" }}
-      />
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="inline-block bg-gradient-to-r from-cyan-400 to-blue-400 px-2 py-1 text-lg font-semibold uppercase"
           style={{ color: colorHex ?? "#000" }}
         >
           Education
@@ -261,31 +252,19 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
   if (!skills?.length) return null;
   return (
     <div className="space-y-3 pt-4">
-      <hr className="border-2" style={{ borderColor: colorHex ?? "#000" }} />
       <div className="space-y-3">
         <p
-          className="text-lg font-semibold"
+          className="inline-block bg-gradient-to-r from-cyan-400 to-blue-400 px-2 py-1 text-lg font-semibold uppercase"
           style={{ color: colorHex ?? "#000" }}
         >
           Skills
         </p>
-        <div>
+        <div className="flex flex-wrap">
           {skills.map((skill, index) => (
-            <Badge
-              key={index}
-              className="my-2 mr-2 rounded-md bg-black px-3 py-2 capitalize text-white"
-              style={{
-                backgroundColor: colorHex ?? "#000",
-                borderRadius:
-                  borderStyle === BorderStyles.SQUARE
-                    ? "0px"
-                    : borderStyle === BorderStyles.CIRCLE
-                      ? "9999px"
-                      : "8px",
-              }}
-            >
+            <span key={index} className="mr-2 capitalize">
               {skill}
-            </Badge>
+              {index !== skills.length - 1 && ","}
+            </span>
           ))}
         </div>
       </div>

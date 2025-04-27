@@ -36,21 +36,21 @@ export default function Home() {
           {/* Bottom Resume (Tilted More) */}
 
           {/* Top Resume (Main One) */}
-          <Image
+          {/* <Image
             src={resumePreviewImage}
             width={550}
             height={550}
             alt="resume preview"
             className="relative rounded-sm bg-white shadow lg:rotate-[2.5deg]"
-          />
+          /> */}
           <div className="absolute right-5 top-0 rotate-[-30.5deg]">
-            <Image
+            {/* <Image
               src={resumePreviewImage}
               width={550}
               height={550}
               alt="resume preview"
               className="rounded-sm bg-white shadow"
-            />
+            /> */}
           </div>
         </div>
       </div>
