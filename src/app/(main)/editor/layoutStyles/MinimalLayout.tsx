@@ -83,9 +83,9 @@ interface ResumeSectionProps {
 function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   const {
     photo,
-    firstName,
-    lastName,
-    jobTitle,
+    // firstName,
+    // lastName,
+    // jobTitle,
     city,
     country,
     phone,
@@ -125,28 +125,34 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       <div className="p-5 text-white">
         <div className="space-y-1">
           <div className="space-y-1 text-sm">
-            <p
-              className="py-2 text-lg font-semibold uppercase tracking-wider text-white"
-              style={{
-                color:
-                  colorHex?.toLowerCase() === "#000000"
-                    ? "#fff"
-                    : (colorHex ?? "#000"),
-              }}
-            >
-              contact
-            </p>
+            {phone && (
+              <p
+                className="py-2 text-lg font-semibold uppercase tracking-wider text-white"
+                style={{
+                  color:
+                    colorHex?.toLowerCase() === "#000000"
+                      ? "#fff"
+                      : (colorHex ?? "#000"),
+                }}
+              >
+                contact
+              </p>
+            )}
+
             {city}
             {city && country ? ", " : ""}
 
             {country}
             {(city || country) && (phone || email) ? " " : ""}
             <br />
-            <p>
-              {" "}
-              <span className="font-semibold">Phone:</span>{" "}
-              {[phone].filter(Boolean).join("  ")}
-            </p>
+            {phone && (
+              <p>
+                {" "}
+                <span className="font-semibold">Phone:</span>{" "}
+                {[phone].filter(Boolean).join("  ")}
+              </p>
+            )}
+
             <p>{email}</p>
           </div>
         </div>
