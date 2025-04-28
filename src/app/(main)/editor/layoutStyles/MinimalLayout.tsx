@@ -40,7 +40,10 @@ export default function MinimalLayout({
 
   return (
     <div
-      className={cn("aspect-[210/297] h-fit bg-white text-black", className)}
+      className={cn(
+        "aspect-[210/297] h-fit w-[794px] bg-white text-black",
+        className,
+      )}
       ref={containerRef}
     >
       <div

@@ -39,7 +39,7 @@ export default function CleanLayout({
   return (
     <div
       className={cn(
-        "inset-4 aspect-[210/297] h-fit w-full bg-white p-12 text-black",
+        "inset-4 aspect-[210/297] h-fit w-[794px] bg-white p-12 text-black",
         className,
       )}
       ref={containerRef}

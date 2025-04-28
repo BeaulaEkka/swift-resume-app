@@ -42,7 +42,7 @@ export default function DefaultLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white p-12 text-black",
+        "aspect-[210/297] h-fit w-[794px] bg-white p-12 text-black",
         className,
       )}
       ref={containerRef}

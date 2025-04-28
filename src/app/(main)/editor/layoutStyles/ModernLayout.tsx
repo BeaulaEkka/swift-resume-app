@@ -39,20 +39,20 @@ export default function ModernLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-white p-12 text-black",
+        "aspect-[210/297] h-fit w-[794px] bg-white p-12 text-black",
         className,
       )}
       ref={containerRef}
     >
       <div
-        className={cn("h-full", !width && "invisible")}
+        className={cn("", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="flex h-full">
+        <div className="flex min-h-[1027px]">
           <div className="mr-5 flex flex-grow flex-col bg-gray-200">
             {" "}
             <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />

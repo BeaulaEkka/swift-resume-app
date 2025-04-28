@@ -42,7 +42,7 @@ export default function ElegantLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] h-fit w-full bg-emerald-500 p-12 text-black",
+        "aspect-[210/297] h-fit w-[794px] bg-emerald-500 p-12 text-black",
         className,
       )}
       style={{

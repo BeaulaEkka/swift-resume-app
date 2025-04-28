@@ -41,7 +41,7 @@ export default function CreativeLayout({
   return (
     <div
       className={cn(
-        "relative aspect-[210/297] h-fit w-full bg-blue-950 p-8 text-black",
+        "relative aspect-[210/297] h-fit w-[794px] bg-blue-950 p-8 text-black",
         className,
       )}
       ref={containerRef}
@@ -60,14 +60,14 @@ export default function CreativeLayout({
         }}
       ></div>{" "}
       <div
-        className="absolute bottom-20 left-1 z-0 h-[500px] w-[500px] overflow-hidden rounded-full bg-rose-500"
+        className="absolute bottom-20 left-[-50px] z-0 h-[500px] w-[500px] overflow-hidden rounded-full bg-rose-500"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='32' viewBox='0 0 20 12'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='charlie-brown' fill='%23172554' fill-opacity='1'%3E%3Cpath d='M9.8 12L0 2.2V.8l10 10 10-10v1.4L10.2 12h-.4zm-4 0L0 6.2V4.8L7.2 12H5.8zm8.4 0L20 6.2V4.8L12.8 12h1.4zM9.8 0l.2.2.2-.2h-.4zm-4 0L10 4.2 14.2 0h-1.4L10 2.8 7.2 0H5.8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30' viewBox='0 0 20 12'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='charlie-brown' fill='%23172554' fill-opacity='1'%3E%3Cpath d='M9.8 12L0 2.2V.8l10 10 10-10v1.4L10.2 12h-.4zm-4 0L0 6.2V4.8L7.2 12H5.8zm8.4 0L20 6.2V4.8L12.8 12h1.4zM9.8 0l.2.2.2-.2h-.4zm-4 0L10 4.2 14.2 0h-1.4L10 2.8 7.2 0H5.8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       ></div>{" "}
       <div
         className={cn(
-          "relative z-10 min-h-[1204px] bg-white p-4",
+          "relative z-10 min-h-[1059px] bg-white p-4",
           !width && "invisible",
         )}
         style={{
