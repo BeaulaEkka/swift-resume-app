@@ -77,6 +77,7 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
             )}
           </div>
           <div className="grow md:border-r" />
+          {/**make a selection */}
           <LayoutPicker
             selected={selectedLayout}
             onSelect={setSelectedLayout}
