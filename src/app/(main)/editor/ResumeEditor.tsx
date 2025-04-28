@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -25,12 +24,19 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
   const [resumeData, setResumeData] = useState<ResumeValues>(
     resumeToEdit
       ? mapToResumeValues(resumeToEdit)
-      : { skills: [], title: "", description: "", firstName: "", lastName: "" },
+      : {
+          skills: [],
+          title: "",
+          description: "",
+          firstName: "",
+          lastName: "",
+          layout: LayoutType.DEFAULT,
+        },
   );
 
- const [selectedLayout, setSelectedLayout] = useState<LayoutType>(
-   LayoutType.DEFAULT,
- );
+  const [selectedLayout, setSelectedLayout] = useState<LayoutType>(
+    LayoutType.DEFAULT,
+  );
 
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
 
@@ -77,10 +83,13 @@ export default function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
             )}
           </div>
           <div className="grow md:border-r" />
-          {/**make a selection */}
+
           <LayoutPicker
             selected={selectedLayout}
-            onSelect={setSelectedLayout}
+            onSelect={(layout) => {
+              setSelectedLayout(layout);
+              setResumeData((prev) => ({ ...prev, layout }));
+            }}
           />
           <ResumePreviewSection
             resumeData={resumeData}

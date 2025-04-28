@@ -1,3 +1,4 @@
+import { LayoutType } from "@/app/(main)/editor/layoutStyles/layoutStyles";
 import { StaticImageData } from "next/image";
 import { z } from "zod";
 
@@ -108,6 +109,11 @@ export const resumeSchema = generalInfoSchema
   .extend({
     colorHex: optionalString,
     borderStyle: optionalString,
+  })
+  .extend({
+    colorHex: optionalString,
+    borderStyle: optionalString,
+    layout: z.nativeEnum(LayoutType).optional(), // 👈 add this line
   });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {

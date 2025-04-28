@@ -19,6 +19,7 @@ import { MoreVertical, Printer, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { deleteResume } from "./actions";
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
+
 import {
   DialogContent,
   DialogDescription,
@@ -27,11 +28,29 @@ import {
 } from "@/components/ui/dialog";
 import LoadingButton from "@/components/LoadingButton";
 import { useReactToPrint } from "react-to-print";
+import DefaultLayout from "../editor/layoutStyles/DefaultLayout";
+import ModernLayout from "../editor/layoutStyles/ModernLayout";
+import MinimalLayout from "../editor/layoutStyles/MinimalLayout";
+import CleanLayout from "../editor/layoutStyles/CleanLayout";
+import ElegantLayout from "../editor/layoutStyles/ElegantLayout";
+import CreativeLayout from "../editor/layoutStyles/CreativeLayout";
+import { LayoutType } from "../editor/layoutStyles/layoutStyles";
 interface ResumeItemProps {
   resume: ResumeServerData;
 }
+
+const layoutComponents: Record<LayoutType, React.ComponentType<any>> = {
+  [LayoutType.DEFAULT]: DefaultLayout,
+  [LayoutType.MODERN]: ModernLayout,
+  [LayoutType.MINIMAL]: MinimalLayout,
+  [LayoutType.CLEAN]: CleanLayout,
+  [LayoutType.ELEGANT]: ElegantLayout,
+  [LayoutType.CREATIVE]: CreativeLayout,
+};
 export default function ResumeItem({ resume }: ResumeItemProps) {
   const contentRef = useRef<HTMLDivElement>(null);
+  const layoutType = (resume.layout || LayoutType.DEFAULT) as LayoutType;
+  const LayoutComponent = layoutComponents[layoutType] || DefaultLayout;
 
   const reactToPrintFn = useReactToPrint({
     contentRef,
@@ -69,7 +88,9 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
               resumeData={mapToResumeValues(resume)}
               contentRef={contentRef}
               className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
+              layoutType={layoutType}
             />
+            {/* <LayoutComponent resumeData={resume} /> */}
             <div className="from-white-transparent absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t" />
           </Link>
         </div>
