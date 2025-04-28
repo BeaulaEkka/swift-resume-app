@@ -8,7 +8,6 @@ import React, { RefObject, useEffect, useRef, useState } from "react";
 
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
 
-
 interface ResumePreviewProps {
   resumeData: ResumeValues;
   contentRef?: React.Ref<HTMLDivElement>;
@@ -41,14 +40,14 @@ export default function MinimalLayout({
 
   return (
     <div
-      className={cn(
-        "aspect-[210/297] h-fit bg-white text-black",
-        className,
-      )}
+      className={cn("aspect-[210/297] h-fit bg-white text-black", className)}
       ref={containerRef}
     >
       <div
-        className={cn("flex", !width && "invisible")}
+        className={cn(
+          "flex min-h-[1123px] border border-green-500",
+          !width && "invisible",
+        )}
         style={{
           zoom: (1 / 794) * width,
         }}
@@ -62,7 +61,10 @@ export default function MinimalLayout({
           <EducationSection resumeData={resumeData || defaultResumeData} />
           <SkillsSection resumeData={resumeData || defaultResumeData} />
         </div>
-        <div className="w-[65%] bg-white">
+        <div
+          className="w-[65%] overflow-y-auto bg-white"
+          style={{ maxHeight: "100%" }}
+        >
           <SummarySection resumeData={resumeData || defaultResumeData} />
           <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
         </div>
@@ -302,7 +304,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
           {skills.map((skill, index) => (
             <div
               key={index}
-              className="my-4 mr-2 pl-2 border-l-4 border-yellow-500  capitalize text-white"
+              className="my-4 mr-2 border-l-4 border-yellow-500 pl-2 capitalize text-white"
             >
               {skill}
             </div>

@@ -1,11 +1,9 @@
 import useDimensions from "@/hooks/useDimensions";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
-
 import Image from "next/image";
 import { formatDate } from "date-fns";
 import React, { RefObject, useEffect, useRef, useState } from "react";
-import creativeLayoutBackground from "@/assets/creativeLayoutImages/creativeLayoutBackground.png";
 
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
 import { Badge } from "@/components/ui/badge";
@@ -43,29 +41,46 @@ export default function CreativeLayout({
   return (
     <div
       className={cn(
-        "aspect-[210/297] w-full bg-white p-20 text-black",
+        "relative aspect-[210/297] h-fit w-full bg-blue-950 p-8 text-black",
         className,
       )}
       ref={containerRef}
-      style={{
-        backgroundImage: `url(${creativeLayoutBackground.src})`,
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-      }}
     >
       <div
-        className={cn("", !width && "invisible")}
+        className="absolute left-0 top-0 z-0 h-56 w-56 rounded-full bg-green-500"
+        style={{
+          backgroundColor: "#2dd4bf",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='33' height='43' viewBox='0 0 36 72'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23172554' fill-opacity='100'%3E%3Cpath d='M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      ></div>{" "}
+      <div
+        className="absolute bottom-8 right-1 z-0 h-80 w-80 rounded-full bg-yellow-500"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23172554' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      ></div>{" "}
+      <div
+        className="absolute bottom-20 left-1 z-0 h-[500px] w-[500px] overflow-hidden rounded-full bg-rose-500"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='32' viewBox='0 0 20 12'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='charlie-brown' fill='%23172554' fill-opacity='1'%3E%3Cpath d='M9.8 12L0 2.2V.8l10 10 10-10v1.4L10.2 12h-.4zm-4 0L0 6.2V4.8L7.2 12H5.8zm8.4 0L20 6.2V4.8L12.8 12h1.4zM9.8 0l.2.2.2-.2h-.4zm-4 0L10 4.2 14.2 0h-1.4L10 2.8 7.2 0H5.8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      ></div>{" "}
+      <div
+        className={cn(
+          "relative z-10 min-h-[1204px] bg-white p-4",
+          !width && "invisible",
+        )}
         style={{
           zoom: (1 / 794) * width,
         }}
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="">
-          <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
-        </div>
-
+        <div className="z-11 absolute right-[98%] top-[22%] h-0 w-0 rotate-45 border-b-[15px] border-l-[30px] border-t-[15px] border-b-transparent border-l-red-500 border-t-transparent"></div>
+        <div className="z-11 absolute bottom-[40%] left-[97%] h-0 w-0 rotate-45 border-b-[20px] border-l-[45px] border-t-[20px] border-b-transparent border-l-cyan-500 border-t-transparent"></div>
+        <div className="z-11 absolute right-[-14] top-5 h-5 w-5 rounded-full bg-yellow-500"></div>{" "}
+        <div className="z-11 absolute right-[-8] top-12 h-3 w-3 rounded-full bg-yellow-500"></div>{" "}
+        <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
         <SummarySection resumeData={resumeData || defaultResumeData} />
         <WorkExperienceSection resumeData={resumeData || defaultResumeData} />
         <EducationSection resumeData={resumeData || defaultResumeData} />
@@ -109,7 +124,7 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           src={photoSrc}
           width={100}
           height={100}
-          alt="Authot Photo"
+          alt="Author Photo"
           className="aspect-square object-cover"
           style={{
             borderRadius:
@@ -272,7 +287,6 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
   if (!skills?.length) return null;
   return (
     <div className="space-y-3 pt-4">
-      
       <div className="space-y-3">
         <div className="flex items-center justify-center">
           <div className="w-[35%] border-4 border-purple-950 p-3 text-center">

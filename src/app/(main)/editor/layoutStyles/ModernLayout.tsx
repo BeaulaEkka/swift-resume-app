@@ -45,14 +45,14 @@ export default function ModernLayout({
       ref={containerRef}
     >
       <div
-        className={cn("", !width && "invisible")}
+        className={cn("h-full", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
         ref={contentRef}
         id="resumePreviewContent"
       >
-        <div className="flex">
+        <div className="flex h-full">
           <div className="mr-5 flex flex-grow flex-col bg-gray-200">
             {" "}
             <PersonalInfoHeader resumeData={resumeData || defaultResumeData} />
