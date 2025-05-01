@@ -4,14 +4,13 @@ import { CreditCard, Download, LogOut, Mail, Settings } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "date-fns";
-import { Metadata } from "next";
+
 import { auth } from "@clerk/nextjs/server";
 import stripe from "@/lib/stripe";
 import prisma from "@/lib/prisma";
 import ManageSubscriptionButton from "./success/ManageSubscriptionButton";
 import GetSubscriptionButton from "./GetSubscriptionButton";
-
-
+import Stripe from "stripe";
 
 export default async function page() {
   const { userId } = await auth();
@@ -23,16 +22,13 @@ export default async function page() {
       userId,
     },
   });
-  console.log("Subscription", subscription);
-  console.log("UserId", userId);
+
 
   const priceInfo = subscription
     ? await stripe.prices.retrieve(subscription.stripePriceId, {
         expand: ["product"],
       })
     : null;
-
-    
 
   return (
     <div className="flex min-h-screen bg-gray-100">
