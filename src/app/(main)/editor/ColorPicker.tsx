@@ -1,23 +1,72 @@
+// import { Button } from "@/components/ui/button";
+// import {
+//   Popover,
+//   PopoverContent,
+//   PopoverTrigger,
+// } from "@/components/ui/popover";
+// import { PaletteIcon } from "lucide-react";
+// import React, { useState } from "react";
+// import { HexColorPicker } from "react-colorful";
+// import { useSubscriptionLevel } from "../SubscriptionLevelProvider";
+// import usePremiumModal from "@/hooks/usePremiumModal";
+// import { canUseCustomizations } from "@/lib/permissions";
+
+// interface ColorPickerProps {
+//   color: string | undefined;
+//   onChange: (color: string) => void;
+// }
+// export default function ColorPicker({ color, onChange }: ColorPickerProps) {
+//   const subscriptionLevel = useSubscriptionLevel();
+//   const premiumModal = usePremiumModal();
+//   const [showPopover, setShowPopover] = useState(false);
+
+//   return (
+//     <Popover open={showPopover} onOpenChange={setShowPopover}>
+//       <PopoverTrigger asChild>
+//         <Button
+//           variant="outline"
+//           size="icon"
+//           title="Change resume color"
+//           onClick={() => {
+//             if (!canUseCustomizations(subscriptionLevel)) {
+//               premiumModal.setOpen(true);
+//             }
+//             setShowPopover(true);
+//           }}
+//         >
+//           <PaletteIcon className="size-5" />
+//         </Button>
+//       </PopoverTrigger>
+//       <PopoverContent className="border-none bg-transparent shadow-none">
+//         <HexColorPicker color={color || "#aabbcc"} onChange={onChange} />
+//       </PopoverContent>
+//     </Popover>
+//   );
+// }
+
 import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { PaletteIcon } from "lucide-react";
-import React, { useState } from "react";
-import { Color, ColorChangeHandler, TwitterPicker } from "react-color";
-import { useSubscriptionLevel } from "../SubscriptionLevelProvider";
 import usePremiumModal from "@/hooks/usePremiumModal";
 import { canUseCustomizations } from "@/lib/permissions";
+import { PaletteIcon } from "lucide-react";
+import { useState } from "react";
+import { Color, ColorChangeHandler, TwitterPicker } from "react-color";
+import { useSubscriptionLevel } from "../SubscriptionLevelProvider";
 
 interface ColorPickerProps {
   color: Color | undefined;
   onChange: ColorChangeHandler;
 }
+
 export default function ColorPicker({ color, onChange }: ColorPickerProps) {
   const subscriptionLevel = useSubscriptionLevel();
+
   const premiumModal = usePremiumModal();
+
   const [showPopover, setShowPopover] = useState(false);
 
   return (
@@ -30,6 +79,7 @@ export default function ColorPicker({ color, onChange }: ColorPickerProps) {
           onClick={() => {
             if (!canUseCustomizations(subscriptionLevel)) {
               premiumModal.setOpen(true);
+              return;
             }
             setShowPopover(true);
           }}
@@ -37,7 +87,10 @@ export default function ColorPicker({ color, onChange }: ColorPickerProps) {
           <PaletteIcon className="size-5" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="border-none bg-transparent shadow-none">
+      <PopoverContent
+        className="border-none bg-transparent shadow-none"
+        align="end"
+      >
         <TwitterPicker color={color} onChange={onChange} triangle="top-right" />
       </PopoverContent>
     </Popover>

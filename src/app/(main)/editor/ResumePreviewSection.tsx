@@ -13,7 +13,6 @@ import {
   ModernLayout,
 } from "./layoutStyles/layoutStyles";
 
-
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
   setResumeData: (data: ResumeValues) => void;

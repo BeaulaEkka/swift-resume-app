@@ -2,11 +2,9 @@
 import useDimensions from "@/hooks/useDimensions";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
-
 import Image from "next/image";
 import { formatDate } from "date-fns";
 import React, { RefObject, useEffect, useRef, useState } from "react";
-
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
 import { Badge } from "@/components/ui/badge";
 

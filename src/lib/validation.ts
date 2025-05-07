@@ -100,7 +100,8 @@ export type SummaryValues = z.infer<typeof summarySchema>;
 //   colorHex: optionalString,
 //   borderStyle: optionalString,
 // });
-export const resumeSchema = generalInfoSchema
+export const resumeSchema = 
+generalInfoSchema
   .merge(personalInfoSchema)
   .merge(workExperienceSchema)
   .merge(educationSchema)

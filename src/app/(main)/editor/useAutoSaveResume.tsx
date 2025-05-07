@@ -3,7 +3,7 @@ import { useToast } from "@/hooks/use-toast";
 import useDebounce from "@/hooks/useDebounce";
 import { ResumeValues } from "@/lib/validation";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { saveResume } from "./actions";
 
 export default function useAutoSaveResume(
@@ -15,8 +15,6 @@ export default function useAutoSaveResume(
 
   const [resumeId, setResumeId] = useState(resumeData?.id);
   const [lastSavedData, setLastSavedData] = useState(resumeData);
-  // const [resumeId, setResumeId] = useState(resumeData?.id ?? null);
-  // const [lastSavedData, setLastSavedData] = useState(resumeData ?? {});
 
   const [isSaving, setIsSaving] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -81,23 +79,47 @@ export default function useAutoSaveResume(
     }
   }, [debouncedResumeData, lastSavedData, resumeId, searchParams, toast]);
 
-  useEffect(() => {
-    const hasUnsavedChanges =
-      JSON.stringify(debouncedResumeData) !== JSON.stringify(lastSavedData);
+  const hasUnsavedChanges = useMemo(() => {
+    if (!debouncedResumeData || !lastSavedData) return false;
 
+    //   return (
+    //     debouncedResumeData.title !== lastSavedData.title ||
+    //     debouncedResumeData.summary !== lastSavedData.summary ||
+    //     debouncedResumeData.description !== lastSavedData.description ||
+    //     JSON.stringify(debouncedResumeData.skills) !==
+    //       JSON.stringify(lastSavedData.skills)
+    //   );
+    // }, [debouncedResumeData, lastSavedData]);
+    return (
+      debouncedResumeData.title !== lastSavedData.title ||
+      debouncedResumeData.summary !== lastSavedData.summary ||
+      debouncedResumeData.description !== lastSavedData.description ||
+      JSON.stringify(debouncedResumeData.skills) !==
+        JSON.stringify(lastSavedData.skills)
+    );
+  }, [debouncedResumeData, lastSavedData]);
+
+  useEffect(() => {
+    //   const hasUnsavedChanges =
+    //     JSON.stringify(debouncedResumeData) !== JSON.stringify(lastSavedData);
+
+    //   if (hasUnsavedChanges && debouncedResumeData && !isSaving && !isError) {
+    //     save();
+    //   }
+    // }, [
+    //   debouncedResumeData,
+    //   isSaving,
+    //   lastSavedData,
+    //   isError,
+    //   save,
+    //   resumeId,
+    //   searchParams,
+    //   toast,
+    // ]);
     if (hasUnsavedChanges && debouncedResumeData && !isSaving && !isError) {
       save();
     }
-  }, [
-    debouncedResumeData,
-    isSaving,
-    lastSavedData,
-    isError,
-    save,
-    resumeId,
-    searchParams,
-    toast,
-  ]);
+  }, [hasUnsavedChanges, debouncedResumeData, isSaving, isError, save]);
 
   return {
     isSaving,

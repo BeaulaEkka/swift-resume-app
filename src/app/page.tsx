@@ -2,12 +2,11 @@ import Image from "next/image";
 import logo from "@/assets/resume-builder-logo.png";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import resumePreviewImage from "@/assets/resume-builder-logo.png";
 import Section1 from "./(main)/Section1";
 import Section2 from "./(main)/Section2";
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center gap-6 bg-gray-100 px-5 py-12 text-center text-gray-900 w-[80%] mx-auto">
+    <main className="mx-auto flex w-[80%] flex-col items-center justify-center gap-6 bg-gray-100 px-5 py-12 text-center text-gray-900">
       <div>
         <div className="max-w-prose space-y-3">
           <Image
@@ -33,25 +32,7 @@ export default function Home() {
           </Button>
         </div>
         <div className="relative">
-          {/* Bottom Resume (Tilted More) */}
-
-          {/* Top Resume (Main One) */}
-          {/* <Image
-            src={resumePreviewImage}
-            width={550}
-            height={550}
-            alt="resume preview"
-            className="relative rounded-sm bg-white shadow lg:rotate-[2.5deg]"
-          /> */}
-          <div className="absolute right-5 top-0 rotate-[-30.5deg]">
-            {/* <Image
-              src={resumePreviewImage}
-              width={550}
-              height={550}
-              alt="resume preview"
-              className="rounded-sm bg-white shadow"
-            /> */}
-          </div>
+          <div className="absolute right-5 top-0 rotate-[-30.5deg]"></div>
         </div>
       </div>
 

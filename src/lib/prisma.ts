@@ -1,5 +1,4 @@
 //In a Next.js environment, it’s important to avoid creating multiple instances of the Prisma Client. Use a singleton pattern to reuse the same instance.
-
 import { PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {
