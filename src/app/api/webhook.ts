@@ -26,8 +26,11 @@ export async function POST(req: NextRequest) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-  } catch (err: any) {
-    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
+  } catch (err: unknown) {
+    return new Response(
+      `Webhook Error: ${err instanceof Error ? err.message : "Unknown error"}`,
+      { status: 400 },
+    );
   }
 
   switch (event.type) {

@@ -29,7 +29,10 @@ export default function ResumePreview({
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef as RefObject<HTMLElement>);
 
-  const layoutComponents: Record<LayoutType, React.ComponentType<any>> = {
+  const layoutComponents: Record<
+    LayoutType,
+    React.ComponentType<{ resumeData: ResumeValues }>
+  > = {
     [LayoutType.DEFAULT]: DefaultLayout,
     [LayoutType.MODERN]: ModernLayout,
     [LayoutType.MINIMAL]: MinimalLayout,
