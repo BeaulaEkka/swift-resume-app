@@ -15,7 +15,15 @@ interface LayoutPickerProps {
   onSelect: (type: LayoutType) => void;
 }
 
-const layoutComponents: Record<LayoutType, React.ComponentType<any>> = {
+import { ResumeValues } from "@/lib/validation";
+
+interface LayoutComponentProps {
+  resumeData: ResumeValues;
+  contentRef?: React.Ref<HTMLDivElement>;
+  className?: string;
+}
+
+const layoutComponents: Record<LayoutType, React.ComponentType<LayoutComponentProps>> = {
   [LayoutType.DEFAULT]: DefaultLayout,
   [LayoutType.MODERN]: ModernLayout,
   [LayoutType.MINIMAL]: MinimalLayout,
